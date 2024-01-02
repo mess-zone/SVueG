@@ -9,18 +9,18 @@
             <!-- Origin coordinate system-->
             <circle cx="0" cy="0" r="2" fill="gray" />
 
-            <Point :cx="x" :cy="y" :r="10" :fill="`black`"/>
+            <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`"/>
 
-            <rect
-                x="60"
-                y="10"
-                rx="10"
-                ry="10"
-                width="30"
-                height="30"
-                stroke="black"
-                fill="transparent"
-                stroke-width="5"
+            <Rect
+                :x="rectX"
+                :y="rectY"
+                :rx="rectRoundX"
+                :ry="rectRoundY"
+                :width="rectWidth"
+                :height="rectHeight"
+                :stroke="`black`"
+                :fill="`transparent`"
+                :stroke-width="5"
             />
 
             <circle
@@ -157,12 +157,40 @@
             <div class="section">
                 <h1>Point</h1>
                 <div class="form-group">
-                    <label for="x">x</label>
-                    <input id="x" type="number" v-model="x" required />
+                    <label for="pointX">x</label>
+                    <input id="pointX" type="number" v-model="pointX" required />
                 </div>
                 <div class="form-group">
-                    <label for="y">y</label>
-                    <input id="y" type="number" v-model="y" required />
+                    <label for="pointY">y</label>
+                    <input id="pointY" type="number" v-model="pointY" required />
+                </div>
+            </div>
+
+            <div class="section">
+                <h1>Rect</h1>
+                <div class="form-group">
+                    <label for="rectX">x</label>
+                    <input id="rectX" type="number" v-model="rectX" required />
+                </div>
+                <div class="form-group">
+                    <label for="rectY">y</label>
+                    <input id="rectY" type="number" v-model="rectY" required />
+                </div>
+                <div class="form-group">
+                    <label for="rectWidth">width</label>
+                    <input id="rectWidth" type="number" v-model="rectWidth" required />
+                </div>
+                <div class="form-group">
+                    <label for="rectHeight">height</label>
+                    <input id="rectHeight" type="number" v-model="rectHeight" required />
+                </div>
+                <div class="form-group">
+                    <label for="rectRoundX">round x</label>
+                    <input id="rectRoundX" type="number" v-model="rectRoundX" required />
+                </div>
+                <div class="form-group">
+                    <label for="rectRoundY">round y</label>
+                    <input id="rectRoundY" type="number" v-model="rectRoundY" required />
                 </div>
             </div>
 
@@ -172,6 +200,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import Point from '../components/basicShapes/Point.vue'
+import Rect from '../components/basicShapes/Rect.vue'
 
 const width = ref(300);
 const height = ref(400);
@@ -183,8 +212,19 @@ const viewportX = ref(0);
 const viewportY = ref(0);
 const zoom = ref(100);
 
-const x = ref(10);
-const y = ref(20);
+
+// point
+const pointX = ref(10);
+const pointY = ref(20);
+
+
+// rect
+const rectX = ref(0);
+const rectY = ref(0);
+const rectWidth = ref(100);
+const rectHeight = ref(100);
+const rectRoundX = ref(0);
+const rectRoundY = ref(0);
 </script>
 
 <style scoped>
