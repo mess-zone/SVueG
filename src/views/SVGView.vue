@@ -186,7 +186,7 @@
                     <input
                         id="ellipseCX"
                         type="number"
-                        v-model="ellipseShape.point.x"
+                        v-model="ellipseShape.center.x"
                         required
                     />
                 </div>
@@ -195,7 +195,7 @@
                     <input
                         id="ellipseCY"
                         type="number"
-                        v-model="ellipseShape.point.y"
+                        v-model="ellipseShape.center.y"
                         required
                     />
                 </div>
@@ -226,7 +226,7 @@
                     <input
                         id="circleX"
                         type="number"
-                        v-model="circleShape.point.x"
+                        v-model="circleShape.center.x"
                         required
                     />
                 </div>
@@ -235,7 +235,7 @@
                     <input
                         id="circleY"
                         type="number"
-                        v-model="circleShape.point.y"
+                        v-model="circleShape.center.y"
                         required
                     />
                 </div>
@@ -254,11 +254,11 @@
                 <h1>Rect</h1>
                 <div class="form-group">
                     <label for="rectX">x</label>
-                    <input id="rectX" type="number" v-model="rectShape.point.x" required />
+                    <input id="rectX" type="number" v-model="rectShape.topLeft.x" required />
                 </div>
                 <div class="form-group">
                     <label for="rectY">y</label>
-                    <input id="rectY" type="number" v-model="rectShape.point.y" required />
+                    <input id="rectY" type="number" v-model="rectShape.topLeft.y" required />
                 </div>
                 <div class="form-group">
                     <label for="rectWidth">width</label>
@@ -326,7 +326,7 @@ const pointX = ref(10);
 const pointY = ref(20);
 
 const rectShape = ref<RectShape>({
-    point: { x: 0, y: 0 },
+    topLeft: { x: 30, y: 30 },
     size: { x: 100, y: 50 },
     round: { x: 0, y: 0 },
     stroke: "black",
@@ -335,15 +335,15 @@ const rectShape = ref<RectShape>({
 })
 
 const circleShape = ref<CircleShape>({
-    point: { x: 0, y: 0 },
-    radius: 10,
+    center: { x: 170, y: 47 },
+    radius: 20,
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
 })
 
 const ellipseShape = ref<EllipseShape>({
-    point: { x: 0, y: 0 },
+    center: { x: 245, y: 47 },
     radius: { x: 20, y: 30 },
     stroke: "black",
     fill: "transparent",
@@ -351,8 +351,8 @@ const ellipseShape = ref<EllipseShape>({
 })
 
 const lineShape = ref<LineShape>({
-    start: { x: 0, y: 0 },
-    end: { x: 20, y: 30 },
+    start: { x: 25, y: 105 },
+    end: { x: 83, y: 151 },
     stroke: "black",
     strokeWidth: 5,
 })

@@ -1,7 +1,7 @@
 <template>
     <rect
-        :x="shape.point.x"
-        :y="shape.point.y"
+        :x="shape.topLeft.x"
+        :y="shape.topLeft.y"
         :rx="shape.round.x"
         :ry="shape.round.y"
         :width="shape.size.x"

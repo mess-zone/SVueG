@@ -3,53 +3,46 @@ export type Point = {
     y: number,
 }
 
-/**
- * Primitive losed shapes
- * ===================
- */
-
-export interface ClosedShape {
-    point: Point,
-    stroke: string,
-    fill: string,
+export interface LineStyle {
+    stroke: string
     strokeWidth: number,
 }
 
-export interface RectShape extends ClosedShape {
+export interface ShapeStyle {
+    fill: string,
+    stroke: string,
+    strokeWidth: number,
+}
+
+// ############ PRIMITIVE SHAPES ##############
+
+export interface LineShape extends LineStyle {
+    start: Point,
+    end: Point,
+}
+
+export interface PolylineShape extends ShapeStyle {
+    points: Point[],
+}
+
+
+export interface RectShape extends ShapeStyle {
+    topLeft: Point,
     size: Point,
     round: Point,
 }
 
-export interface CircleShape extends ClosedShape {
+export interface CircleShape extends ShapeStyle {
+    center: Point,
     radius: number,
 }
 
-export interface EllipseShape extends ClosedShape {
+export interface EllipseShape extends ShapeStyle {
+    center: Point,
     radius: Point,
 }
 
-export interface PolygonShape {
+export interface PolygonShape extends ShapeStyle {
     points: Point[],
-    stroke: string,
-    strokeWidth: number,
-    fill: string,
 }
 
-/**
- * Primitive open shapes
- * =====================
- */
-
-export interface LineShape {
-    start: Point,
-    end: Point,
-    stroke: string,
-    strokeWidth: number,
-}
-
-export interface PolylineShape {
-    points: Point[],
-    stroke: string,
-    strokeWidth: number,
-    fill: string,
-}

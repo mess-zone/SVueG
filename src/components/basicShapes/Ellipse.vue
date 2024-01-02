@@ -1,7 +1,7 @@
 <template>
     <ellipse
-        :cx="shape.point.x"
-        :cy="shape.point.y"
+        :cx="shape.center.x"
+        :cy="shape.center.y"
         :rx="shape.radius.x"
         :ry="shape.radius.y"
         :stroke="shape.stroke"

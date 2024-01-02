@@ -1,7 +1,7 @@
 <template>
     <circle
-        :cx="shape.point.x"
-        :cy="shape.point.y"
+        :cx="shape.center.x"
+        :cy="shape.center.y"
         :r="shape.radius"
         :stroke="shape.stroke"
         :fill="shape.fill"
