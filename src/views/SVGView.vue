@@ -4,6 +4,7 @@
             :width="width"
             :height="height"
             xmlns="http://www.w3.org/2000/svg"
+            :viewBox="`0 0 ${width/2} ${height/2}`"
         >
             <circle :cx="x" :cy="y" r="5" fill="orange" />
         </svg>
@@ -17,6 +18,10 @@
                 <input id="height" type="number" v-model="height" required />
             </div>
             <div class="form-group">
+                <label for="aspectRatio">aspectRatio</label>
+                <input id="aspectRatio" type="number" v-model="aspectRatio" required disabled />
+            </div>
+            <div class="form-group">
                 <label for="x">x</label>
                 <input id="x" type="number" v-model="x" required />
             </div>
@@ -28,10 +33,11 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-const width = ref(600)
+const width = ref(300)
 const height = ref(400)
+const aspectRatio = computed(() => (width.value/height.value).toFixed(2))
 
 const x = ref(10)
 const y = ref(20)
