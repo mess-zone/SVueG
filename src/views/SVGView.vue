@@ -16,16 +16,10 @@
             <Circle :shape="circleShape" />
 
             <Ellipse :shape="ellipseShape" />
+
+            <Line :shape="lineShape" />
             <!-- 
 
-            <line
-                :x1="lineX1"
-                :x2="lineX2"
-                :y1="lineY1"
-                :y2="lineY2"
-                :stroke="`orange`"
-                :stroke-width="5"
-            />
             <polyline
                 points="60 110 65 120 70 115 75 130 80 125 85 140 90 135 95 150 100 145"
                 stroke="orange"
@@ -159,7 +153,7 @@
                     <input
                         id="lineX1"
                         type="number"
-                        v-model="lineX1"
+                        v-model="lineShape.start.x"
                         required
                     />
                 </div>
@@ -168,7 +162,7 @@
                     <input
                         id="lineY1"
                         type="number"
-                        v-model="lineY1"
+                        v-model="lineShape.start.y"
                         required
                     />
                 </div>
@@ -177,7 +171,7 @@
                     <input
                         id="lineX2"
                         type="number"
-                        v-model="lineX2"
+                        v-model="lineShape.end.x"
                         required
                     />
                 </div>
@@ -186,7 +180,7 @@
                     <input
                         id="lineY2"
                         type="number"
-                        v-model="lineY2"
+                        v-model="lineShape.end.y"
                         required
                     />
                 </div>
@@ -320,7 +314,7 @@ import Rect from "../components/basicShapes/Rect.vue";
 import Circle from "../components/basicShapes/Circle.vue";
 import Ellipse from "../components/basicShapes/Ellipse.vue";
 import Line from "../components/basicShapes/Line.vue";
-import type { EllipseShape, CircleShape, RectShape } from "@/types";
+import type { EllipseShape, CircleShape, RectShape, LineShape } from "@/types";
 
 const width = ref(300);
 const height = ref(400);
@@ -361,31 +355,13 @@ const ellipseShape = ref<EllipseShape>({
     strokeWidth: 5,
 })
 
+const lineShape = ref<LineShape>({
+    start: { x: 0, y: 0 },
+    end: { x: 20, y: 30 },
+    stroke: "black",
+    strokeWidth: 5,
+})
 
-
-const rectX = ref(0);
-const rectY = ref(0);
-const rectWidth = ref(100);
-const rectHeight = ref(100);
-const rectRoundX = ref(0);
-const rectRoundY = ref(0);
-
-// circle
-const circleX = ref(20);
-const circleY = ref(20);
-const circleRadius = ref(100);
-
-// Ellipse
-const ellipseCX = ref(75);
-const ellipseCY = ref(75);
-const ellipseRadiusX = ref(20);
-const ellipseRadiusY = ref(5);
-
-// Line
-const lineX1 = ref(10);
-const lineY1 = ref(50);
-const lineX2 = ref(110);
-const lineY2 = ref(150);
 </script>
 
 <style scoped>
