@@ -1,13 +1,21 @@
 <template>
     <div class="page-container">
         <svg
-            width="600"
-            height="400"
+            :width="width"
+            :height="height"
             xmlns="http://www.w3.org/2000/svg"
         >
             <circle :cx="x" :cy="y" r="5" fill="orange" />
         </svg>
         <div class="panel">
+            <div class="form-group">
+                <label for="width">width</label>
+                <input id="width" type="number" v-model="width" required />
+            </div>
+            <div class="form-group">
+                <label for="height">height</label>
+                <input id="height" type="number" v-model="height" required />
+            </div>
             <div class="form-group">
                 <label for="x">x</label>
                 <input id="x" type="number" v-model="x" required />
@@ -22,6 +30,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+const width = ref(600)
+const height = ref(400)
 
 const x = ref(10)
 const y = ref(20)
@@ -37,6 +47,7 @@ const y = ref(20)
 
 svg {
     background-color: antiquewhite;
+    border: 1px solid orange;
 }
 
 .panel {
