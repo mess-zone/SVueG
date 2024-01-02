@@ -23,13 +23,13 @@
                 :stroke-width="5"
             />
 
-            <circle
-                cx="25"
-                cy="75"
-                r="20"
-                stroke="red"
-                fill="transparent"
-                stroke-width="5"
+            <Circle
+                :cx="circleX"
+                :cy="circleY"
+                :r="circleRadius"
+                :stroke="`red`"
+                :fill="`transparent`"
+                :stroke-width="5"
             />
             <ellipse
                 cx="75"
@@ -167,6 +167,22 @@
             </div>
 
             <div class="section">
+                <h1>Circle</h1>
+                <div class="form-group">
+                    <label for="circleX">x</label>
+                    <input id="circleX" type="number" v-model="circleX" required />
+                </div>
+                <div class="form-group">
+                    <label for="circleY">y</label>
+                    <input id="circleY" type="number" v-model="circleY" required />
+                </div>
+                <div class="form-group">
+                    <label for="circleRadius">radius</label>
+                    <input id="circleRadius" type="number" v-model="circleRadius" required />
+                </div>
+            </div>
+
+            <div class="section">
                 <h1>Rect</h1>
                 <div class="form-group">
                     <label for="rectX">x</label>
@@ -201,6 +217,7 @@
 import { computed, ref } from "vue";
 import Point from '../components/basicShapes/Point.vue'
 import Rect from '../components/basicShapes/Rect.vue'
+import Circle from '../components/basicShapes/Circle.vue'
 
 const width = ref(300);
 const height = ref(400);
@@ -225,6 +242,11 @@ const rectWidth = ref(100);
 const rectHeight = ref(100);
 const rectRoundX = ref(0);
 const rectRoundY = ref(0);
+
+// circle
+const circleX = ref(20);
+const circleY = ref(20);
+const circleRadius = ref(100);
 </script>
 
 <style scoped>
@@ -240,7 +262,9 @@ svg {
 
 .panel {
     background-color: rgb(238, 238, 238);
-    width: 300px;
+    /* width: 300px; */
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .panel .section {
