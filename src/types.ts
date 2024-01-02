@@ -28,6 +28,13 @@ export interface EllipseShape extends ClosedShape {
     radius: Point,
 }
 
+export interface PolygonShape {
+    points: Point[],
+    stroke: string,
+    strokeWidth: number,
+    fill: string,
+}
+
 /**
  * Primitive open shapes
  * =====================

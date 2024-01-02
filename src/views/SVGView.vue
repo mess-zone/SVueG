@@ -22,14 +22,10 @@
             
             <Polyline :shape="polylineShape" />
 
+            <Polygon :shape="polygonShape" />
+
             <!-- 
 
-            <polygon
-                points="50 160 55 180 70 180 60 190 65 205 50 195 35 205 40 190 30 180 45 180"
-                stroke="green"
-                fill="transparent"
-                stroke-width="5"
-            />
 
             <path
                 d="M20,230 Q40,205 50,230 T90,230"
@@ -312,7 +308,8 @@ import Circle from "../components/basicShapes/Circle.vue";
 import Ellipse from "../components/basicShapes/Ellipse.vue";
 import Line from "../components/basicShapes/Line.vue";
 import Polyline from "../components/basicShapes/Polyline.vue";
-import type { EllipseShape, CircleShape, RectShape, LineShape, PolylineShape } from "@/types";
+import Polygon from "../components/basicShapes/Polygon.vue";
+import type { EllipseShape, CircleShape, RectShape, LineShape, PolylineShape, PolygonShape } from "@/types";
 
 const width = ref(300);
 const height = ref(400);
@@ -370,6 +367,18 @@ const polylineShape = ref<PolylineShape>({
     stroke: "black",
     strokeWidth: 5,
     fill: "transparent"
+})
+
+const polygonShape = ref<PolygonShape>({
+    points: [
+        { x: 50, y: 200 },
+        { x: 150, y: 210 },
+        { x: 200, y: 300 },
+        { x: 150, y: 350 },
+    ],
+    stroke: "orange",
+    strokeWidth: 5,
+    fill: "blue"
 })
 
 </script>
