@@ -9,18 +9,12 @@
             <!-- Origin coordinate system-->
             <circle cx="0" cy="0" r="2" fill="gray" />
 
-            <!-- <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" /> -->
+            <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
 
             <Rect :shape="rectShape" />
 
-            <!-- <Circle
-                :cx="circleX"
-                :cy="circleY"
-                :r="circleRadius"
-                :stroke="`red`"
-                :fill="`transparent`"
-                :stroke-width="5"
-            />
+            <Circle :shape="circleShape" />
+            <!-- 
             <Ellipse
                 :cx="ellipseCX"
                 :cy="ellipseCY"
@@ -252,7 +246,7 @@
                     <input
                         id="circleX"
                         type="number"
-                        v-model="circleX"
+                        v-model="circleShape.point.x"
                         required
                     />
                 </div>
@@ -261,7 +255,7 @@
                     <input
                         id="circleY"
                         type="number"
-                        v-model="circleY"
+                        v-model="circleShape.point.y"
                         required
                     />
                 </div>
@@ -270,7 +264,7 @@
                     <input
                         id="circleRadius"
                         type="number"
-                        v-model="circleRadius"
+                        v-model="circleShape.radius"
                         required
                     />
                 </div>
@@ -333,7 +327,7 @@ import Rect from "../components/basicShapes/Rect.vue";
 import Circle from "../components/basicShapes/Circle.vue";
 import Ellipse from "../components/basicShapes/Ellipse.vue";
 import Line from "../components/basicShapes/Line.vue";
-import { type RectShape } from "@/types";
+import { type CircleShape, type RectShape } from "@/types";
 
 const width = ref(300);
 const height = ref(400);
@@ -357,6 +351,16 @@ const rectShape = ref<RectShape>({
     fill: "transparent",
     strokeWidth: 5,
 })
+
+const circleShape = ref<CircleShape>({
+    point: { x: 0, y: 0 },
+    radius: 10,
+    stroke: "black",
+    fill: "transparent",
+    strokeWidth: 5,
+})
+
+
 
 const rectX = ref(0);
 const rectY = ref(0);

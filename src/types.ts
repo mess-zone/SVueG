@@ -14,3 +14,7 @@ export interface RectShape extends Shape {
     size: Point,
     round: Point,
 }
+
+export interface CircleShape extends Shape {
+    radius: number,
+}

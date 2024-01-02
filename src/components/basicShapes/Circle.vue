@@ -1,21 +1,19 @@
 <template>
     <circle
-        :cx="props.cx"
-        :cy="props.cy"
-        :r="props.r"
-        :stroke="props.stroke"
-        :fill="props.fill"
-        :stroke-width="props.strokeWidth"
+        :cx="shape.point.x"
+        :cy="shape.point.y"
+        :r="shape.radius"
+        :stroke="shape.stroke"
+        :fill="shape.fill"
+        :stroke-width="shape.strokeWidth"
     />
 </template>
 <script setup lang="ts">
-const props = defineProps({
-    cx: { type: Number, required: true },
-    cy: { type: Number, required: true },
-    r: { type: Number, required: true },
-    r: { type: Number, required: true },
-    stroke: { type: String, required: true },
-    fill: { type: String, required: true },
-    strokeWidth: { type: Number, required: true },
-});
+import type { CircleShape } from '@/types';
+
+interface Props {
+  shape: CircleShape,
+}
+
+const { shape } = defineProps<Props>();
 </script>
