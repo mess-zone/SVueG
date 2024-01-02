@@ -42,12 +42,12 @@
             />
 
             <line
-                x1="10"
-                x2="50"
-                y1="110"
-                y2="150"
-                stroke="orange"
-                stroke-width="5"
+                :x1="lineX1"
+                :x2="lineX2"
+                :y1="lineY1"
+                :y2="lineY2"
+                :stroke="`orange`"
+                :stroke-width="5"
             />
             <polyline
                 points="60 110 65 120 70 115 75 130 80 125 85 140 90 135 95 150 100 145"
@@ -167,6 +167,26 @@
             </div>
 
             <div class="section">
+                <h1>Line</h1>
+                <div class="form-group">
+                    <label for="lineX1">x1</label>
+                    <input id="lineX1" type="number" v-model="lineX1" required />
+                </div>
+                <div class="form-group">
+                    <label for="lineY1">y1</label>
+                    <input id="lineY1" type="number" v-model="lineY1" required />
+                </div>
+                <div class="form-group">
+                    <label for="lineX2">x2</label>
+                    <input id="lineX2" type="number" v-model="lineX2" required />
+                </div>
+                <div class="form-group">
+                    <label for="lineY2">y2</label>
+                    <input id="lineY2" type="number" v-model="lineY2" required />
+                </div>
+            </div>
+
+            <div class="section">
                 <h1>Ellipse</h1>
                 <div class="form-group">
                     <label for="ellipseCX">x</label>
@@ -239,6 +259,7 @@ import Point from '../components/basicShapes/Point.vue'
 import Rect from '../components/basicShapes/Rect.vue'
 import Circle from '../components/basicShapes/Circle.vue'
 import Ellipse from '../components/basicShapes/Ellipse.vue'
+import Line from '../components/basicShapes/Line.vue'
 
 const width = ref(300);
 const height = ref(400);
@@ -274,6 +295,12 @@ const ellipseCX = ref(75);
 const ellipseCY = ref(75);
 const ellipseRadiusX = ref(20);
 const ellipseRadiusY = ref(5);
+
+// Line
+const lineX1 = ref(10);
+const lineY1 = ref(50);
+const lineX2 = ref(110);
+const lineY2 = ref(150);
 </script>
 
 <style scoped>
