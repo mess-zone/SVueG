@@ -9,21 +9,11 @@
             <!-- Origin coordinate system-->
             <circle cx="0" cy="0" r="2" fill="gray" />
 
-            <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`"/>
+            <!-- <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" /> -->
 
-            <Rect
-                :x="rectX"
-                :y="rectY"
-                :rx="rectRoundX"
-                :ry="rectRoundY"
-                :width="rectWidth"
-                :height="rectHeight"
-                :stroke="`black`"
-                :fill="`transparent`"
-                :stroke-width="5"
-            />
+            <Rect :shape="rectShape" />
 
-            <Circle
+            <!-- <Circle
                 :cx="circleX"
                 :cy="circleY"
                 :r="circleRadius"
@@ -68,8 +58,7 @@
                 fill="none"
                 stroke="blue"
                 stroke-width="5"
-            />
-
+            /> -->
         </svg>
         <div class="panel">
             <div class="section">
@@ -158,11 +147,21 @@
                 <h1>Point</h1>
                 <div class="form-group">
                     <label for="pointX">x</label>
-                    <input id="pointX" type="number" v-model="pointX" required />
+                    <input
+                        id="pointX"
+                        type="number"
+                        v-model="pointX"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="pointY">y</label>
-                    <input id="pointY" type="number" v-model="pointY" required />
+                    <input
+                        id="pointY"
+                        type="number"
+                        v-model="pointY"
+                        required
+                    />
                 </div>
             </div>
 
@@ -170,19 +169,39 @@
                 <h1>Line</h1>
                 <div class="form-group">
                     <label for="lineX1">x1</label>
-                    <input id="lineX1" type="number" v-model="lineX1" required />
+                    <input
+                        id="lineX1"
+                        type="number"
+                        v-model="lineX1"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="lineY1">y1</label>
-                    <input id="lineY1" type="number" v-model="lineY1" required />
+                    <input
+                        id="lineY1"
+                        type="number"
+                        v-model="lineY1"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="lineX2">x2</label>
-                    <input id="lineX2" type="number" v-model="lineX2" required />
+                    <input
+                        id="lineX2"
+                        type="number"
+                        v-model="lineX2"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="lineY2">y2</label>
-                    <input id="lineY2" type="number" v-model="lineY2" required />
+                    <input
+                        id="lineY2"
+                        type="number"
+                        v-model="lineY2"
+                        required
+                    />
                 </div>
             </div>
 
@@ -190,19 +209,39 @@
                 <h1>Ellipse</h1>
                 <div class="form-group">
                     <label for="ellipseCX">x</label>
-                    <input id="ellipseCX" type="number" v-model="ellipseCX" required />
+                    <input
+                        id="ellipseCX"
+                        type="number"
+                        v-model="ellipseCX"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="ellipseCY">y</label>
-                    <input id="ellipseCY" type="number" v-model="ellipseCY" required />
+                    <input
+                        id="ellipseCY"
+                        type="number"
+                        v-model="ellipseCY"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="ellipseRadiusX">radius x</label>
-                    <input id="ellipseRadiusX" type="number" v-model="ellipseRadiusX" required />
+                    <input
+                        id="ellipseRadiusX"
+                        type="number"
+                        v-model="ellipseRadiusX"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="ellipseRadiusY">radius y</label>
-                    <input id="ellipseRadiusY" type="number" v-model="ellipseRadiusY" required />
+                    <input
+                        id="ellipseRadiusY"
+                        type="number"
+                        v-model="ellipseRadiusY"
+                        required
+                    />
                 </div>
             </div>
 
@@ -210,15 +249,30 @@
                 <h1>Circle</h1>
                 <div class="form-group">
                     <label for="circleX">x</label>
-                    <input id="circleX" type="number" v-model="circleX" required />
+                    <input
+                        id="circleX"
+                        type="number"
+                        v-model="circleX"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="circleY">y</label>
-                    <input id="circleY" type="number" v-model="circleY" required />
+                    <input
+                        id="circleY"
+                        type="number"
+                        v-model="circleY"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="circleRadius">radius</label>
-                    <input id="circleRadius" type="number" v-model="circleRadius" required />
+                    <input
+                        id="circleRadius"
+                        type="number"
+                        v-model="circleRadius"
+                        required
+                    />
                 </div>
             </div>
 
@@ -226,40 +280,60 @@
                 <h1>Rect</h1>
                 <div class="form-group">
                     <label for="rectX">x</label>
-                    <input id="rectX" type="number" v-model="rectX" required />
+                    <input id="rectX" type="number" v-model="rectShape.point.x" required />
                 </div>
                 <div class="form-group">
                     <label for="rectY">y</label>
-                    <input id="rectY" type="number" v-model="rectY" required />
+                    <input id="rectY" type="number" v-model="rectShape.point.y" required />
                 </div>
                 <div class="form-group">
                     <label for="rectWidth">width</label>
-                    <input id="rectWidth" type="number" v-model="rectWidth" required />
+                    <input
+                        id="rectWidth"
+                        type="number"
+                        v-model="rectShape.size.x"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="rectHeight">height</label>
-                    <input id="rectHeight" type="number" v-model="rectHeight" required />
+                    <input
+                        id="rectHeight"
+                        type="number"
+                        v-model="rectShape.size.y"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="rectRoundX">round x</label>
-                    <input id="rectRoundX" type="number" v-model="rectRoundX" required />
+                    <input
+                        id="rectRoundX"
+                        type="number"
+                        v-model="rectShape.round.x"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="rectRoundY">round y</label>
-                    <input id="rectRoundY" type="number" v-model="rectRoundY" required />
+                    <input
+                        id="rectRoundY"
+                        type="number"
+                        v-model="rectShape.round.y"
+                        required
+                    />
                 </div>
             </div>
-
         </div>
     </div>
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import Point from '../components/basicShapes/Point.vue'
-import Rect from '../components/basicShapes/Rect.vue'
-import Circle from '../components/basicShapes/Circle.vue'
-import Ellipse from '../components/basicShapes/Ellipse.vue'
-import Line from '../components/basicShapes/Line.vue'
+import Point from "../components/basicShapes/Point.vue";
+import Rect from "../components/basicShapes/Rect.vue";
+import Circle from "../components/basicShapes/Circle.vue";
+import Ellipse from "../components/basicShapes/Ellipse.vue";
+import Line from "../components/basicShapes/Line.vue";
+import { type RectShape } from "@/types";
 
 const width = ref(300);
 const height = ref(400);
@@ -271,13 +345,19 @@ const viewportX = ref(0);
 const viewportY = ref(0);
 const zoom = ref(100);
 
-
 // point
 const pointX = ref(10);
 const pointY = ref(20);
 
+const rectShape = ref<RectShape>({
+    point: { x: 0, y: 0 },
+    size: { x: 100, y: 50 },
+    round: { x: 0, y: 0 },
+    stroke: "black",
+    fill: "transparent",
+    strokeWidth: 5,
+})
 
-// rect
 const rectX = ref(0);
 const rectY = ref(0);
 const rectWidth = ref(100);
