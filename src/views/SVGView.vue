@@ -18,14 +18,11 @@
             <Ellipse :shape="ellipseShape" />
 
             <Line :shape="lineShape" />
-            <!-- 
 
-            <polyline
-                points="60 110 65 120 70 115 75 130 80 125 85 140 90 135 95 150 100 145"
-                stroke="orange"
-                fill="transparent"
-                stroke-width="5"
-            />
+            
+            <Polyline :shape="polylineShape" />
+
+            <!-- 
 
             <polygon
                 points="50 160 55 180 70 180 60 190 65 205 50 195 35 205 40 190 30 180 45 180"
@@ -314,7 +311,8 @@ import Rect from "../components/basicShapes/Rect.vue";
 import Circle from "../components/basicShapes/Circle.vue";
 import Ellipse from "../components/basicShapes/Ellipse.vue";
 import Line from "../components/basicShapes/Line.vue";
-import type { EllipseShape, CircleShape, RectShape, LineShape } from "@/types";
+import Polyline from "../components/basicShapes/Polyline.vue";
+import type { EllipseShape, CircleShape, RectShape, LineShape, PolylineShape } from "@/types";
 
 const width = ref(300);
 const height = ref(400);
@@ -360,6 +358,18 @@ const lineShape = ref<LineShape>({
     end: { x: 20, y: 30 },
     stroke: "black",
     strokeWidth: 5,
+})
+
+const polylineShape = ref<PolylineShape>({
+    points: [
+        { x: 100, y: 100 },
+        { x: 200, y: 110 },
+        { x: 250, y: 200 },
+        { x: 200, y: 250 },
+    ],
+    stroke: "black",
+    strokeWidth: 5,
+    fill: "transparent"
 })
 
 </script>

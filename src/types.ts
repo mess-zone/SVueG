@@ -39,3 +39,10 @@ export interface LineShape {
     stroke: string,
     strokeWidth: number,
 }
+
+export interface PolylineShape {
+    points: Point[],
+    stroke: string,
+    strokeWidth: number,
+    fill: string,
+}
