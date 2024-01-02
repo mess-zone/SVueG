@@ -31,14 +31,14 @@
                 :fill="`transparent`"
                 :stroke-width="5"
             />
-            <ellipse
-                cx="75"
-                cy="75"
-                rx="20"
-                ry="5"
-                stroke="red"
-                fill="transparent"
-                stroke-width="5"
+            <Ellipse
+                :cx="ellipseCX"
+                :cy="ellipseCY"
+                :rx="ellipseRadiusX"
+                :ry="ellipseRadiusY"
+                :stroke="`red`"
+                :fill="`transparent`"
+                :stroke-width="5"
             />
 
             <line
@@ -167,6 +167,26 @@
             </div>
 
             <div class="section">
+                <h1>Ellipse</h1>
+                <div class="form-group">
+                    <label for="ellipseCX">x</label>
+                    <input id="ellipseCX" type="number" v-model="ellipseCX" required />
+                </div>
+                <div class="form-group">
+                    <label for="ellipseCY">y</label>
+                    <input id="ellipseCY" type="number" v-model="ellipseCY" required />
+                </div>
+                <div class="form-group">
+                    <label for="ellipseRadiusX">radius x</label>
+                    <input id="ellipseRadiusX" type="number" v-model="ellipseRadiusX" required />
+                </div>
+                <div class="form-group">
+                    <label for="ellipseRadiusY">radius y</label>
+                    <input id="ellipseRadiusY" type="number" v-model="ellipseRadiusY" required />
+                </div>
+            </div>
+
+            <div class="section">
                 <h1>Circle</h1>
                 <div class="form-group">
                     <label for="circleX">x</label>
@@ -218,6 +238,7 @@ import { computed, ref } from "vue";
 import Point from '../components/basicShapes/Point.vue'
 import Rect from '../components/basicShapes/Rect.vue'
 import Circle from '../components/basicShapes/Circle.vue'
+import Ellipse from '../components/basicShapes/Ellipse.vue'
 
 const width = ref(300);
 const height = ref(400);
@@ -247,6 +268,12 @@ const rectRoundY = ref(0);
 const circleX = ref(20);
 const circleY = ref(20);
 const circleRadius = ref(100);
+
+// Ellipse
+const ellipseCX = ref(75);
+const ellipseCY = ref(75);
+const ellipseRadiusX = ref(20);
+const ellipseRadiusY = ref(5);
 </script>
 
 <style scoped>
