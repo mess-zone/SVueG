@@ -4,8 +4,9 @@
             :width="width"
             :height="height"
             xmlns="http://www.w3.org/2000/svg"
-            :viewBox="`0 0 ${width/2} ${height/2}`"
+            :viewBox="`${viewportX} ${viewportY} ${viewportWidth} ${viewportHeight}`"
         >
+            <rect x="0" y="0" width="100" height="100" />
             <circle :cx="x" :cy="y" r="5" fill="orange" />
         </svg>
         <div class="panel">
@@ -20,6 +21,22 @@
             <div class="form-group">
                 <label for="aspectRatio">aspectRatio</label>
                 <input id="aspectRatio" type="number" v-model="aspectRatio" required disabled />
+            </div>
+            <div class="form-group">
+                <label for="viewportWidth">viewportWidth</label>
+                <input id="viewportWidth" type="number" v-model="viewportWidth" required />
+            </div>
+            <div class="form-group">
+                <label for="viewportHeight">viewportHeight</label>
+                <input id="viewportHeight" type="number" v-model="viewportHeight" required />
+            </div>
+            <div class="form-group">
+                <label for="viewportX">viewportX</label>
+                <input id="viewportX" type="number" v-model="viewportX" required />
+            </div>
+            <div class="form-group">
+                <label for="viewportY">viewportY</label>
+                <input id="viewportY" type="number" v-model="viewportY" required />
             </div>
             <div class="form-group">
                 <label for="x">x</label>
@@ -38,6 +55,11 @@ import { computed, ref } from 'vue';
 const width = ref(300)
 const height = ref(400)
 const aspectRatio = computed(() => (width.value/height.value).toFixed(2))
+
+const viewportWidth = ref(width.value)
+const viewportHeight = ref(height.value)
+const viewportX = ref(0)
+const viewportY = ref(0)
 
 const x = ref(10)
 const y = ref(20)
