@@ -14,16 +14,9 @@
             <Rect :shape="rectShape" />
 
             <Circle :shape="circleShape" />
+
+            <Ellipse :shape="ellipseShape" />
             <!-- 
-            <Ellipse
-                :cx="ellipseCX"
-                :cy="ellipseCY"
-                :rx="ellipseRadiusX"
-                :ry="ellipseRadiusY"
-                :stroke="`red`"
-                :fill="`transparent`"
-                :stroke-width="5"
-            />
 
             <line
                 :x1="lineX1"
@@ -206,7 +199,7 @@
                     <input
                         id="ellipseCX"
                         type="number"
-                        v-model="ellipseCX"
+                        v-model="ellipseShape.point.x"
                         required
                     />
                 </div>
@@ -215,7 +208,7 @@
                     <input
                         id="ellipseCY"
                         type="number"
-                        v-model="ellipseCY"
+                        v-model="ellipseShape.point.y"
                         required
                     />
                 </div>
@@ -224,7 +217,7 @@
                     <input
                         id="ellipseRadiusX"
                         type="number"
-                        v-model="ellipseRadiusX"
+                        v-model="ellipseShape.radius.x"
                         required
                     />
                 </div>
@@ -233,7 +226,7 @@
                     <input
                         id="ellipseRadiusY"
                         type="number"
-                        v-model="ellipseRadiusY"
+                        v-model="ellipseShape.radius.y"
                         required
                     />
                 </div>
@@ -327,7 +320,7 @@ import Rect from "../components/basicShapes/Rect.vue";
 import Circle from "../components/basicShapes/Circle.vue";
 import Ellipse from "../components/basicShapes/Ellipse.vue";
 import Line from "../components/basicShapes/Line.vue";
-import { type CircleShape, type RectShape } from "@/types";
+import type { EllipseShape, CircleShape, RectShape } from "@/types";
 
 const width = ref(300);
 const height = ref(400);
@@ -355,6 +348,14 @@ const rectShape = ref<RectShape>({
 const circleShape = ref<CircleShape>({
     point: { x: 0, y: 0 },
     radius: 10,
+    stroke: "black",
+    fill: "transparent",
+    strokeWidth: 5,
+})
+
+const ellipseShape = ref<EllipseShape>({
+    point: { x: 0, y: 0 },
+    radius: { x: 20, y: 30 },
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,

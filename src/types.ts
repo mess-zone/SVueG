@@ -18,3 +18,7 @@ export interface RectShape extends Shape {
 export interface CircleShape extends Shape {
     radius: number,
 }
+
+export interface EllipseShape extends Shape {
+    radius: Point,
+}
