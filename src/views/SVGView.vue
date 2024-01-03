@@ -11,18 +11,9 @@
 
             <!-- <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
 
-            <Rect :shape="rectShape" />
-
-            <Circle :shape="circleShape" />
-
-            <Ellipse :shape="ellipseShape" />
-
             <Line :shape="lineShape" />
-
             
             <Polyline :shape="polylineShape" />
-
-            <Polygon :shape="polygonShape" />
 
             <Path :shape="pathLineShape" /> 
             <Path :shape="pathCurveShape" /> 
@@ -339,6 +330,9 @@ import type {
 
 const suportedNodes = new Map()
 suportedNodes.set('Rect', Rect)
+suportedNodes.set('Circle', Circle)
+suportedNodes.set('Ellipse', Ellipse)
+suportedNodes.set('Polygon', Polygon)
 
 const width = ref(300);
 const height = ref(400);
@@ -461,12 +455,12 @@ const rectShape2: RectShape = {
     strokeWidth: 2,
 };
 
-const nodeList = ref<RectShape[]>([]);
+const nodeList = ref<LayoutNodeType[]>([]);
 nodeList.value.push(rectShape);
 nodeList.value.push(rectShape2);
-// nodeList.value.push(circleShape)
-// nodeList.value.push(ellipseShape)
-// nodeList.value.push(polygonShape)
+nodeList.value.push(circleShape)
+nodeList.value.push(ellipseShape)
+nodeList.value.push(polygonShape)
 // console.log(nodeList);
 </script>
 

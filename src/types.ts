@@ -70,4 +70,4 @@ export interface PathShape extends ShapeStyle {
 
 
 // ########### Layout Nodes ###########
-export type LayoutNodeType = LineShape | PolylineShape | RectShape | CircleShape | EllipseShape | PolygonShape;
+export type LayoutNodeType = RectShape | CircleShape | EllipseShape | PolygonShape;
