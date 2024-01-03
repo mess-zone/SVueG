@@ -13,23 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import type { LayoutNodeType } from '@/types';
 import { useNodeListStore } from '../stores/nodeListStore'
 import { storeToRefs } from 'pinia'
 
 const nodeStore =  useNodeListStore()
-const { nodeList, selectedNode } = storeToRefs(nodeStore)
-const { selectNode } = nodeStore
-
-function isSelected(node: LayoutNodeType) {
-    if(selectedNode.value) {
-        if(selectedNode.value.id === node.id) {
-            return true
-        }
-    }
-
-    return false
-}
+const { nodeList } = storeToRefs(nodeStore)
+const { selectNode, isSelected } = nodeStore
 
 </script>
 

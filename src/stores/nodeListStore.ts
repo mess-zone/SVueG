@@ -126,8 +126,8 @@ export const useNodeListStore = defineStore('nodeList', () => {
         selectedNode.value = node
     }
 
-    addNode(rectShape);
-    addNode(rectShape2);
+    addNode(rectShape)
+    addNode(rectShape2)
     addNode(circleShape)
     addNode(ellipseShape)
     addNode(polygonShape)
@@ -138,10 +138,21 @@ export const useNodeListStore = defineStore('nodeList', () => {
 
     selectNode(ellipseShape)
 
+    const isSelected = (node: LayoutNodeType) => {
+        if(selectedNode.value) {
+            if(selectedNode.value.id === node.id) {
+                return true
+            }
+        }
+    
+        return false
+    }
+
     return {
         nodeList,
         addNode,
         selectedNode,
         selectNode,
+        isSelected,
     }
 })
