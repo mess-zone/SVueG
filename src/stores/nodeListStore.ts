@@ -1,4 +1,4 @@
-import type { CircleShape, EllipseShape, LayoutNodeType, LineShape, PathShape, PolygonShape, PolylineShape, RectShape } from "@/types";
+import type { BoundingBoxType, CircleShape, EllipseShape, LayoutNodeType, LineShape, PathShape, PolygonShape, PolylineShape, RectShape } from "@/types";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { v4 as uuidv4 } from 'uuid';
@@ -154,7 +154,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
     }
 
     function getBoundingBox(node: LayoutNodeType | undefined) {
-        return getSvgElement(node)?.getBBox()
+        return getSvgElement(node)?.getBBox() as BoundingBoxType
     }
 
 

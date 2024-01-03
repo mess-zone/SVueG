@@ -81,3 +81,11 @@ export interface PathShape extends ShapeStyle {
 
 // ########### Layout Nodes ###########
 export type LayoutNodeType = LineShape | PolylineShape | RectShape | CircleShape | EllipseShape | PolygonShape | PathShape;
+
+
+export interface BoundingBoxType {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+} 

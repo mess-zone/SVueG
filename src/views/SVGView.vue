@@ -19,7 +19,7 @@
                 :shape="node"
             />
 
-            <BoundingBox v-if="selectedBoundingBox" :box="selectedBoundingBox" />
+            <BoundingBox />
 
         </svg>
         <div class="panel">
@@ -299,7 +299,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { computed, ref, type Ref } from "vue";
+import { computed, ref } from "vue";
 import Point from "../components/basicShapes/Point.vue";
 import Rect from "../components/basicShapes/Rect.vue";
 import Circle from "../components/basicShapes/Circle.vue";
@@ -378,13 +378,8 @@ const lineShape: LineShape = {
 };
 
 const nodeStore =  useNodeListStore()
-const { nodeList, selectedNode } = storeToRefs(nodeStore)
-const { getBoundingBox } = nodeStore
+const { nodeList } = storeToRefs(nodeStore)
 
-const selectedBoundingBox = computed(() => {
-    console.log('bounding box', getBoundingBox(selectedNode.value))
-    return getBoundingBox(selectedNode.value)
-})
 
 </script>
 
