@@ -1,5 +1,6 @@
 <template>
     <circle
+        :data-node-id="shape.id"
         :cx="shape.center.x"
         :cy="shape.center.y"
         :r="shape.radius"

@@ -118,11 +118,11 @@ export const useNodeListStore = defineStore('nodeList', () => {
 
     const selectedNode = ref<LayoutNodeType>()
 
-    const addNode = (node: LayoutNodeType) => {
+    function addNode(node: LayoutNodeType) {
         nodeList.value.push(node);
     }
 
-    const selectNode = (node: LayoutNodeType) => {
+    function selectNode(node: LayoutNodeType) {
         selectedNode.value = node
     }
 
@@ -136,9 +136,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
     addNode(pathLineShape)
     addNode(pathCurveShape)
 
-    selectNode(ellipseShape)
-
-    const isSelected = (node: LayoutNodeType) => {
+    function isSelected(node: LayoutNodeType) {
         if(selectedNode.value) {
             if(selectedNode.value.id === node.id) {
                 return true
@@ -148,11 +146,25 @@ export const useNodeListStore = defineStore('nodeList', () => {
         return false
     }
 
+    function getSvgElement(node: LayoutNodeType | undefined) {
+        if(node) {
+            return document.querySelector(`[data-node-id='${node.id}']`) as SVGGraphicsElement
+        }
+        return undefined
+    }
+
+    function getBoundingBox(node: LayoutNodeType | undefined) {
+        return getSvgElement(node)?.getBBox()
+    }
+
+
     return {
         nodeList,
         addNode,
         selectedNode,
         selectNode,
         isSelected,
+        getSvgElement,
+        getBoundingBox,
     }
 })

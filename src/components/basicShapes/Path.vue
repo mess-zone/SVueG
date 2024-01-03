@@ -1,5 +1,6 @@
 <template>
     <path
+        :data-node-id="shape.id"
         :d="stringCommands"
         :stroke="shape.stroke"
         :fill="shape.fill"

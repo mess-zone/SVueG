@@ -19,6 +19,8 @@
                 :shape="node"
             />
 
+            <BoundingBox v-if="selectedBoundingBox" :box="selectedBoundingBox" />
+
         </svg>
         <div class="panel">
             <div class="section">
@@ -306,7 +308,7 @@ import Line from "../components/basicShapes/Line.vue";
 import Polyline from "../components/basicShapes/Polyline.vue";
 import Polygon from "../components/basicShapes/Polygon.vue";
 import Path from "../components/basicShapes/Path.vue";
-// import BoundingBox from "../components/BoundingBox.vue";
+import BoundingBox from "../components/BoundingBox.vue";
 import { useNodeListStore } from '../stores/nodeListStore'
 import { storeToRefs } from 'pinia'
 import LayersPanel from '../components/LayersPanel.vue'
@@ -376,7 +378,13 @@ const lineShape: LineShape = {
 };
 
 const nodeStore =  useNodeListStore()
-const { nodeList } = storeToRefs(nodeStore)
+const { nodeList, selectedNode } = storeToRefs(nodeStore)
+const { getBoundingBox } = nodeStore
+
+const selectedBoundingBox = computed(() => {
+    console.log('bounding box', getBoundingBox(selectedNode.value))
+    return getBoundingBox(selectedNode.value)
+})
 
 </script>
 

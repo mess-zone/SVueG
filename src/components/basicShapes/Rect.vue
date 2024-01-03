@@ -1,5 +1,6 @@
 <template>
     <rect
+        :data-node-id="shape.id"
         :x="shape.topLeft.x"
         :y="shape.topLeft.y"
         :rx="shape.round.x"

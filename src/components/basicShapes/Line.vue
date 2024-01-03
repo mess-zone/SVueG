@@ -1,5 +1,6 @@
 <template>
     <line
+        :data-node-id="shape.id"
         :x1="shape.start.x"
         :y1="shape.start.y"
         :x2="shape.end.x"

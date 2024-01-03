@@ -1,5 +1,6 @@
 <template>
     <polyline
+        :data-node-id="shape.id"
         :points="stringPoints"
         :stroke="shape.stroke"
         :fill="shape.fill"
