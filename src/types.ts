@@ -51,7 +51,7 @@ export interface PolygonShape extends ShapeStyle {
 
 // ############ PATH ##############
 
-export type PathCommandLetters = 'M' | 'm' | 'L' | 'l' | 'H' | 'h' | 'V' | 'v' | 'Z' | 'z'
+export type PathCommandLetters = 'M' | 'm' | 'L' | 'l' | 'H' | 'h' | 'V' | 'v' | 'Z' | 'z'    | 'C' | 'c'
 
 export interface PathCommand {
     letter: PathCommandLetters,

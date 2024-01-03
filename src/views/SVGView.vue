@@ -25,6 +25,7 @@
             <Polygon :shape="polygonShape" />
 
             <Path :shape="pathLineShape" /> 
+            <Path :shape="pathCurveShape" /> 
         </svg>
         <div class="panel">
             <div class="section">
@@ -381,6 +382,16 @@ const pathLineShape = ref<PathShape>({
         { letter: 'h', args: [-50] },
         { letter: 'V', args: [150] },
         { letter: 'Z' },
+    ],
+    fill: "transparent",
+    stroke: "red",
+    strokeWidth: 5
+})
+
+const pathCurveShape = ref<PathShape>({
+    commands: [
+        { letter: 'M', args: [10, 300] },
+        { letter: 'C', args: [10, 200, 30, 200, 110, 300] },
     ],
     fill: "transparent",
     stroke: "red",
