@@ -28,22 +28,26 @@ export interface PolylineShape extends ShapeStyle {
 
 
 export interface RectShape extends ShapeStyle {
+    tag: string,
     topLeft: Point,
     size: Point,
     round: Point,
 }
 
 export interface CircleShape extends ShapeStyle {
+    tag: string,
     center: Point,
     radius: number,
 }
 
 export interface EllipseShape extends ShapeStyle {
+    tag: string,
     center: Point,
     radius: Point,
 }
 
 export interface PolygonShape extends ShapeStyle {
+    tag: string,
     points: Point[],
 }
 
@@ -63,3 +67,7 @@ export interface PathShape extends ShapeStyle {
     commands: PathCommand[]
 }
 
+
+
+// ########### Layout Nodes ###########
+export type LayoutNodeType = LineShape | PolylineShape | RectShape | CircleShape | EllipseShape | PolygonShape;

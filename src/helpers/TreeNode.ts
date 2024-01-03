@@ -1,9 +1,9 @@
-export class TreeNode<T> {
-    value: T;
+export default class TreeNode<T> {
+    v: T;
     children: TreeNode<T>[];
   
     constructor(value: T) {
-      this.value = value;
+      this.v = value;
       this.children = [];
     }
   
@@ -16,9 +16,10 @@ export class TreeNode<T> {
     }
   
     traverse(): void {
-      console.log(this.value);
+      console.log(this.v);
       this.children.forEach((child) => child.traverse());
     }
+
   }
   
   // Example usage:

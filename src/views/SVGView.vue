@@ -9,7 +9,7 @@
             <!-- Origin coordinate system-->
             <circle cx="0" cy="0" r="2" fill="gray" />
 
-            <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
+            <!-- <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
 
             <Rect :shape="rectShape" />
 
@@ -27,7 +27,15 @@
             <Path :shape="pathLineShape" /> 
             <Path :shape="pathCurveShape" /> 
 
-            <BoundingBox :shape="boundingBox" />
+            <BoundingBox :shape="boundingBox" /> -->
+
+            <component
+                v-for="node in nodeList"
+                :key="node.tag"
+                :is="suportedNodes.get(node.tag)"
+                :shape="node"
+            />
+
         </svg>
         <div class="panel">
             <div class="section">
@@ -249,11 +257,21 @@
                 <h1>Rect</h1>
                 <div class="form-group">
                     <label for="rectX">x</label>
-                    <input id="rectX" type="number" v-model="rectShape.topLeft.x" required />
+                    <input
+                        id="rectX"
+                        type="number"
+                        v-model="rectShape.topLeft.x"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="rectY">y</label>
-                    <input id="rectY" type="number" v-model="rectShape.topLeft.y" required />
+                    <input
+                        id="rectY"
+                        type="number"
+                        v-model="rectShape.topLeft.y"
+                        required
+                    />
                 </div>
                 <div class="form-group">
                     <label for="rectWidth">width</label>
@@ -296,7 +314,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, type Ref } from "vue";
 import Point from "../components/basicShapes/Point.vue";
 import Rect from "../components/basicShapes/Rect.vue";
 import Circle from "../components/basicShapes/Circle.vue";
@@ -306,7 +324,21 @@ import Polyline from "../components/basicShapes/Polyline.vue";
 import Polygon from "../components/basicShapes/Polygon.vue";
 import Path from "../components/basicShapes/Path.vue";
 import BoundingBox from "../components/BoundingBox.vue";
-import type { EllipseShape, CircleShape, RectShape, LineShape, PolylineShape, PolygonShape, PathShape } from "@/types";
+import TreeNode from "../helpers/TreeNode";
+import type {
+    EllipseShape,
+    CircleShape,
+    RectShape,
+    LineShape,
+    PolylineShape,
+    PolygonShape,
+    PathShape,
+    LayoutNodeType,
+} from "@/types";
+
+
+const suportedNodes = new Map()
+suportedNodes.set('Rect', Rect)
 
 const width = ref(300);
 const height = ref(400);
@@ -322,37 +354,40 @@ const zoom = ref(100);
 const pointX = ref(10);
 const pointY = ref(20);
 
-const rectShape = ref<RectShape>({
+const rectShape: RectShape = {
+    tag: "Rect",
     topLeft: { x: 30, y: 30 },
     size: { x: 100, y: 50 },
     round: { x: 0, y: 0 },
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
-})
+};
 
-const circleShape = ref<CircleShape>({
+const circleShape: CircleShape = {
+    tag: "Circle",
     center: { x: 170, y: 47 },
     radius: 20,
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
-})
+};
 
-const ellipseShape = ref<EllipseShape>({
+const ellipseShape: EllipseShape = {
+    tag: "Ellipse",
     center: { x: 245, y: 47 },
     radius: { x: 20, y: 30 },
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
-})
+};
 
 const lineShape = ref<LineShape>({
     start: { x: 25, y: 105 },
     end: { x: 83, y: 151 },
     stroke: "black",
     strokeWidth: 5,
-})
+});
 
 const polylineShape = ref<PolylineShape>({
     points: [
@@ -363,10 +398,11 @@ const polylineShape = ref<PolylineShape>({
     ],
     stroke: "black",
     strokeWidth: 5,
-    fill: "transparent"
-})
+    fill: "transparent",
+});
 
-const polygonShape = ref<PolygonShape>({
+const polygonShape: PolygonShape = {
+    tag: "Polygon",
     points: [
         { x: 50, y: 200 },
         { x: 150, y: 210 },
@@ -375,45 +411,63 @@ const polygonShape = ref<PolygonShape>({
     ],
     stroke: "orange",
     strokeWidth: 5,
-    fill: "blue"
-})
+    fill: "blue",
+};
 
 const pathLineShape = ref<PathShape>({
     commands: [
-        { letter: 'M', args: [100, 200] },
-        { letter: 'l', args: [100, 67] },
-        { letter: 'h', args: [-50] },
-        { letter: 'V', args: [150] },
-        { letter: 'Z' },
+        { letter: "M", args: [100, 200] },
+        { letter: "l", args: [100, 67] },
+        { letter: "h", args: [-50] },
+        { letter: "V", args: [150] },
+        { letter: "Z" },
     ],
     fill: "transparent",
     stroke: "red",
-    strokeWidth: 5
-})
+    strokeWidth: 5,
+});
 
 const pathCurveShape = ref<PathShape>({
     commands: [
-        { letter: 'M', args: [10, 300] },
-        { letter: 'C', args: [10, 200, 30, 200, 110, 300] },
-        { letter: 's', args: [60, -40, 150, -40] },
-        { letter: 'q', args: [-20, -40, 20, -60] },
-        { letter: 't', args: [-20, -40] },
+        { letter: "M", args: [10, 300] },
+        { letter: "C", args: [10, 200, 30, 200, 110, 300] },
+        { letter: "s", args: [60, -40, 150, -40] },
+        { letter: "q", args: [-20, -40, 20, -60] },
+        { letter: "t", args: [-20, -40] },
     ],
     fill: "transparent",
     stroke: "red",
-    strokeWidth: 5
-})
-
+    strokeWidth: 5,
+});
 
 const boundingBox = ref<RectShape>({
+    tag: "Rect",
     topLeft: { x: 30, y: 130 },
     size: { x: 100, y: 50 },
     round: { x: 0, y: 0 },
     stroke: "blue",
     fill: "transparent",
     strokeWidth: 1,
-})
+});
 
+
+const rectShape2: RectShape = {
+    tag: "Rect",
+    topLeft: { x: 50, y: 60 },
+    size: { x: 157, y: 200 },
+    round: { x: 10, y: 10 },
+    stroke: "black",
+    fill: "gray",
+    strokeWidth: 2,
+};
+
+const nodeList = ref<RectShape[]>([]);
+nodeList.value.push(rectShape);
+nodeList.value.push(rectShape2);
+// nodeList.value.push(circleShape)
+// nodeList.value.push(ellipseShape)
+// nodeList.value.push(polygonShape)
+// console.log(nodeList);
 </script>
 
 <style scoped>
