@@ -18,18 +18,21 @@ export interface ShapeStyle {
 // ############ PRIMITIVE SHAPES ##############
 
 export interface LineShape extends LineStyle {
+    id: string,
     tag: string,
     start: Point,
     end: Point,
 }
 
 export interface PolylineShape extends ShapeStyle {
+    id: string,
     tag: string,
     points: Point[],
 }
 
 
 export interface RectShape extends ShapeStyle {
+    id: string,
     tag: string,
     topLeft: Point,
     size: Point,
@@ -37,18 +40,21 @@ export interface RectShape extends ShapeStyle {
 }
 
 export interface CircleShape extends ShapeStyle {
+    id: string,
     tag: string,
     center: Point,
     radius: number,
 }
 
 export interface EllipseShape extends ShapeStyle {
+    id: string,
     tag: string,
     center: Point,
     radius: Point,
 }
 
 export interface PolygonShape extends ShapeStyle {
+    id: string,
     tag: string,
     points: Point[],
 }
@@ -66,6 +72,7 @@ export interface PathCommand {
 }
 
 export interface PathShape extends ShapeStyle {
+    id: string,
     tag: string,
     commands: PathCommand[]
 }

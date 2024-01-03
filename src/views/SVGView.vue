@@ -1,5 +1,6 @@
 <template>
     <div class="page-container">
+        <LayersPanel />
         <svg
             :width="width"
             :height="height"
@@ -10,20 +11,10 @@
             <circle cx="0" cy="0" r="2" fill="gray" />
 
             <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
-            <!-- 
-
-            <Line :shape="lineShape" />
-            
-            <Polyline :shape="polylineShape" />
-
-            <Path :shape="pathLineShape" /> 
-            <Path :shape="pathCurveShape" /> 
-
-            <BoundingBox :shape="boundingBox" /> -->
 
             <component
                 v-for="node in nodeList"
-                :key="node.tag"
+                :key="node.id"
                 :is="suportedShapes.get(node.tag)"
                 :shape="node"
             />
@@ -315,22 +306,11 @@ import Line from "../components/basicShapes/Line.vue";
 import Polyline from "../components/basicShapes/Polyline.vue";
 import Polygon from "../components/basicShapes/Polygon.vue";
 import Path from "../components/basicShapes/Path.vue";
-import BoundingBox from "../components/BoundingBox.vue";
+// import BoundingBox from "../components/BoundingBox.vue";
 import { useNodeListStore } from '../stores/nodeListStore'
 import { storeToRefs } from 'pinia'
-import type {
-    EllipseShape,
-    CircleShape,
-    RectShape,
-    LineShape,
-    PolylineShape,
-    PolygonShape,
-    PathShape,
-    LayoutNodeType,
-} from "@/types";
-
-
-
+import LayersPanel from '../components/LayersPanel.vue'
+import type { CircleShape, EllipseShape, LineShape, RectShape } from "@/types";
 
 const suportedShapes = new Map()
 suportedShapes.set('Line', Line)
@@ -356,6 +336,7 @@ const pointX = ref(10);
 const pointY = ref(20);
 
 const rectShape: RectShape = {
+    id: '23143',
     tag: "Rect",
     topLeft: { x: 30, y: 30 },
     size: { x: 100, y: 50 },
@@ -366,6 +347,7 @@ const rectShape: RectShape = {
 };
 
 const circleShape: CircleShape = {
+    id: 'dsfksdfj',
     tag: "Circle",
     center: { x: 170, y: 47 },
     radius: 20,
@@ -375,6 +357,7 @@ const circleShape: CircleShape = {
 };
 
 const ellipseShape: EllipseShape = {
+    id: 'sdkfjsfdf',
     tag: "Ellipse",
     center: { x: 245, y: 47 },
     radius: { x: 20, y: 30 },
@@ -384,6 +367,7 @@ const ellipseShape: EllipseShape = {
 };
 
 const lineShape: LineShape = {
+    id: 'kalsjdasd',
     tag: 'Line',
     start: { x: 25, y: 105 },
     end: { x: 83, y: 151 },
@@ -391,95 +375,9 @@ const lineShape: LineShape = {
     strokeWidth: 5,
 };
 
-const polylineShape: PolylineShape = {
-    tag: 'Polyline',
-    points: [
-        { x: 100, y: 100 },
-        { x: 200, y: 110 },
-        { x: 250, y: 200 },
-        { x: 200, y: 250 },
-    ],
-    stroke: "black",
-    strokeWidth: 5,
-    fill: "transparent",
-};
-
-const polygonShape: PolygonShape = {
-    tag: "Polygon",
-    points: [
-        { x: 50, y: 200 },
-        { x: 150, y: 210 },
-        { x: 200, y: 300 },
-        { x: 150, y: 350 },
-    ],
-    stroke: "orange",
-    strokeWidth: 5,
-    fill: "blue",
-};
-
-const pathLineShape: PathShape = {
-    tag: 'Path',
-    commands: [
-        { letter: "M", args: [100, 200] },
-        { letter: "l", args: [100, 67] },
-        { letter: "h", args: [-50] },
-        { letter: "V", args: [150] },
-        { letter: "Z" },
-    ],
-    fill: "transparent",
-    stroke: "red",
-    strokeWidth: 5,
-};
-
-const pathCurveShape: PathShape = {
-    tag: 'Path',
-    commands: [
-        { letter: "M", args: [10, 300] },
-        { letter: "C", args: [10, 200, 30, 200, 110, 300] },
-        { letter: "s", args: [60, -40, 150, -40] },
-        { letter: "q", args: [-20, -40, 20, -60] },
-        { letter: "t", args: [-20, -40] },
-    ],
-    fill: "transparent",
-    stroke: "red",
-    strokeWidth: 5,
-};
-
-const boundingBox = ref<RectShape>({
-    tag: "Rect",
-    topLeft: { x: 30, y: 130 },
-    size: { x: 100, y: 50 },
-    round: { x: 0, y: 0 },
-    stroke: "blue",
-    fill: "transparent",
-    strokeWidth: 1,
-});
-
-
-const rectShape2: RectShape = {
-    tag: "Rect",
-    topLeft: { x: 50, y: 60 },
-    size: { x: 157, y: 200 },
-    round: { x: 10, y: 10 },
-    stroke: "black",
-    fill: "gray",
-    strokeWidth: 2,
-};
-
 const nodeStore =  useNodeListStore()
 const { nodeList } = storeToRefs(nodeStore)
-const { addNode } = nodeStore
 
-addNode(rectShape);
-addNode(rectShape2);
-addNode(circleShape)
-addNode(ellipseShape)
-addNode(polygonShape)
-addNode(lineShape)
-addNode(polylineShape)
-addNode(pathLineShape)
-addNode(pathCurveShape)
-// console.log(nodeList);
 </script>
 
 <style scoped>
@@ -491,25 +389,5 @@ addNode(pathCurveShape)
 svg {
     background-color: antiquewhite;
     border: 1px solid orange;
-}
-
-.panel {
-    background-color: rgb(238, 238, 238);
-    /* width: 300px; */
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.panel .section {
-    border: 1px solid red;
-    padding: 20px;
-}
-
-.form-group {
-    display: flex;
-    padding: 20px 0;
-    gap: 10px;
-    justify-content: space-around;
-    align-items: stretch;
 }
 </style>
