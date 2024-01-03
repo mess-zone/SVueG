@@ -316,6 +316,8 @@ import Polyline from "../components/basicShapes/Polyline.vue";
 import Polygon from "../components/basicShapes/Polygon.vue";
 import Path from "../components/basicShapes/Path.vue";
 import BoundingBox from "../components/BoundingBox.vue";
+import { useNodeListStore } from '../stores/nodeListStore'
+import { storeToRefs } from 'pinia'
 import type {
     EllipseShape,
     CircleShape,
@@ -326,6 +328,8 @@ import type {
     PathShape,
     LayoutNodeType,
 } from "@/types";
+
+
 
 
 const suportedShapes = new Map()
@@ -462,16 +466,19 @@ const rectShape2: RectShape = {
     strokeWidth: 2,
 };
 
-const nodeList = ref<LayoutNodeType[]>([]);
-nodeList.value.push(rectShape);
-nodeList.value.push(rectShape2);
-nodeList.value.push(circleShape)
-nodeList.value.push(ellipseShape)
-nodeList.value.push(polygonShape)
-nodeList.value.push(lineShape)
-nodeList.value.push(polylineShape)
-nodeList.value.push(pathLineShape)
-nodeList.value.push(pathCurveShape)
+const nodeStore =  useNodeListStore()
+const { nodeList } = storeToRefs(nodeStore)
+const { addNode } = nodeStore
+
+addNode(rectShape);
+addNode(rectShape2);
+addNode(circleShape)
+addNode(ellipseShape)
+addNode(polygonShape)
+addNode(lineShape)
+addNode(polylineShape)
+addNode(pathLineShape)
+addNode(pathCurveShape)
 // console.log(nodeList);
 </script>
 
