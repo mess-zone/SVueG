@@ -393,6 +393,8 @@ const pathCurveShape = ref<PathShape>({
         { letter: 'M', args: [10, 300] },
         { letter: 'C', args: [10, 200, 30, 200, 110, 300] },
         { letter: 's', args: [60, -40, 150, -40] },
+        { letter: 'q', args: [-20, -40, 20, -60] },
+        { letter: 't', args: [-20, -40] },
     ],
     fill: "transparent",
     stroke: "red",

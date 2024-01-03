@@ -51,7 +51,8 @@ export interface PolygonShape extends ShapeStyle {
 
 // ############ PATH ##############
 
-export type PathCommandLetters = 'M' | 'm' | 'L' | 'l' | 'H' | 'h' | 'V' | 'v' | 'Z' | 'z'    | 'C' | 'c' | 'S' | 's'
+// TODO arc command
+export type PathCommandLetters = 'M' | 'm' | 'L' | 'l' | 'H' | 'h' | 'V' | 'v' | 'Z' | 'z'    | 'C' | 'c' | 'S' | 's' | 'Q' | 'q' | 'T' | 't'
 
 export interface PathCommand {
     letter: PathCommandLetters,
