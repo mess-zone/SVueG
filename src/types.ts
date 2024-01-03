@@ -18,11 +18,13 @@ export interface ShapeStyle {
 // ############ PRIMITIVE SHAPES ##############
 
 export interface LineShape extends LineStyle {
+    tag: string,
     start: Point,
     end: Point,
 }
 
 export interface PolylineShape extends ShapeStyle {
+    tag: string,
     points: Point[],
 }
 
@@ -64,10 +66,11 @@ export interface PathCommand {
 }
 
 export interface PathShape extends ShapeStyle {
+    tag: string,
     commands: PathCommand[]
 }
 
 
 
 // ########### Layout Nodes ###########
-export type LayoutNodeType = RectShape | CircleShape | EllipseShape | PolygonShape;
+export type LayoutNodeType = LineShape | PolylineShape | RectShape | CircleShape | EllipseShape | PolygonShape | PathShape;

@@ -9,7 +9,8 @@
             <!-- Origin coordinate system-->
             <circle cx="0" cy="0" r="2" fill="gray" />
 
-            <!-- <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
+            <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
+            <!-- 
 
             <Line :shape="lineShape" />
             
@@ -23,7 +24,7 @@
             <component
                 v-for="node in nodeList"
                 :key="node.tag"
-                :is="suportedNodes.get(node.tag)"
+                :is="suportedShapes.get(node.tag)"
                 :shape="node"
             />
 
@@ -315,7 +316,6 @@ import Polyline from "../components/basicShapes/Polyline.vue";
 import Polygon from "../components/basicShapes/Polygon.vue";
 import Path from "../components/basicShapes/Path.vue";
 import BoundingBox from "../components/BoundingBox.vue";
-import TreeNode from "../helpers/TreeNode";
 import type {
     EllipseShape,
     CircleShape,
@@ -328,11 +328,14 @@ import type {
 } from "@/types";
 
 
-const suportedNodes = new Map()
-suportedNodes.set('Rect', Rect)
-suportedNodes.set('Circle', Circle)
-suportedNodes.set('Ellipse', Ellipse)
-suportedNodes.set('Polygon', Polygon)
+const suportedShapes = new Map()
+suportedShapes.set('Line', Line)
+suportedShapes.set('Polyline', Polyline)
+suportedShapes.set('Rect', Rect)
+suportedShapes.set('Circle', Circle)
+suportedShapes.set('Ellipse', Ellipse)
+suportedShapes.set('Polygon', Polygon)
+suportedShapes.set('Path', Path)
 
 const width = ref(300);
 const height = ref(400);
@@ -376,14 +379,16 @@ const ellipseShape: EllipseShape = {
     strokeWidth: 5,
 };
 
-const lineShape = ref<LineShape>({
+const lineShape: LineShape = {
+    tag: 'Line',
     start: { x: 25, y: 105 },
     end: { x: 83, y: 151 },
     stroke: "black",
     strokeWidth: 5,
-});
+};
 
-const polylineShape = ref<PolylineShape>({
+const polylineShape: PolylineShape = {
+    tag: 'Polyline',
     points: [
         { x: 100, y: 100 },
         { x: 200, y: 110 },
@@ -393,7 +398,7 @@ const polylineShape = ref<PolylineShape>({
     stroke: "black",
     strokeWidth: 5,
     fill: "transparent",
-});
+};
 
 const polygonShape: PolygonShape = {
     tag: "Polygon",
@@ -408,7 +413,8 @@ const polygonShape: PolygonShape = {
     fill: "blue",
 };
 
-const pathLineShape = ref<PathShape>({
+const pathLineShape: PathShape = {
+    tag: 'Path',
     commands: [
         { letter: "M", args: [100, 200] },
         { letter: "l", args: [100, 67] },
@@ -419,9 +425,10 @@ const pathLineShape = ref<PathShape>({
     fill: "transparent",
     stroke: "red",
     strokeWidth: 5,
-});
+};
 
-const pathCurveShape = ref<PathShape>({
+const pathCurveShape: PathShape = {
+    tag: 'Path',
     commands: [
         { letter: "M", args: [10, 300] },
         { letter: "C", args: [10, 200, 30, 200, 110, 300] },
@@ -432,7 +439,7 @@ const pathCurveShape = ref<PathShape>({
     fill: "transparent",
     stroke: "red",
     strokeWidth: 5,
-});
+};
 
 const boundingBox = ref<RectShape>({
     tag: "Rect",
@@ -461,6 +468,10 @@ nodeList.value.push(rectShape2);
 nodeList.value.push(circleShape)
 nodeList.value.push(ellipseShape)
 nodeList.value.push(polygonShape)
+nodeList.value.push(lineShape)
+nodeList.value.push(polylineShape)
+nodeList.value.push(pathLineShape)
+nodeList.value.push(pathCurveShape)
 // console.log(nodeList);
 </script>
 
