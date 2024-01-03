@@ -14,6 +14,7 @@ export interface ShapeStyle {
     strokeWidth: number,
 }
 
+
 // ############ PRIMITIVE SHAPES ##############
 
 export interface LineShape extends LineStyle {
@@ -44,5 +45,20 @@ export interface EllipseShape extends ShapeStyle {
 
 export interface PolygonShape extends ShapeStyle {
     points: Point[],
+}
+
+
+
+// ############ PATH ##############
+
+export type PathCommandLetters = 'm' | 'M' 
+
+export interface PathCommand {
+    commandLetter: string,
+    point: Point
+}
+
+export interface Path extends ShapeStyle {
+    commands: PathCommand
 }
 
