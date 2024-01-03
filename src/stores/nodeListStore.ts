@@ -116,8 +116,14 @@ const pathCurveShape: PathShape = {
 export const useNodeListStore = defineStore('nodeList', () => {
     const nodeList = ref<LayoutNodeType[]>([])
 
+    const selectedNode = ref<LayoutNodeType>()
+
     const addNode = (node: LayoutNodeType) => {
         nodeList.value.push(node);
+    }
+
+    const selectNode = (node: LayoutNodeType) => {
+        selectedNode.value = node
     }
 
     addNode(rectShape);
@@ -130,8 +136,12 @@ export const useNodeListStore = defineStore('nodeList', () => {
     addNode(pathLineShape)
     addNode(pathCurveShape)
 
+    selectNode(ellipseShape)
+
     return {
         nodeList,
-        addNode
+        addNode,
+        selectedNode,
+        selectNode,
     }
 })
