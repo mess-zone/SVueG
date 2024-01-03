@@ -26,6 +26,8 @@
 
             <Path :shape="pathLineShape" /> 
             <Path :shape="pathCurveShape" /> 
+
+            <BoundingBox :shape="boundingBox" />
         </svg>
         <div class="panel">
             <div class="section">
@@ -303,6 +305,7 @@ import Line from "../components/basicShapes/Line.vue";
 import Polyline from "../components/basicShapes/Polyline.vue";
 import Polygon from "../components/basicShapes/Polygon.vue";
 import Path from "../components/basicShapes/Path.vue";
+import BoundingBox from "../components/BoundingBox.vue";
 import type { EllipseShape, CircleShape, RectShape, LineShape, PolylineShape, PolygonShape, PathShape } from "@/types";
 
 const width = ref(300);
@@ -399,6 +402,16 @@ const pathCurveShape = ref<PathShape>({
     fill: "transparent",
     stroke: "red",
     strokeWidth: 5
+})
+
+
+const boundingBox = ref<RectShape>({
+    topLeft: { x: 30, y: 130 },
+    size: { x: 100, y: 50 },
+    round: { x: 0, y: 0 },
+    stroke: "blue",
+    fill: "transparent",
+    strokeWidth: 1,
 })
 
 </script>
