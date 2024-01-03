@@ -24,15 +24,7 @@
 
             <Polygon :shape="polygonShape" />
 
-            <!-- 
-
-
-            <path
-                d="M20,230 Q40,205 50,230 T90,230"
-                fill="none"
-                stroke="blue"
-                stroke-width="5"
-            /> -->
+            <Path :shape="pathLineShape" /> 
         </svg>
         <div class="panel">
             <div class="section">
@@ -309,7 +301,8 @@ import Ellipse from "../components/basicShapes/Ellipse.vue";
 import Line from "../components/basicShapes/Line.vue";
 import Polyline from "../components/basicShapes/Polyline.vue";
 import Polygon from "../components/basicShapes/Polygon.vue";
-import type { EllipseShape, CircleShape, RectShape, LineShape, PolylineShape, PolygonShape } from "@/types";
+import Path from "../components/basicShapes/Path.vue";
+import type { EllipseShape, CircleShape, RectShape, LineShape, PolylineShape, PolygonShape, PathShape } from "@/types";
 
 const width = ref(300);
 const height = ref(400);
@@ -379,6 +372,19 @@ const polygonShape = ref<PolygonShape>({
     stroke: "orange",
     strokeWidth: 5,
     fill: "blue"
+})
+
+const pathLineShape = ref<PathShape>({
+    commands: [
+        { letter: 'M', args: [100, 200] },
+        { letter: 'l', args: [100, 67] },
+        { letter: 'h', args: [-50] },
+        { letter: 'V', args: [150] },
+        { letter: 'Z' },
+    ],
+    fill: "transparent",
+    stroke: "red",
+    strokeWidth: 5
 })
 
 </script>
