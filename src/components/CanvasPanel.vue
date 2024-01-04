@@ -7,8 +7,6 @@
     >
         <!-- Origin coordinate system-->
         <circle cx="0" cy="0" r="2" fill="gray" />
-
-        <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
  
         <component
             v-for="node in nodeList"
@@ -22,11 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { useNodeListStore } from '../stores/nodeListStore'
 import { useCanvasStore } from "../stores/canvasStore";
 import { storeToRefs } from "pinia";
-import Point from "@/components/basicShapes/Point.vue";
 import BoundingBox from "@/components/BoundingBox.vue";
 import Rect from "@/components/basicShapes/Rect.vue";
 import Circle from "@/components/basicShapes/Circle.vue";
@@ -51,9 +47,6 @@ const {
 const nodeStore =  useNodeListStore()
 const { nodeList } = storeToRefs(nodeStore)
 
-// point
-const pointX = ref(10);
-const pointY = ref(20);
 
 const suportedShapes = new Map()
 suportedShapes.set('Line', Line)
@@ -65,3 +58,9 @@ suportedShapes.set('Polygon', Polygon)
 suportedShapes.set('Path', Path)
 
 </script>
+<style>
+svg {
+    background-color: antiquewhite;
+    border: 1px solid orange;
+}
+</style>
