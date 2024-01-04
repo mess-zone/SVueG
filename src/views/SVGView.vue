@@ -1,27 +1,7 @@
 <template>
     <div class="page-container">
         <LayersPanel />
-        <svg
-            :width="width"
-            :height="height"
-            xmlns="http://www.w3.org/2000/svg"
-            :viewBox="`${viewportX} ${viewportY} ${viewportWidth} ${viewportHeight}`"
-        >
-            <!-- Origin coordinate system-->
-            <circle cx="0" cy="0" r="2" fill="gray" />
-
-            <Point :cx="pointX" :cy="pointY" :r="10" :fill="`black`" />
-
-            <component
-                v-for="node in nodeList"
-                :key="node.id"
-                :is="suportedShapes.get(node.tag)"
-                :shape="node"
-            />
-
-            <BoundingBox />
-
-        </svg>
+        <CanvasPanel />
         <div class="panel">
             <div class="section">
                 <h1>Screen</h1>
@@ -300,28 +280,11 @@
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import Point from "../components/basicShapes/Point.vue";
-import Rect from "../components/basicShapes/Rect.vue";
-import Circle from "../components/basicShapes/Circle.vue";
-import Ellipse from "../components/basicShapes/Ellipse.vue";
-import Line from "../components/basicShapes/Line.vue";
-import Polyline from "../components/basicShapes/Polyline.vue";
-import Polygon from "../components/basicShapes/Polygon.vue";
-import Path from "../components/basicShapes/Path.vue";
-import BoundingBox from "../components/BoundingBox.vue";
-import { useNodeListStore } from '../stores/nodeListStore'
-import { storeToRefs } from 'pinia'
-import LayersPanel from '../components/LayersPanel.vue'
-import type { CircleShape, EllipseShape, LineShape, RectShape } from "@/types";
 
-const suportedShapes = new Map()
-suportedShapes.set('Line', Line)
-suportedShapes.set('Polyline', Polyline)
-suportedShapes.set('Rect', Rect)
-suportedShapes.set('Circle', Circle)
-suportedShapes.set('Ellipse', Ellipse)
-suportedShapes.set('Polygon', Polygon)
-suportedShapes.set('Path', Path)
+import CanvasPanel from "../components/CanvasPanel.vue";
+import LayersPanel from '../components/LayersPanel.vue'
+import PropertiesPanel from '../components/PropertiesPanel.vue'
+import type { CircleShape, EllipseShape, LineShape, RectShape } from "@/types";
 
 const width = ref(300);
 const height = ref(400);
@@ -332,6 +295,7 @@ const viewportHeight = computed(() => ((height.value * 1) / zoom.value) * 100);
 const viewportX = ref(0);
 const viewportY = ref(0);
 const zoom = ref(100);
+
 
 // point
 const pointX = ref(10);
@@ -376,10 +340,6 @@ const lineShape: LineShape = {
     stroke: "black",
     strokeWidth: 5,
 };
-
-const nodeStore =  useNodeListStore()
-const { nodeList } = storeToRefs(nodeStore)
-
 
 </script>
 
