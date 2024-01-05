@@ -88,10 +88,13 @@ export interface PathCommand {
     args?: number[]
 }
 
-export interface PathShape extends ShapeStyle {
+export interface PathOptions extends ShapeStyle {
+    commands: PathCommand[]
+}
+
+export interface PathShape extends PathOptions {
     id: string,
     tag: string,
-    commands: PathCommand[]
 }
 
 

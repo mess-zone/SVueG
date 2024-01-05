@@ -1,13 +1,13 @@
-import type { BoundingBoxType, CircleShape, EllipseShape, LayoutNodeType, LineShape, PathShape, PolygonShape, PolylineShape, RectShape } from "@/types";
+import type { BoundingBoxType, LayoutNodeType } from "@/types";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { v4 as uuidv4 } from 'uuid';
 import { createRectShape } from "@/factories/RectShapeFactory";
 import { createCircleShape } from "@/factories/CircleShapeFactory";
 import { createEllipseShape } from "@/factories/EllipseShapeFactory";
 import { createLineShape } from "@/factories/LineShapeFactory";
 import { createPolylineShape } from "@/factories/PolylineShapeFactory";
 import { createPolygonShape } from "@/factories/PolygonShapeFactory";
+import { createPathShape } from "@/factories/PathShapeFactory";
 
 const rectShape = createRectShape({
     topLeft: { x: 30, y: 30 },
@@ -74,9 +74,7 @@ const polygonShape = createPolygonShape({
     fill: "blue",
 })
 
-const pathLineShape: PathShape = {
-    id: uuidv4(),
-    tag: 'Path',
+const pathLineShape = createPathShape({
     commands: [
         { letter: "M", args: [100, 200] },
         { letter: "l", args: [100, 67] },
@@ -87,11 +85,9 @@ const pathLineShape: PathShape = {
     fill: "transparent",
     stroke: "red",
     strokeWidth: 5,
-};
+})
 
-const pathCurveShape: PathShape = {
-    id: uuidv4(),
-    tag: 'Path',
+const pathCurveShape = createPathShape({
     commands: [
         { letter: "M", args: [10, 300] },
         { letter: "C", args: [10, 200, 30, 200, 110, 300] },
@@ -102,7 +98,7 @@ const pathCurveShape: PathShape = {
     fill: "transparent",
     stroke: "red",
     strokeWidth: 5,
-};
+})
 
 
 export const useNodeListStore = defineStore('nodeList', () => {
