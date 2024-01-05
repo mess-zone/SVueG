@@ -26,10 +26,13 @@ export interface LineShape extends LineOptions {
     tag: string,
 }
 
-export interface PolylineShape extends ShapeStyle {
+export interface PolylineOptions extends ShapeStyle {
+    points: Point[],
+}
+
+export interface PolylineShape extends PolylineOptions {
     id: string,
     tag: string,
-    points: Point[],
 }
 
 export interface RectOptions extends ShapeStyle {
