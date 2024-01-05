@@ -60,44 +60,28 @@ export interface PathOptions extends ShapeStyle {
 
 
 
-
-
-export interface LineShape extends LineOptions {
-    id: string,
-    tag: string,
-}
-
-export interface RectShape extends RectOptions {
-    id: string,
-    tag: string,
-}
-
-export interface CircleShape extends CircleOptions {
-    id: string,
-    tag: string,
-}
-
-export interface EllipseShape extends EllipseOptions {
-    id: string,
-    tag: string,
-}
-
-export interface PolygonShape extends PolygonOptions {
-    id: string,
-    tag: string,
-}
-
-export interface PolylineShape extends PolylineOptions {
-    id: string,
-    tag: string,
-}
-
-export interface PathShape extends PathOptions {
-    id: string,
-    tag: string,
-}
-
 // ########### Layout Nodes ###########
+
+export interface NodeShapeI {
+    id: string,
+    tag: string,
+}
+
+export interface LineShape extends NodeShapeI, LineOptions {}
+
+export interface RectShape extends NodeShapeI, RectOptions {}
+
+export interface CircleShape extends NodeShapeI, CircleOptions {}
+
+export interface EllipseShape extends NodeShapeI, EllipseOptions {}
+
+export interface PolygonShape extends NodeShapeI, PolygonOptions {}
+
+export interface PolylineShape extends NodeShapeI, PolylineOptions {}
+
+export interface PathShape extends NodeShapeI, PathOptions {}
+
+
 export type LayoutNodeType = LineShape | PolylineShape | RectShape | CircleShape | EllipseShape | PolygonShape | PathShape;
 
 
