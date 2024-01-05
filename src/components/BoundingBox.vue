@@ -19,8 +19,7 @@ import Circle from "./basicShapes/Circle.vue";
 import { createRectShape } from "@/factories/RectShapeFactory";
 import { createCircleShape } from "@/factories/CircleShapeFactory";
 
-import { type BoundingBoxType, type RectShape } from "@/types";
-import { type CircleShape } from "@/types";
+import type { BoundingBoxType, RectShape, CircleShape } from "@/types";
 
 const nodeStore =  useNodeListStore()
 const { selectedNode } = storeToRefs(nodeStore)

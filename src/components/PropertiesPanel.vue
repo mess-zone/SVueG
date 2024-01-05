@@ -1,7 +1,7 @@
 <template>
         <div class="panel">
             <CanvasPropertiesPanel v-if="!selectedNode" />
-            <component v-else :is="suportedPanels.get(selectedNode.tag)"  :node="selectedNode" :key="selectedNode.id" ></component>
+            <component v-else :is="supportedPanels.get(selectedNode.tag)"  :node="selectedNode" :key="selectedNode.id" ></component>
         </div>
 </template>
 
@@ -15,11 +15,11 @@ import RectPropertiesPanel from "./RectPropertiesPanel.vue";
 import { useNodeListStore } from '../stores/nodeListStore'
 import { storeToRefs } from "pinia";
 
-const suportedPanels = new Map()
-suportedPanels.set('Line', LinePropertiesPanel)
-suportedPanels.set('Rect', RectPropertiesPanel)
-suportedPanels.set('Circle', CirclePropertiesPanel)
-suportedPanels.set('Ellipse', EllipsePropertiesPanel)
+const supportedPanels = new Map()
+supportedPanels.set('Line', LinePropertiesPanel)
+supportedPanels.set('Rect', RectPropertiesPanel)
+supportedPanels.set('Circle', CirclePropertiesPanel)
+supportedPanels.set('Ellipse', EllipsePropertiesPanel)
 
 
 const nodeStore =  useNodeListStore()

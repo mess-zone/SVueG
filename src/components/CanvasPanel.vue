@@ -11,7 +11,7 @@
         <component
             v-for="node in nodeList"
             :key="node.id"
-            :is="suportedShapes.get(node.tag)"
+            :is="supportedShapes.get(node.tag)"
             :shape="node"
         />
 
@@ -48,14 +48,14 @@ const nodeStore =  useNodeListStore()
 const { nodeList } = storeToRefs(nodeStore)
 
 
-const suportedShapes = new Map()
-suportedShapes.set('Line', Line)
-suportedShapes.set('Polyline', Polyline)
-suportedShapes.set('Rect', Rect)
-suportedShapes.set('Circle', Circle)
-suportedShapes.set('Ellipse', Ellipse)
-suportedShapes.set('Polygon', Polygon)
-suportedShapes.set('Path', Path)
+const supportedShapes = new Map()
+supportedShapes.set('Line', Line)
+supportedShapes.set('Polyline', Polyline)
+supportedShapes.set('Rect', Rect)
+supportedShapes.set('Circle', Circle)
+supportedShapes.set('Ellipse', Ellipse)
+supportedShapes.set('Polygon', Polygon)
+supportedShapes.set('Path', Path)
 
 </script>
 <style>
