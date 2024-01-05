@@ -51,11 +51,14 @@ export interface CircleShape extends CircleOptions {
     tag: string,
 }
 
-export interface EllipseShape extends ShapeStyle {
-    id: string,
-    tag: string,
+export interface EllipseOptions extends ShapeStyle {
     center: Point,
     radius: Point,
+}
+
+export interface EllipseShape extends EllipseOptions {
+    id: string,
+    tag: string,
 }
 
 export interface PolygonShape extends ShapeStyle {

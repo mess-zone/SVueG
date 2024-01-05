@@ -4,6 +4,7 @@ import { ref } from "vue";
 import { v4 as uuidv4 } from 'uuid';
 import { createRectShape } from "@/factories/RectShapeFactory";
 import { createCircleShape } from "@/factories/CircleShapeFactory";
+import { createEllipseShape } from "@/factories/EllipseShapeFactory";
 
 const rectShape = createRectShape({
     topLeft: { x: 30, y: 30 },
@@ -31,15 +32,13 @@ const circleShape = createCircleShape({
     strokeWidth: 5,
 })
 
-const ellipseShape: EllipseShape = {
-    id: uuidv4(),
-    tag: "Ellipse",
+const ellipseShape = createEllipseShape({
     center: { x: 245, y: 47 },
     radius: { x: 20, y: 30 },
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
-};
+})
 
 const lineShape: LineShape = {
     id: uuidv4(),
