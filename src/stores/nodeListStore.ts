@@ -7,6 +7,7 @@ import { createCircleShape } from "@/factories/CircleShapeFactory";
 import { createEllipseShape } from "@/factories/EllipseShapeFactory";
 import { createLineShape } from "@/factories/LineShapeFactory";
 import { createPolylineShape } from "@/factories/PolylineShapeFactory";
+import { createPolygonShape } from "@/factories/PolygonShapeFactory";
 
 const rectShape = createRectShape({
     topLeft: { x: 30, y: 30 },
@@ -61,9 +62,7 @@ const polylineShape = createPolylineShape({
     fill: "transparent",
 })
 
-const polygonShape: PolygonShape = {
-    id: uuidv4(),
-    tag: "Polygon",
+const polygonShape = createPolygonShape({
     points: [
         { x: 50, y: 200 },
         { x: 150, y: 210 },
@@ -73,7 +72,7 @@ const polygonShape: PolygonShape = {
     stroke: "orange",
     strokeWidth: 5,
     fill: "blue",
-};
+})
 
 const pathLineShape: PathShape = {
     id: uuidv4(),

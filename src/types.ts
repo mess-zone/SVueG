@@ -67,10 +67,13 @@ export interface EllipseShape extends EllipseOptions {
     tag: string,
 }
 
-export interface PolygonShape extends ShapeStyle {
+export interface PolygonOptions extends ShapeStyle {
+    points: Point[],
+}
+
+export interface PolygonShape extends PolygonOptions {
     id: string,
     tag: string,
-    points: Point[],
 }
 
 
