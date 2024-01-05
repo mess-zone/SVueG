@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { createRectShape } from "@/factories/RectShapeFactory";
 import { createCircleShape } from "@/factories/CircleShapeFactory";
 import { createEllipseShape } from "@/factories/EllipseShapeFactory";
+import { createLineShape } from "@/factories/LineShapeFactory";
 
 const rectShape = createRectShape({
     topLeft: { x: 30, y: 30 },
@@ -40,14 +41,12 @@ const ellipseShape = createEllipseShape({
     strokeWidth: 5,
 })
 
-const lineShape: LineShape = {
-    id: uuidv4(),
-    tag: 'Line',
+const lineShape = createLineShape({
     start: { x: 25, y: 105 },
     end: { x: 83, y: 151 },
     stroke: "black",
     strokeWidth: 5,
-};
+})
 
 const polylineShape: PolylineShape = {
     id: uuidv4(),

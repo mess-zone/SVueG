@@ -16,11 +16,14 @@ export interface ShapeStyle {
 
 // ############ PRIMITIVE SHAPES ##############
 
-export interface LineShape extends LineStyle {
-    id: string,
-    tag: string,
+export interface LineOptions extends LineStyle {
     start: Point,
     end: Point,
+}
+
+export interface LineShape extends LineOptions {
+    id: string,
+    tag: string,
 }
 
 export interface PolylineShape extends ShapeStyle {
