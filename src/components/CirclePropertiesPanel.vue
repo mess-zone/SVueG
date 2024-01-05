@@ -6,7 +6,7 @@
             <input
                 id="circleX"
                 type="number"
-                v-model="node.center.x"
+                v-model="circleShape.center.x"
                 required
             />
         </div>
@@ -15,7 +15,7 @@
             <input
                 id="circleY"
                 type="number"
-                v-model="node.center.y"
+                v-model="circleShape.center.y"
                 required
             />
         </div>
@@ -24,18 +24,19 @@
             <input
                 id="circleRadius"
                 type="number"
-                v-model="node.radius"
+                v-model="circleShape.radius"
                 required
             />
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import type { CircleShape } from "@/types";
+import type { CircleShape, NodeShapeI } from "@/types";
 
 interface Props {
-    node: CircleShape;
+    node: NodeShapeI;
 }
 
 const { node } = defineProps<Props>();
+const circleShape = node as CircleShape
 </script>

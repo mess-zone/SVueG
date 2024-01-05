@@ -6,7 +6,7 @@
             <input
                 id="ellipseCX"
                 type="number"
-                v-model="node.center.x"
+                v-model="ellipseShape.center.x"
                 required
             />
         </div>
@@ -15,7 +15,7 @@
             <input
                 id="ellipseCY"
                 type="number"
-                v-model="node.center.y"
+                v-model="ellipseShape.center.y"
                 required
             />
         </div>
@@ -24,7 +24,7 @@
             <input
                 id="ellipseRadiusX"
                 type="number"
-                v-model="node.radius.x"
+                v-model="ellipseShape.radius.x"
                 required
             />
         </div>
@@ -33,18 +33,20 @@
             <input
                 id="ellipseRadiusY"
                 type="number"
-                v-model="node.radius.y"
+                v-model="ellipseShape.radius.y"
                 required
             />
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import type { EllipseShape } from "@/types";
+import type { EllipseShape, NodeShapeI } from "@/types";
 
 interface Props {
-    node: EllipseShape;
+    node: NodeShapeI;
 }
 
 const { node } = defineProps<Props>();
+
+const ellipseShape = node as EllipseShape
 </script>

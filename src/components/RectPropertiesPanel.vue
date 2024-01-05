@@ -6,7 +6,7 @@
             <input
                 id="rectX"
                 type="number"
-                v-model="node.topLeft.x"
+                v-model="rectShape.topLeft.x"
                 required
             />
         </div>
@@ -15,7 +15,7 @@
             <input
                 id="rectY"
                 type="number"
-                v-model="node.topLeft.y"
+                v-model="rectShape.topLeft.y"
                 required
             />
         </div>
@@ -24,7 +24,7 @@
             <input
                 id="rectWidth"
                 type="number"
-                v-model="node.size.x"
+                v-model="rectShape.size.x"
                 required
             />
         </div>
@@ -33,7 +33,7 @@
             <input
                 id="rectHeight"
                 type="number"
-                v-model="node.size.y"
+                v-model="rectShape.size.y"
                 required
             />
         </div>
@@ -42,7 +42,7 @@
             <input
                 id="rectRoundX"
                 type="number"
-                v-model="node.round.x"
+                v-model="rectShape.round.x"
                 required
             />
         </div>
@@ -51,18 +51,19 @@
             <input
                 id="rectRoundY"
                 type="number"
-                v-model="node.round.y"
+                v-model="rectShape.round.y"
                 required
             />
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import type { RectShape } from "@/types";
+import type { NodeShapeI, RectShape } from "@/types";
 
 interface Props {
-    node: RectShape;
+    node: NodeShapeI;
 }
 
 const { node } = defineProps<Props>();
+const rectShape = node as RectShape
 </script>

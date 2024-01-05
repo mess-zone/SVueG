@@ -1,10 +1,7 @@
 <template>
         <div class="panel">
             <CanvasPropertiesPanel v-if="!selectedNode" />
-            <LinePropertiesPanel v-else-if="selectedNode.tag === 'Line'" :node="(selectedNode as LineShape)"/>
-            <EllipsePropertiesPanel v-else-if="selectedNode.tag === 'Ellipse'" :node="(selectedNode as EllipseShape)"/>
-            <CirclePropertiesPanel v-else-if="selectedNode.tag === 'Circle'" :node="(selectedNode as CircleShape)"/>
-            <RectPropertiesPanel v-else-if="selectedNode.tag === 'Rect'" :node="(selectedNode as RectShape)"/>
+            <component v-else :is="suportedPanels.get(selectedNode.tag)"  :node="selectedNode" ></component>
         </div>
 </template>
 
@@ -17,7 +14,13 @@ import RectPropertiesPanel from "./RectPropertiesPanel.vue";
 
 import { useNodeListStore } from '../stores/nodeListStore'
 import { storeToRefs } from "pinia";
-import type { RectShape, CircleShape, EllipseShape, LineShape } from "@/types";
+
+const suportedPanels = new Map()
+suportedPanels.set('Line', LinePropertiesPanel)
+suportedPanels.set('Rect', RectPropertiesPanel)
+suportedPanels.set('Circle', CirclePropertiesPanel)
+suportedPanels.set('Ellipse', EllipsePropertiesPanel)
+
 
 const nodeStore =  useNodeListStore()
 const { selectedNode } = storeToRefs(nodeStore)

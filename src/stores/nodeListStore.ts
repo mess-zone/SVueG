@@ -1,4 +1,4 @@
-import type { BoundingBoxType, LayoutNodeType } from "@/types";
+import type { BoundingBoxType, NodeShapeI } from "@/types";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { createRectShape } from "@/factories/RectShapeFactory";
@@ -102,15 +102,15 @@ const pathCurveShape = createPathShape({
 
 
 export const useNodeListStore = defineStore('nodeList', () => {
-    const nodeList = ref<LayoutNodeType[]>([])
+    const nodeList = ref<NodeShapeI[]>([])
 
-    const selectedNode = ref<LayoutNodeType>()
+    const selectedNode = ref<NodeShapeI>()
 
-    function addNode(node: LayoutNodeType) {
+    function addNode(node: NodeShapeI) {
         nodeList.value.push(node);
     }
 
-    function selectNode(node: LayoutNodeType) {
+    function selectNode(node: NodeShapeI) {
         selectedNode.value = node
     }
 
@@ -124,7 +124,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
     addNode(pathLineShape)
     addNode(pathCurveShape)
 
-    function isSelected(node: LayoutNodeType) {
+    function isSelected(node: NodeShapeI) {
         if(selectedNode.value) {
             if(selectedNode.value.id === node.id) {
                 return true
@@ -134,14 +134,14 @@ export const useNodeListStore = defineStore('nodeList', () => {
         return false
     }
 
-    function getSvgElement(node: LayoutNodeType | undefined) {
+    function getSvgElement(node: NodeShapeI | undefined) {
         if(node) {
             return document.querySelector(`[data-node-id='${node.id}']`) as SVGGraphicsElement
         }
         return undefined
     }
 
-    function getBoundingBox(node: LayoutNodeType | undefined) {
+    function getBoundingBox(node: NodeShapeI | undefined) {
         return getSvgElement(node)?.getBBox() as BoundingBoxType
     }
 

@@ -6,7 +6,7 @@
             <input
                 id="lineX1"
                 type="number"
-                v-model="node.start.x"
+                v-model="lineShape.start.x"
                 required
             />
         </div>
@@ -15,7 +15,7 @@
             <input
                 id="lineY1"
                 type="number"
-                v-model="node.start.y"
+                v-model="lineShape.start.y"
                 required
             />
         </div>
@@ -24,7 +24,7 @@
             <input
                 id="lineX2"
                 type="number"
-                v-model="node.end.x"
+                v-model="lineShape.end.x"
                 required
             />
         </div>
@@ -33,19 +33,21 @@
             <input
                 id="lineY2"
                 type="number"
-                v-model="node.end.y"
+                v-model="lineShape.end.y"
                 required
             />
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import type { LineShape } from '@/types';
+import type { LineShape, NodeShapeI } from '@/types';
 
 interface Props {
-  node: LineShape
+  node: NodeShapeI
 }
 
 const { node } = defineProps<Props>()
+
+const lineShape = node as LineShape
 
 </script>
