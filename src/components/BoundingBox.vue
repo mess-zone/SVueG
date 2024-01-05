@@ -8,7 +8,7 @@
   </g>
 </template>
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref, watch } from "vue";
 
 import { useNodeListStore } from '../stores/nodeListStore'
 import { storeToRefs } from 'pinia'
@@ -88,19 +88,19 @@ const bottomRight = ref<CircleShape>({
   strokeWidth: 0
 })
 
-watchEffect(() => {
-    selectedBoundingBox.value = getBoundingBox(selectedNode.value)
+watch(selectedNode, (node) => {
+  selectedBoundingBox.value = getBoundingBox(node)
 
-    if(selectedBoundingBox.value) {
-      rectShape.value.topLeft = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y };
-      rectShape.value.size = { x: selectedBoundingBox.value.width, y: selectedBoundingBox.value.height };
+  if(selectedBoundingBox.value) {
+    rectShape.value.topLeft = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y };
+    rectShape.value.size = { x: selectedBoundingBox.value.width, y: selectedBoundingBox.value.height };
 
-      topLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y }
-      topRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y }
-      
-      bottomLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y + selectedBoundingBox.value.height }
-      bottomRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y + selectedBoundingBox.value.height }
-    }
-})
+    topLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y }
+    topRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y }
+    
+    bottomLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y + selectedBoundingBox.value.height }
+    bottomRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y + selectedBoundingBox.value.height }
+  }
+}, { deep: true })
 
 </script>
