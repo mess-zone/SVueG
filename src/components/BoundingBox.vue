@@ -17,6 +17,7 @@ import Rect from "./basicShapes/Rect.vue";
 import Circle from "./basicShapes/Circle.vue";
 
 import { createRectShape } from "@/factories/RectShapeFactory";
+import { createCircleShape } from "@/factories/CircleShapeFactory";
 
 import { type BoundingBoxType, type RectShape } from "@/types";
 import { type CircleShape } from "@/types";
@@ -37,9 +38,7 @@ const rectShape = ref<RectShape>(createRectShape({
     strokeWidth: 2,
 }))
 
-const topLeft = ref<CircleShape>({
-  id: 'asuasuudsuad',
-  tag: 'Circle',
+const topLeft = ref<CircleShape>(createCircleShape({
   center: {
     x: 0,
     y: 0,
@@ -48,11 +47,9 @@ const topLeft = ref<CircleShape>({
   fill: "blue",
   stroke: "",
   strokeWidth: 0
-})
+}))
 
-const topRight = ref<CircleShape>({
-  id: 'asuasuudsuad2',
-  tag: 'Circle',
+const topRight = ref<CircleShape>(createCircleShape({
   center: {
     x: 0,
     y: 0,
@@ -61,11 +58,9 @@ const topRight = ref<CircleShape>({
   fill: "blue",
   stroke: "",
   strokeWidth: 0
-})
+}))
 
-const bottomLeft = ref<CircleShape>({
-  id: 'asuasuudsuad2',
-  tag: 'Circle',
+const bottomLeft = ref<CircleShape>(createCircleShape({
   center: {
     x: 0,
     y: 0,
@@ -74,11 +69,9 @@ const bottomLeft = ref<CircleShape>({
   fill: "blue",
   stroke: "",
   strokeWidth: 0
-})
+}))
 
-const bottomRight = ref<CircleShape>({
-  id: 'asuasuudsuad2',
-  tag: 'Circle',
+const bottomRight = ref<CircleShape>(createCircleShape({
   center: {
     x: 0,
     y: 0,
@@ -87,7 +80,7 @@ const bottomRight = ref<CircleShape>({
   fill: "blue",
   stroke: "",
   strokeWidth: 0
-})
+}))
 
 watch(selectedNode, (node) => {
   selectedBoundingBox.value = getBoundingBox(node)

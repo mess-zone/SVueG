@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { v4 as uuidv4 } from 'uuid';
 import { createRectShape } from "@/factories/RectShapeFactory";
+import { createCircleShape } from "@/factories/CircleShapeFactory";
 
 const rectShape = createRectShape({
     topLeft: { x: 30, y: 30 },
@@ -22,15 +23,13 @@ const rectShape2 = createRectShape({
     strokeWidth: 2,
 })
 
-const circleShape: CircleShape = {
-    id: uuidv4(),
-    tag: "Circle",
+const circleShape = createCircleShape({
     center: { x: 170, y: 47 },
     radius: 20,
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
-};
+})
 
 const ellipseShape: EllipseShape = {
     id: uuidv4(),

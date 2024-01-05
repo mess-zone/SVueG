@@ -40,11 +40,15 @@ export interface RectShape extends RectOptions {
     tag: string,
 }
 
-export interface CircleShape extends ShapeStyle {
-    id: string,
-    tag: string,
+
+export interface CircleOptions extends ShapeStyle {
     center: Point,
     radius: number,
+}
+
+export interface CircleShape extends CircleOptions {
+    id: string,
+    tag: string,
 }
 
 export interface EllipseShape extends ShapeStyle {
