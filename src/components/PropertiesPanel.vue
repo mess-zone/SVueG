@@ -1,7 +1,7 @@
 <template>
         <div class="panel">
             <CanvasPropertiesPanel v-if="!selectedNode" />
-            <component v-else :is="suportedPanels.get(selectedNode.tag)"  :node="selectedNode" ></component>
+            <component v-else :is="suportedPanels.get(selectedNode.tag)"  :node="selectedNode" :key="selectedNode.id" ></component>
         </div>
 </template>
 
