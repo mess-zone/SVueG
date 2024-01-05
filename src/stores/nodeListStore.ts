@@ -2,28 +2,25 @@ import type { BoundingBoxType, CircleShape, EllipseShape, LayoutNodeType, LineSh
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { v4 as uuidv4 } from 'uuid';
+import { createRectShape } from "@/factories/RectShapeFactory";
 
-const rectShape: RectShape = {
-    id: uuidv4(),
-    tag: "Rect",
+const rectShape = createRectShape({
     topLeft: { x: 30, y: 30 },
     size: { x: 100, y: 50 },
     round: { x: 0, y: 0 },
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
-};
+})
 
-const rectShape2: RectShape = {
-    id: uuidv4(),
-    tag: "Rect",
+const rectShape2 = createRectShape({
     topLeft: { x: 50, y: 60 },
     size: { x: 157, y: 200 },
     round: { x: 10, y: 10 },
     stroke: "black",
     fill: "gray",
     strokeWidth: 2,
-};
+})
 
 const circleShape: CircleShape = {
     id: uuidv4(),

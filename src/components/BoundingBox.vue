@@ -16,6 +16,8 @@ import { storeToRefs } from 'pinia'
 import Rect from "./basicShapes/Rect.vue";
 import Circle from "./basicShapes/Circle.vue";
 
+import { createRectShape } from "@/factories/RectShapeFactory";
+
 import { type BoundingBoxType, type RectShape } from "@/types";
 import { type CircleShape } from "@/types";
 
@@ -25,16 +27,15 @@ const { getBoundingBox } = nodeStore
 
 const selectedBoundingBox = ref<BoundingBoxType>()
 
-const rectShape = ref<RectShape>({
-    id: 'asuasuudsuad53454545',
-    tag: "Rect",
+
+const rectShape = ref<RectShape>(createRectShape({
     topLeft: { x: 0, y: 0 },
     size: { x: 0, y: 0 },
     round: { x: 0, y: 0 },
     stroke: "blue",
     fill: "transparent",
     strokeWidth: 2,
-})
+}))
 
 const topLeft = ref<CircleShape>({
   id: 'asuasuudsuad',

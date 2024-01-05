@@ -14,7 +14,6 @@ export interface ShapeStyle {
     strokeWidth: number,
 }
 
-
 // ############ PRIMITIVE SHAPES ##############
 
 export interface LineShape extends LineStyle {
@@ -30,13 +29,15 @@ export interface PolylineShape extends ShapeStyle {
     points: Point[],
 }
 
-
-export interface RectShape extends ShapeStyle {
-    id: string,
-    tag: string,
+export interface RectOptions extends ShapeStyle {
     topLeft: Point,
     size: Point,
     round: Point,
+}
+
+export interface RectShape extends RectOptions {
+    id: string,
+    tag: string,
 }
 
 export interface CircleShape extends ShapeStyle {
