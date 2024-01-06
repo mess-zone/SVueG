@@ -55,6 +55,15 @@
                 required
             />
         </div>
+        <div class="form-group">
+            <label for="rectRotation">rotation</label>
+            <input
+                id="rectRotation"
+                type="number"
+                v-model="rectShape.rotation"
+                required
+            />
+        </div>
     </div>
 </template>
 <script setup lang="ts">

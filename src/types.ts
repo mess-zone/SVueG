@@ -6,12 +6,14 @@ export type Point = {
 export interface LineStyle {
     stroke: string
     strokeWidth: number,
+    rotation: number,
 }
 
 export interface ShapeStyle {
     fill: string,
     stroke: string,
     strokeWidth: number,
+    rotation: number,
 }
 
 // ############ PRIMITIVE SHAPES ##############

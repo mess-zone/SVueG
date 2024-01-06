@@ -32,6 +32,7 @@ const rectShape = ref<RectShape>(createRectShape({
     topLeft: { x: 0, y: 0 },
     size: { x: 0, y: 0 },
     round: { x: 0, y: 0 },
+    rotation: 0,
     stroke: "blue",
     fill: "transparent",
     strokeWidth: 2,
@@ -43,6 +44,7 @@ const topLeft = ref<CircleShape>(createCircleShape({
     y: 0,
   },
   radius: 4,
+  rotation: 0,
   fill: "blue",
   stroke: "",
   strokeWidth: 0
@@ -54,6 +56,7 @@ const topRight = ref<CircleShape>(createCircleShape({
     y: 0,
   },
   radius: 4,
+  rotation: 0,
   fill: "blue",
   stroke: "",
   strokeWidth: 0
@@ -65,6 +68,7 @@ const bottomLeft = ref<CircleShape>(createCircleShape({
     y: 0,
   },
   radius: 4,
+  rotation: 0,
   fill: "blue",
   stroke: "",
   strokeWidth: 0
@@ -76,6 +80,7 @@ const bottomRight = ref<CircleShape>(createCircleShape({
     y: 0,
   },
   radius: 4,
+  rotation: 0,
   fill: "blue",
   stroke: "",
   strokeWidth: 0
