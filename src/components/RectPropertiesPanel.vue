@@ -60,7 +60,7 @@
             <input
                 id="rectRotation"
                 type="number"
-                v-model="rectShape.rotation"
+                v-model="rectShape.rotation.angle"
                 required
             />
         </div>

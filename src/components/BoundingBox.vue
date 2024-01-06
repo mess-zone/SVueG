@@ -32,7 +32,7 @@ const rectShape = ref<RectShape>(createRectShape({
     topLeft: { x: 0, y: 0 },
     size: { x: 0, y: 0 },
     round: { x: 0, y: 0 },
-    rotation: 0,
+    rotation: { angle: 0 },
     stroke: "blue",
     fill: "transparent",
     strokeWidth: 2,
@@ -44,7 +44,7 @@ const topLeft = ref<CircleShape>(createCircleShape({
     y: 0,
   },
   radius: 4,
-  rotation: 0,
+  rotation: { angle: 0 },
   fill: "blue",
   stroke: "",
   strokeWidth: 0
@@ -56,7 +56,7 @@ const topRight = ref<CircleShape>(createCircleShape({
     y: 0,
   },
   radius: 4,
-  rotation: 0,
+  rotation: { angle: 0 },
   fill: "blue",
   stroke: "",
   strokeWidth: 0
@@ -68,7 +68,7 @@ const bottomLeft = ref<CircleShape>(createCircleShape({
     y: 0,
   },
   radius: 4,
-  rotation: 0,
+  rotation: { angle: 0 },
   fill: "blue",
   stroke: "",
   strokeWidth: 0
@@ -80,7 +80,7 @@ const bottomRight = ref<CircleShape>(createCircleShape({
     y: 0,
   },
   radius: 4,
-  rotation: 0,
+  rotation: { angle: 0 },
   fill: "blue",
   stroke: "",
   strokeWidth: 0
@@ -92,7 +92,7 @@ watch(selectedNode, (node) => {
   if(selectedBoundingBox.value) {
     rectShape.value.topLeft = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y };
     rectShape.value.size = { x: selectedBoundingBox.value.width, y: selectedBoundingBox.value.height };
-    rectShape.value.rotation = (selectedNode.value as unknown as ShapeStyle)?.rotation || 0,
+    rectShape.value.rotation.angle = (selectedNode.value as unknown as ShapeStyle)?.rotation.angle || 0,
 
     topLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y }
     topRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y }

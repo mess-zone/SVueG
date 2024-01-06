@@ -3,19 +3,24 @@ export type Point = {
     y: number,
 }
 
+export type Rotation = {
+    angle: number,
+    origin?: Point,
+}
+
 export interface LineStyle {
     stroke: string
     strokeWidth: number,
 
-    rotation: number,
+    rotation: Rotation,
 }
 
 export interface ShapeStyle {
     fill: string,
     stroke: string,
     strokeWidth: number,
-    
-    rotation: number,
+
+    rotation: Rotation,
 }
 
 // ############ PRIMITIVE SHAPES ##############
