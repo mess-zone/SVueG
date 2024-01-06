@@ -1,8 +1,10 @@
 import type { NodeShapeI } from "@/types";
-import { reactive, watch, type Ref } from "vue";
+import { reactive, watch, type Ref, computed } from "vue";
 
 export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
 
+    const el = computed(() => getSvgElement(target.value) ) 
+    
     watch(target, () => {
         updateBB()
         // console.log('BB changed target', target.value, boundingBox)
@@ -23,10 +25,10 @@ export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
     }
 
     function updateBB() {
-        const el = getSvgElement(target.value)
+        // const el = getSvgElement(target.value)
 
-        if(el) {
-            const { x, y, width, height } = el.getBBox()
+        if(el.value) {
+            const { x, y, width, height } = el.value.getBBox()
             boundingBox.x = x
             boundingBox.y = y
             boundingBox.width = width
