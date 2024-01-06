@@ -28,6 +28,15 @@
                 required
             />
         </div>
+        <div class="form-group">
+            <label for="circleRotation">rotation</label>
+            <input
+                id="circleRotation"
+                type="number"
+                v-model="circleShape.rotation.angle"
+                required
+            />
+        </div>
     </div>
 </template>
 <script setup lang="ts">
