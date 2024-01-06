@@ -92,7 +92,12 @@ watch(selectedNode, (node) => {
   if(selectedBoundingBox.value) {
     rectShape.value.topLeft = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y };
     rectShape.value.size = { x: selectedBoundingBox.value.width, y: selectedBoundingBox.value.height };
-    rectShape.value.rotation.angle = (selectedNode.value as unknown as ShapeStyle)?.rotation.angle || 0,
+    
+    rectShape.value.rotation.origin = {
+      x: (selectedNode.value as unknown as ShapeStyle)?.rotation.origin?.x || 0,
+      y: (selectedNode.value as unknown as ShapeStyle)?.rotation.origin?.y || 0,
+    }
+    rectShape.value.rotation.angle = (selectedNode.value as unknown as ShapeStyle)?.rotation.angle || 0
 
     topLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y }
     topRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y }
