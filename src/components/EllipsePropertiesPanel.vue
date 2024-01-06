@@ -37,6 +37,15 @@
                 required
             />
         </div>
+        <div class="form-group">
+            <label for="ellipseRotation">rotation</label>
+            <input
+                id="ellipseRotation"
+                type="number"
+                v-model="ellipseShape.rotation.angle"
+                required
+            />
+        </div>
     </div>
 </template>
 <script setup lang="ts">
