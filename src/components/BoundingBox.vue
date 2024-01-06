@@ -19,7 +19,7 @@ import Circle from "./basicShapes/Circle.vue";
 import { createRectShape } from "@/factories/RectShapeFactory";
 import { createCircleShape } from "@/factories/CircleShapeFactory";
 
-import type { BoundingBoxType, RectShape, CircleShape } from "@/types";
+import type { BoundingBoxType, RectShape, CircleShape, Point } from "@/types";
 import type { ShapeStyle } from "@/types";
 
 const nodeStore =  useNodeListStore()
@@ -88,8 +88,14 @@ const bottomRight = ref<CircleShape>(createCircleShape({
 
 watch(selectedNode, (node) => {
   selectedBoundingBox.value = getBoundingBox(node)
+  const shapeCenter: Point = {
+    x: selectedBoundingBox.value.x + selectedBoundingBox.value.width/2,
+    y: selectedBoundingBox.value.y + selectedBoundingBox.value.height/2,
+  }
 
   if(selectedBoundingBox.value) {
+    const nodeRotationAngle = (selectedNode.value as unknown as ShapeStyle)?.rotation.angle || 0
+
     rectShape.value.topLeft = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y };
     rectShape.value.size = { x: selectedBoundingBox.value.width, y: selectedBoundingBox.value.height };
     
@@ -97,13 +103,23 @@ watch(selectedNode, (node) => {
       x: (selectedNode.value as unknown as ShapeStyle)?.rotation.origin?.x || 0,
       y: (selectedNode.value as unknown as ShapeStyle)?.rotation.origin?.y || 0,
     }
-    rectShape.value.rotation.angle = (selectedNode.value as unknown as ShapeStyle)?.rotation.angle || 0
+    rectShape.value.rotation.angle = nodeRotationAngle
 
     topLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y }
+    topLeft.value.rotation.origin = shapeCenter
+    topLeft.value.rotation.angle = nodeRotationAngle
+
     topRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y }
-    
+    topRight.value.rotation.origin = shapeCenter
+    topRight.value.rotation.angle = nodeRotationAngle
+
     bottomLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y + selectedBoundingBox.value.height }
+    bottomLeft.value.rotation.origin = shapeCenter
+    bottomLeft.value.rotation.angle = nodeRotationAngle
+
     bottomRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y + selectedBoundingBox.value.height }
+    bottomRight.value.rotation.origin = shapeCenter
+    bottomRight.value.rotation.angle = nodeRotationAngle
   }
 }, { deep: true })
 
