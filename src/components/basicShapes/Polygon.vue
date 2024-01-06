@@ -5,6 +5,7 @@
         :stroke="shape.stroke"
         :fill="shape.fill"
         :stroke-width="shape.strokeWidth"
+        :transform="`rotate(${shape.rotation.angle}, ${origin.x}, ${origin.y})`"
     />
 </template>
 <script setup lang="ts">
@@ -20,4 +21,12 @@ const { shape } = defineProps<Props>();
 const stringPoints = computed(() => {
     return shape.points.map(point => `${point.x}, ${point.y}`).join(' ')
 })
+
+const origin = computed(() => {
+  return {
+    x: shape.rotation.origin?.x || 0,
+    y: shape.rotation.origin?.y || 0,
+  }
+})
+
 </script>
