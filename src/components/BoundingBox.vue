@@ -20,13 +20,13 @@ import { createRectShape } from "@/factories/RectShapeFactory";
 import { createCircleShape } from "@/factories/CircleShapeFactory";
 
 import type { BoundingBoxType, RectShape, CircleShape } from "@/types";
+import type { ShapeStyle } from "@/types";
 
 const nodeStore =  useNodeListStore()
 const { selectedNode } = storeToRefs(nodeStore)
 const { getBoundingBox } = nodeStore
 
 const selectedBoundingBox = ref<BoundingBoxType>()
-
 
 const rectShape = ref<RectShape>(createRectShape({
     topLeft: { x: 0, y: 0 },
@@ -92,6 +92,7 @@ watch(selectedNode, (node) => {
   if(selectedBoundingBox.value) {
     rectShape.value.topLeft = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y };
     rectShape.value.size = { x: selectedBoundingBox.value.width, y: selectedBoundingBox.value.height };
+    rectShape.value.rotation = (selectedNode.value as unknown as ShapeStyle)?.rotation || 0,
 
     topLeft.value.center = { x: selectedBoundingBox.value.x, y: selectedBoundingBox.value.y }
     topRight.value.center = { x: selectedBoundingBox.value.x + selectedBoundingBox.value.width, y: selectedBoundingBox.value.y }
