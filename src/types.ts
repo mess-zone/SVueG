@@ -5,7 +5,7 @@ export type Point = {
 
 export type Rotation = {
     angle: number,
-    origin?: Point,
+    origin: Point,
 }
 
 export interface LineStyle {

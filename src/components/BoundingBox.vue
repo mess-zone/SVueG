@@ -33,7 +33,7 @@ const rectShape = ref<RectShape>(
         topLeft: { x: 0, y: 0 },
         size: { x: 0, y: 0 },
         round: { x: 0, y: 0 },
-        rotation: { angle: 0 },
+        rotation: { angle: 0, origin: { x: 0, y: 0 } },
         stroke: "blue",
         fill: "transparent",
         strokeWidth: 2,
@@ -47,7 +47,7 @@ const topLeft = ref<CircleShape>(
             y: 0,
         },
         radius: 4,
-        rotation: { angle: 0 },
+        rotation: { angle: 0, origin: { x: 0, y: 0 } },
         fill: "blue",
         stroke: "",
         strokeWidth: 0,
@@ -61,7 +61,7 @@ const topRight = ref<CircleShape>(
             y: 0,
         },
         radius: 4,
-        rotation: { angle: 0 },
+        rotation: { angle: 0, origin: { x: 0, y: 0 } },
         fill: "blue",
         stroke: "",
         strokeWidth: 0,
@@ -75,7 +75,7 @@ const bottomLeft = ref<CircleShape>(
             y: 0,
         },
         radius: 4,
-        rotation: { angle: 0 },
+        rotation: { angle: 0, origin: { x: 0, y: 0 } },
         fill: "blue",
         stroke: "",
         strokeWidth: 0,
@@ -89,7 +89,7 @@ const bottomRight = ref<CircleShape>(
             y: 0,
         },
         radius: 4,
-        rotation: { angle: 0 },
+        rotation: { angle: 0, origin: { x: 0, y: 0 } },
         fill: "blue",
         stroke: "",
         strokeWidth: 0,
@@ -97,10 +97,10 @@ const bottomRight = ref<CircleShape>(
 );
 
 watchEffect(() => {
-    const shapeCenter: Point = {
-        x: selectedBoundingBox.value.x + selectedBoundingBox.value.width / 2,
-        y: selectedBoundingBox.value.y + selectedBoundingBox.value.height / 2,
-    };
+    const shapeCenter = ref({
+        x: selectedBoundingBox.value.x + (selectedBoundingBox.value.width / 2),
+        y: selectedBoundingBox.value.y + (selectedBoundingBox.value.height / 2),
+    });
 
     console.log("BB selectedBoundBox", selectedBoundingBox.value, shapeCenter);
 
@@ -117,42 +117,35 @@ watchEffect(() => {
             y: selectedBoundingBox.value.height,
         };
 
-        rectShape.value.rotation.origin = {
-            x:
-                (selectedNode.value as unknown as ShapeStyle)?.rotation.origin
-                    ?.x || 0,
-            y:
-                (selectedNode.value as unknown as ShapeStyle)?.rotation.origin
-                    ?.y || 0,
-        };
+        rectShape.value.rotation.origin = shapeCenter.value
         rectShape.value.rotation.angle = nodeRotationAngle;
 
         topLeft.value.center = {
             x: selectedBoundingBox.value.x,
             y: selectedBoundingBox.value.y,
         };
-        topLeft.value.rotation.origin = shapeCenter;
+        topLeft.value.rotation.origin = shapeCenter.value;
         topLeft.value.rotation.angle = nodeRotationAngle;
 
         topRight.value.center = {
             x: selectedBoundingBox.value.x + selectedBoundingBox.value.width,
             y: selectedBoundingBox.value.y,
         };
-        topRight.value.rotation.origin = shapeCenter;
+        topRight.value.rotation.origin = shapeCenter.value;
         topRight.value.rotation.angle = nodeRotationAngle;
 
         bottomLeft.value.center = {
             x: selectedBoundingBox.value.x,
             y: selectedBoundingBox.value.y + selectedBoundingBox.value.height,
         };
-        bottomLeft.value.rotation.origin = shapeCenter;
+        bottomLeft.value.rotation.origin = shapeCenter.value;
         bottomLeft.value.rotation.angle = nodeRotationAngle;
 
         bottomRight.value.center = {
             x: selectedBoundingBox.value.x + selectedBoundingBox.value.width,
             y: selectedBoundingBox.value.y + selectedBoundingBox.value.height,
         };
-        bottomRight.value.rotation.origin = shapeCenter;
+        bottomRight.value.rotation.origin = shapeCenter.value;
         bottomRight.value.rotation.angle = nodeRotationAngle;
     }
 });

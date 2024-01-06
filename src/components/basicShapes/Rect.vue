@@ -10,7 +10,7 @@
         :stroke="shape.stroke"
         :fill="shape.fill"
         :stroke-width="shape.strokeWidth"
-        :transform="`rotate(${shape.rotation.angle}, ${origin.x}, ${origin.y})`"
+        :transform="`rotate(${shape.rotation.angle}, ${shape.rotation.origin.x}, ${shape.rotation.origin.y})`"
     />
 </template>
 <script setup lang="ts">
@@ -25,8 +25,8 @@ const { shape } = defineProps<Props>();
 
 const origin = computed(() => {
   return {
-    x: shape.rotation.origin?.x || shape.topLeft.x + (shape.size.x)/2,
-    y: shape.rotation.origin?.y || shape.topLeft.y + (shape.size.y)/2,
+    x: shape.rotation.origin.x || shape.topLeft.x + (shape.size.x)/2,
+    y: shape.rotation.origin.y || shape.topLeft.y + (shape.size.y)/2,
   }
 })
 </script>
