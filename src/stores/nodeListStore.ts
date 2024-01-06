@@ -1,6 +1,6 @@
 import type { BoundingBoxType, NodeShapeI } from "@/types";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { createRectShape } from "@/factories/RectShapeFactory";
 import { createCircleShape } from "@/factories/CircleShapeFactory";
 import { createEllipseShape } from "@/factories/EllipseShapeFactory";
@@ -8,6 +8,7 @@ import { createLineShape } from "@/factories/LineShapeFactory";
 import { createPolylineShape } from "@/factories/PolylineShapeFactory";
 import { createPolygonShape } from "@/factories/PolygonShapeFactory";
 import { createPathShape } from "@/factories/PathShapeFactory";
+import { useSVGBounding } from "@/composables/useSVGBounding";
 
 const rectShape = createRectShape({
     topLeft: { x: 30, y: 30 },
@@ -143,17 +144,22 @@ export const useNodeListStore = defineStore('nodeList', () => {
         return false
     }
 
-    function getSvgElement(node: NodeShapeI | undefined) {
-        if(node) {
-            return document.querySelector(`[data-node-id='${node.id}']`) as SVGGraphicsElement
-        }
-        return undefined
-    }
+    // function getSvgElement(node: NodeShapeI | undefined) {
+    //     if(node) {
+    //         return document.querySelector(`[data-node-id='${node.id}']`) as SVGGraphicsElement
+    //     }
+    //     return undefined
+    // }
 
-    function getBoundingBox(node: NodeShapeI | undefined) {
-        return getSvgElement(node)?.getBBox() as BoundingBoxType
-    }
+    // function getBoundingBox(node: NodeShapeI | undefined) {
+    //     return getSvgElement(node)?.getBBox() as BoundingBoxType
+    // }
 
+    const { boundingBox: selectedBB } = useSVGBounding(selectedNode)
+
+    // watch(selectedNode, () => {
+    //     // console.log('NODELIST', selectedNode.value, selectedBB)
+    // }, { deep: true })
 
     return {
         nodeList,
@@ -161,7 +167,9 @@ export const useNodeListStore = defineStore('nodeList', () => {
         selectedNode,
         selectNode,
         isSelected,
-        getSvgElement,
-        getBoundingBox,
+        // getSvgElement,
+        // getBoundingBox,
+
+        selectedBB
     }
 })
