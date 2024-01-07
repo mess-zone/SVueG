@@ -16,6 +16,13 @@ export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
         width: 0,
         height: 0,
     })  
+
+    const center = computed(() => {
+        return {
+          x: boundingBox.x + (boundingBox.width/2),
+          y: boundingBox.y + (boundingBox.height/2),
+        }
+    })
     
     function getSvgElement(node: NodeShapeI | undefined) {
         if(node) {
@@ -38,6 +45,7 @@ export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
 
     
     return {
-        boundingBox
+        boundingBox,
+        center,
     }
 }

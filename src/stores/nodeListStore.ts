@@ -14,7 +14,7 @@ const rectShape = createRectShape({
     topLeft: { x: 30, y: 30 },
     size: { x: 100, y: 50 },
     round: { x: 0, y: 0 },
-    rotation: { angle: 0, origin: { x: 80 , y: 55 } },
+    rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
@@ -24,7 +24,7 @@ const rectShape2 = createRectShape({
     topLeft: { x: 50, y: 60 },
     size: { x: 157, y: 200 },
     round: { x: 10, y: 10 },
-    rotation: { angle: 0, origin: { x: 128.5 , y: 160 } },
+    rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
     stroke: "black",
     fill: "gray",
     strokeWidth: 2,
@@ -155,7 +155,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
     //     return getSvgElement(node)?.getBBox() as BoundingBoxType
     // }
 
-    const { boundingBox: selectedBB } = useSVGBounding(selectedNode)
+    const { boundingBox: selectedBB, center: selectedCenter } = useSVGBounding(selectedNode)
 
     // watch(selectedNode, () => {
     //     // console.log('NODELIST', selectedNode.value, selectedBB)
@@ -170,6 +170,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
         // getSvgElement,
         // getBoundingBox,
 
-        selectedBB
+        selectedBB,
+        selectedCenter,
     }
 })

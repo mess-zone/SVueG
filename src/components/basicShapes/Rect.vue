@@ -10,12 +10,13 @@
         :stroke="shape.stroke"
         :fill="shape.fill"
         :stroke-width="shape.strokeWidth"
-        :transform="`rotate(${shape.rotation.angle}, ${shape.rotation.origin.x}, ${shape.rotation.origin.y})`"
+        :transform="`rotate(${shape.rotation.angle}, ${origin.x}, ${origin.y})`"
     />
 </template>
 <script setup lang="ts">
-import { type RectShape } from "@/types";
-import { computed } from "vue";
+import { useSVGBounding } from "@/composables/useSVGBounding";
+import { type NodeShapeI, type RectShape } from "@/types";
+import { computed, ref } from "vue";
 
 interface Props {
   shape: RectShape,
@@ -23,10 +24,14 @@ interface Props {
 
 const { shape } = defineProps<Props>();
 
+const node = ref(shape as NodeShapeI);
+
+const { center } = useSVGBounding(node)
+
 const origin = computed(() => {
   return {
-    x: shape.rotation.origin.x || shape.topLeft.x + (shape.size.x)/2,
-    y: shape.rotation.origin.y || shape.topLeft.y + (shape.size.y)/2,
+    x: shape.rotation.origin.x == 'auto' ? center.value.x : shape.rotation.origin.x,
+    y: shape.rotation.origin.y == 'auto' ? center.value.y : shape.rotation.origin.y,
   }
 })
 </script>

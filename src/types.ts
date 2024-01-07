@@ -3,9 +3,14 @@ export type Point = {
     y: number,
 }
 
+export type RotationPoint = {
+    x: number | 'auto',
+    y: number | 'auto',
+}
+
 export type Rotation = {
     angle: number,
-    origin: Point,
+    origin: RotationPoint,
 }
 
 export interface LineStyle {
