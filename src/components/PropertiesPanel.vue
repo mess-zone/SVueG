@@ -13,6 +13,7 @@ import EllipsePropertiesPanel from "./EllipsePropertiesPanel.vue";
 import CirclePropertiesPanel from "./CirclePropertiesPanel.vue";
 import RectPropertiesPanel from "./RectPropertiesPanel.vue";
 import PolygonPropertiesPanel from "./PolygonPropertiesPanel.vue";
+import PathPropertiesPanel from "./PathPropertiesPanel.vue";
 
 import { useNodeListStore } from '../stores/nodeListStore'
 import { storeToRefs } from "pinia";
@@ -24,6 +25,7 @@ supportedPanels.set('Rect', RectPropertiesPanel)
 supportedPanels.set('Circle', CirclePropertiesPanel)
 supportedPanels.set('Ellipse', EllipsePropertiesPanel)
 supportedPanels.set('Polygon', PolygonPropertiesPanel)
+supportedPanels.set('Path', PathPropertiesPanel)
 
 
 const nodeStore =  useNodeListStore()
