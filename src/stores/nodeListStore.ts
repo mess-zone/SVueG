@@ -33,7 +33,7 @@ const rectShape2 = createRectShape({
 const circleShape = createCircleShape({
     center: { x: 170, y: 47 },
     radius: 20,
-    rotation: { angle: 0, origin: { x: 170, y: 47 } },
+    rotation: { angle: 0, origin: { x: 'auto', y: 'auto' } },
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
