@@ -37,6 +37,15 @@
                 required
             />
         </div>
+        <div class="form-group">
+            <label for="lineRotation">rotation</label>
+            <input
+                id="lineRotation"
+                type="number"
+                v-model="lineShape.rotation.angle"
+                required
+            />
+        </div>
     </div>
 </template>
 <script setup lang="ts">

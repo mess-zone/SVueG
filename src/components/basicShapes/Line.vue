@@ -7,14 +7,21 @@
         :y2="shape.end.y"
         :stroke="shape.stroke"
         :stroke-width="shape.strokeWidth"
+        :transform="`rotate(${shape.rotation.angle}, ${origin.x}, ${origin.y})`"
     />
 </template>
 <script setup lang="ts">
-import { type LineShape } from '@/types'
+import { useSVGBounding } from "@/composables/useSVGBounding";
+import { type LineShape, type NodeShapeI } from '@/types'
+import { ref } from 'vue';
 
 interface Props {
     shape: LineShape,
 }
 
 const { shape } = defineProps<Props>();
+
+const node = ref(shape as NodeShapeI);
+
+const { origin } = useSVGBounding(node)
 </script>

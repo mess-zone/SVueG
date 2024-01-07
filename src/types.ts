@@ -13,12 +13,12 @@ export type Rotation = {
     origin: RotationPoint,
 }
 
-export interface LineStyle {
-    stroke: string
-    strokeWidth: number,
+// export interface LineStyle {
+//     stroke: string
+//     strokeWidth: number,
 
-    rotation: Rotation,
-}
+//     rotation: Rotation,
+// }
 
 export interface ShapeStyle {
     fill: string,
@@ -30,7 +30,7 @@ export interface ShapeStyle {
 
 // ############ PRIMITIVE SHAPES ##############
 
-export interface LineOptions extends LineStyle {
+export interface LineOptions extends ShapeStyle {
     start: Point,
     end: Point,
 }
