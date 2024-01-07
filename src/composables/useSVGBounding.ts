@@ -1,4 +1,4 @@
-import type { NodeShapeI } from "@/types";
+import type { NodeShapeI, ShapeStyle } from "@/types";
 import { reactive, watch, type Ref, computed } from "vue";
 
 export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
@@ -23,6 +23,20 @@ export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
           y: boundingBox.y + (boundingBox.height/2),
         }
     })
+
+    const shapeStyle = computed(() => {
+        return target.value as unknown as ShapeStyle
+    })
+
+    const origin = computed(() => {
+        if(shapeStyle) {
+            return {
+              x: shapeStyle.value.rotation.origin.x == 'auto' ? center.value.x : shapeStyle.value.rotation.origin.x,
+              y: shapeStyle.value.rotation.origin.y == 'auto' ? center.value.y : shapeStyle.value.rotation.origin.y,
+            }
+        }
+        return { x: 0, y: 0 }
+      })
     
     function getSvgElement(node: NodeShapeI | undefined) {
         if(node) {
@@ -47,5 +61,6 @@ export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
     return {
         boundingBox,
         center,
+        origin,
     }
 }

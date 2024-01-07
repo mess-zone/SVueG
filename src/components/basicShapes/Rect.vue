@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { useSVGBounding } from "@/composables/useSVGBounding";
 import { type NodeShapeI, type RectShape } from "@/types";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 interface Props {
   shape: RectShape,
@@ -26,12 +26,6 @@ const { shape } = defineProps<Props>();
 
 const node = ref(shape as NodeShapeI);
 
-const { center } = useSVGBounding(node)
+const { origin } = useSVGBounding(node)
 
-const origin = computed(() => {
-  return {
-    x: shape.rotation.origin.x == 'auto' ? center.value.x : shape.rotation.origin.x,
-    y: shape.rotation.origin.y == 'auto' ? center.value.y : shape.rotation.origin.y,
-  }
-})
 </script>

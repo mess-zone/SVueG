@@ -155,7 +155,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
     //     return getSvgElement(node)?.getBBox() as BoundingBoxType
     // }
 
-    const { boundingBox: selectedBB, center: selectedCenter } = useSVGBounding(selectedNode)
+    const { boundingBox: selectedBB, center: selectedCenter, origin: selectedOrigin } = useSVGBounding(selectedNode)
 
     // watch(selectedNode, () => {
     //     // console.log('NODELIST', selectedNode.value, selectedBB)
@@ -172,5 +172,6 @@ export const useNodeListStore = defineStore('nodeList', () => {
 
         selectedBB,
         selectedCenter,
+        selectedOrigin,
     }
 })

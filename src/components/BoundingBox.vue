@@ -23,7 +23,7 @@ import type { RectShape, CircleShape } from "@/types";
 import type { ShapeStyle } from "@/types";
 
 const nodeStore = useNodeListStore();
-const { selectedNode, selectedBB: selectedBoundingBox, selectedCenter } =
+const { selectedNode, selectedBB: selectedBoundingBox, selectedOrigin } =
     storeToRefs(nodeStore);
 
 const rectShape = ref<RectShape>(
@@ -103,11 +103,6 @@ watchEffect(() => {
         if (selectedBoundingBox.value) {
             const nodeRotationAngle = shapeStyle.rotation.angle || 0;
     
-            const origin = {
-                x: shapeStyle.rotation.origin.x == 'auto' ? selectedCenter.value.x : shapeStyle.rotation.origin.x,
-                y: shapeStyle.rotation.origin.y == 'auto' ? selectedCenter.value.y : shapeStyle.rotation.origin.y,
-            }
-    
             rectShape.value.topLeft = {
                 x: selectedBoundingBox.value.x,
                 y: selectedBoundingBox.value.y,
@@ -117,35 +112,35 @@ watchEffect(() => {
                 y: selectedBoundingBox.value.height,
             };
     
-            rectShape.value.rotation.origin = origin
+            rectShape.value.rotation.origin = selectedOrigin.value
             rectShape.value.rotation.angle = nodeRotationAngle;
     
             topLeft.value.center = {
                 x: selectedBoundingBox.value.x,
                 y: selectedBoundingBox.value.y,
             };
-            topLeft.value.rotation.origin = origin;
+            topLeft.value.rotation.origin = selectedOrigin.value;
             topLeft.value.rotation.angle = nodeRotationAngle;
     
             topRight.value.center = {
                 x: selectedBoundingBox.value.x + selectedBoundingBox.value.width,
                 y: selectedBoundingBox.value.y,
             };
-            topRight.value.rotation.origin = origin;
+            topRight.value.rotation.origin = selectedOrigin.value;
             topRight.value.rotation.angle = nodeRotationAngle;
     
             bottomLeft.value.center = {
                 x: selectedBoundingBox.value.x,
                 y: selectedBoundingBox.value.y + selectedBoundingBox.value.height,
             };
-            bottomLeft.value.rotation.origin = origin;
+            bottomLeft.value.rotation.origin = selectedOrigin.value;
             bottomLeft.value.rotation.angle = nodeRotationAngle;
     
             bottomRight.value.center = {
                 x: selectedBoundingBox.value.x + selectedBoundingBox.value.width,
                 y: selectedBoundingBox.value.y + selectedBoundingBox.value.height,
             };
-            bottomRight.value.rotation.origin = origin;
+            bottomRight.value.rotation.origin = selectedOrigin.value;
             bottomRight.value.rotation.angle = nodeRotationAngle;
         }
     }
