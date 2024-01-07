@@ -8,12 +8,13 @@
         :stroke="shape.stroke"
         :fill="shape.fill"
         :stroke-width="shape.strokeWidth"
-        :transform="`rotate(${shape.rotation.angle}, ${shape.rotation.origin.x}, ${shape.rotation.origin.y})`"
+        :transform="`rotate(${shape.rotation.angle}, ${origin.x}, ${origin.y})`"
     />
 </template>
 <script setup lang="ts">
-import type { EllipseShape } from '@/types';
-import { computed } from 'vue';
+import { useSVGBounding } from "@/composables/useSVGBounding";
+import type { EllipseShape, NodeShapeI } from '@/types';
+import { ref } from 'vue';
 
 interface Props {
   shape: EllipseShape,
@@ -21,10 +22,7 @@ interface Props {
 
 const { shape } = defineProps<Props>();
 
-// const origin = computed(() => {
-//   return {
-//     x: shape.rotation.origin?.x || shape.center.x,
-//     y: shape.rotation.origin?.y || shape.center.y,
-//   }
-// })
+const node = ref(shape as NodeShapeI);
+
+const { origin } = useSVGBounding(node)
 </script>

@@ -42,7 +42,7 @@ const circleShape = createCircleShape({
 const ellipseShape = createEllipseShape({
     center: { x: 245, y: 47 },
     radius: { x: 20, y: 30 },
-    rotation: { angle: 0, origin: { x: 245, y: 47 } },
+    rotation: { angle: 0, origin: { x: 'auto', y: 'auto' } },
     stroke: "black",
     fill: "transparent",
     strokeWidth: 5,
