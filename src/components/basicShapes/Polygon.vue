@@ -5,12 +5,13 @@
         :stroke="shape.stroke"
         :fill="shape.fill"
         :stroke-width="shape.strokeWidth"
-        :transform="`rotate(${shape.rotation.angle}, ${shape.rotation.origin.x}, ${shape.rotation.origin.y})`"
+        :transform="`rotate(${shape.rotation.angle}, ${origin.x}, ${origin.y})`"
     />
 </template>
 <script setup lang="ts">
-import { type PolygonShape } from '@/types'
-import { computed } from 'vue';
+import { useSVGBounding } from "@/composables/useSVGBounding";
+import { type NodeShapeI, type PolygonShape } from '@/types'
+import { computed, ref } from 'vue';
 
 interface Props {
     shape: PolygonShape,
@@ -22,11 +23,8 @@ const stringPoints = computed(() => {
     return shape.points.map(point => `${point.x}, ${point.y}`).join(' ')
 })
 
-// const origin = computed(() => {
-//   return {
-//     x: shape.rotation.origin?.x || 0,
-//     y: shape.rotation.origin?.y || 0,
-//   }
-// })
+const node = ref(shape as NodeShapeI);
+
+const { origin } = useSVGBounding(node)
 
 </script>

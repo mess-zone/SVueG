@@ -77,7 +77,7 @@ const polygonShape = createPolygonShape({
         { x: 200, y: 300 },
         { x: 150, y: 350 },
     ],
-    rotation: { angle: 0, origin: { x: 137.5 , y: 265 } },
+    rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
     stroke: "orange",
     strokeWidth: 5,
     fill: "blue",
