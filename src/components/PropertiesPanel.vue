@@ -8,6 +8,7 @@
 <script setup lang="ts">
 import CanvasPropertiesPanel from "./CanvasPropertiesPanel.vue";
 import LinePropertiesPanel from "./LinePropertiesPanel.vue";
+import PolylinePropertiesPanel from "./PolylinePropertiesPanel.vue";
 import EllipsePropertiesPanel from "./EllipsePropertiesPanel.vue";
 import CirclePropertiesPanel from "./CirclePropertiesPanel.vue";
 import RectPropertiesPanel from "./RectPropertiesPanel.vue";
@@ -18,6 +19,7 @@ import { storeToRefs } from "pinia";
 
 const supportedPanels = new Map()
 supportedPanels.set('Line', LinePropertiesPanel)
+supportedPanels.set('Polyline', PolylinePropertiesPanel)
 supportedPanels.set('Rect', RectPropertiesPanel)
 supportedPanels.set('Circle', CirclePropertiesPanel)
 supportedPanels.set('Ellipse', EllipsePropertiesPanel)

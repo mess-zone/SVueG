@@ -64,7 +64,7 @@ const polylineShape = createPolylineShape({
         { x: 250, y: 200 },
         { x: 200, y: 250 },
     ],
-    rotation: { angle: 0, origin: { x: 187.5, y: 165 } },
+    rotation: { angle: 0, origin: { x: 'auto', y: 'auto' } },
     stroke: "black",
     strokeWidth: 5,
     fill: "transparent",
