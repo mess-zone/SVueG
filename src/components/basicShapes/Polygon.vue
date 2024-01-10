@@ -14,17 +14,17 @@ import { type NodeShapeI, type PolygonShape } from '@/types'
 import { computed, ref } from 'vue';
 
 interface Props {
-    shape: PolygonShape,
+    node: NodeShapeI,
 }
 
-const { shape } = defineProps<Props>();
+const { node } = defineProps<Props>();
+
+const shape = ref(node as PolygonShape);
 
 const stringPoints = computed(() => {
-    return shape.points.map(point => `${point.x}, ${point.y}`).join(' ')
+    return shape.value.points.map(point => `${point.x}, ${point.y}`).join(' ')
 })
 
-const node = ref(shape as NodeShapeI);
-
-const { origin } = useSVGBounding(node)
+const { origin } = useSVGBounding(shape)
 
 </script>

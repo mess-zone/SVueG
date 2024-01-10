@@ -17,12 +17,12 @@ import type { EllipseShape, NodeShapeI } from '@/types';
 import { ref } from 'vue';
 
 interface Props {
-  shape: EllipseShape,
+  node: NodeShapeI,
 }
 
-const { shape } = defineProps<Props>();
+const { node } = defineProps<Props>();
 
-const node = ref(shape as NodeShapeI);
+const shape = ref(node as EllipseShape);
 
-const { origin } = useSVGBounding(node)
+const { origin } = useSVGBounding(shape)
 </script>

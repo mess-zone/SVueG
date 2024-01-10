@@ -14,16 +14,16 @@ import { type NodeShapeI, type PolylineShape } from '@/types'
 import { computed, ref } from 'vue';
 
 interface Props {
-    shape: PolylineShape,
+    node: NodeShapeI,
 }
 
-const { shape } = defineProps<Props>();
+const { node } = defineProps<Props>();
+
+const shape = ref(node as PolylineShape);
 
 const stringPoints = computed(() => {
-    return shape.points.map(point => `${point.x}, ${point.y}`).join(' ')
+    return shape.value.points.map(point => `${point.x}, ${point.y}`).join(' ')
 })
 
-const node = ref(shape as NodeShapeI);
-
-const { origin } = useSVGBounding(node)
+const { origin } = useSVGBounding(shape)
 </script>

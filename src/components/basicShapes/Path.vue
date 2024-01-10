@@ -14,16 +14,16 @@ import { type NodeShapeI, type PathShape } from '@/types'
 import { computed, ref } from 'vue';
 
 interface Props {
-    shape: PathShape,
+    node: NodeShapeI,
 }
 
-const { shape } = defineProps<Props>();
+const { node } = defineProps<Props>();
+
+const shape = ref(node as PathShape);
 
 const stringCommands = computed(() => {
-    return shape.commands.map(command => `${command.letter} ${command.args?.join(' ') || '' }`).join(' ')
+    return shape.value.commands.map(command => `${command.letter} ${command.args?.join(' ') || '' }`).join(' ')
 })
 
-const node = ref(shape as NodeShapeI);
-
-const { origin } = useSVGBounding(node)
+const { origin } = useSVGBounding(shape)
 </script>

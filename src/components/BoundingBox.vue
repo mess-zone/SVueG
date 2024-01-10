@@ -1,10 +1,10 @@
 <template>
     <g v-if="selectedNode">
-        <Rect :shape="rectShape" />
-        <Circle :shape="topLeft" />
-        <Circle :shape="topRight" />
-        <Circle :shape="bottomLeft" />
-        <Circle :shape="bottomRight" />
+        <Rect :node="rectShape" />
+        <Circle :node="topLeft" />
+        <Circle :node="topRight" />
+        <Circle :node="bottomLeft" />
+        <Circle :node="bottomRight" />
     </g>
 </template>
 <script setup lang="ts">

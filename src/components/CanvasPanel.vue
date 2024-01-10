@@ -12,7 +12,7 @@
             v-for="node in nodeList"
             :key="node.id"
             :is="supportedShapes.get(node.tag)"
-            :shape="node"
+            :node="node"
         />
 
         <BoundingBox /> 

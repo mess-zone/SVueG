@@ -19,13 +19,13 @@ import { type NodeShapeI, type RectShape } from "@/types";
 import { ref } from "vue";
 
 interface Props {
-  shape: RectShape,
+  node: NodeShapeI,
 }
 
-const { shape } = defineProps<Props>();
+const { node } = defineProps<Props>();
 
-const node = ref(shape as NodeShapeI);
+const shape = ref(node as RectShape);
 
-const { origin } = useSVGBounding(node)
+const { origin } = useSVGBounding(shape)
 
 </script>
