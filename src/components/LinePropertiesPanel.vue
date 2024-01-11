@@ -1,12 +1,12 @@
 <template>
     <div class="section">
-        <h1>Line</h1>
+        <h1>Line</h1> {{  boundingBox }} {{ origin }} {{ center }}
         <div class="form-group">
             <label for="linePositionX">x</label>
             <input
                 id="linePositionX"
                 type="number"
-                v-model="positionInput.x"
+                v-model="positionXInput"
                 required
             />
         </div>
@@ -15,7 +15,7 @@
             <input
                 id="linePositionY"
                 type="number"
-                v-model="positionInput.y"
+                v-model="positionYInput"
                 required
             />
         </div>
@@ -24,7 +24,7 @@
             <input
                 id="lineX1"
                 type="number"
-                v-model="startInput.x"
+                v-model="startInputX"
                 required
             />
         </div>
@@ -33,7 +33,7 @@
             <input
                 id="lineY1"
                 type="number"
-                v-model="startInput.y"
+                v-model="startInputY"
                 required
             />
         </div>
@@ -42,7 +42,7 @@
             <input
                 id="lineX2"
                 type="number"
-                v-model="endInput.x"
+                v-model="endInputX"
                 required
             />
         </div>
@@ -51,7 +51,7 @@
             <input
                 id="lineY2"
                 type="number"
-                v-model="endInput.y"
+                v-model="endInputY"
                 required
             />
         </div>
@@ -67,8 +67,9 @@
     </div>
 </template>
 <script setup lang="ts">
+import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { LineShape, NodeShapeI } from '@/types';
-import { ref, watch, watchEffect } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 
 interface Props {
   node: NodeShapeI
@@ -76,29 +77,73 @@ interface Props {
 
 const { node } = defineProps<Props>()
 
-const lineShape = node as LineShape
+const lineShape = ref(node as LineShape)
 
-const positionInput = ref({
-    x: lineShape.position.x,
-    y: lineShape.position.y
+const { boundingBox , origin, center, el } = useSVGBounding(lineShape)
+
+const positionXInput = computed({
+    get() {
+        return boundingBox.x
+    },
+    set(newValue) {
+        lineShape.value.start.x = newValue
+        lineShape.value.end.x = newValue + boundingBox.width
+    }
 })
 
-const startInput = ref({
-    x: lineShape.start.x,
-    y: lineShape.start.y,
+const positionYInput = computed({
+    get() {
+        return boundingBox.y
+    },
+    set(newValue) {
+        lineShape.value.start.y = newValue
+        lineShape.value.end.y = newValue + boundingBox.height
+
+    }
 })
 
-const endInput = ref({
-    x: lineShape.end.x,
-    y: lineShape.end.y,
+const startInputX = computed({
+    get() {
+        return lineShape.value.start.x
+    },
+    set(newValue) {
+        lineShape.value.start.x = newValue
+    }
 })
 
-watchEffect(() => {
-    lineShape.start.x = startInput.value.x + positionInput.value.x 
-    lineShape.start.y = startInput.value.y + positionInput.value.y
-
-    lineShape.end.x = endInput.value.x + positionInput.value.x 
-    lineShape.end.y = endInput.value.y + positionInput.value.y
+const startInputY = computed({
+    get() {
+        return lineShape.value.start.y
+    },
+    set(newValue) {
+        lineShape.value.start.y = newValue
+    }
 })
+
+const endInputX = computed({
+    get() {
+        return lineShape.value.end.x
+    },
+    set(newValue) {
+        lineShape.value.end.x = newValue
+    }
+})
+
+const endInputY = computed({
+    get() {
+        return lineShape.value.end.y
+    },
+    set(newValue) {
+        lineShape.value.end.y = newValue
+    }
+})
+
+// watchEffect(() => {
+//     lineShape.value.start.x = startInput.value.x + positionInput.value.x 
+//     lineShape.value.start.y = startInput.value.y + positionInput.value.y
+
+//     lineShape.value.end.x = endInput.value.x + positionInput.value.x 
+//     lineShape.value.end.y = endInput.value.y + positionInput.value.y
+// })
 
 </script>

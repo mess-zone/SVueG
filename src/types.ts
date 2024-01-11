@@ -31,7 +31,6 @@ export interface ShapeStyle {
 // ############ PRIMITIVE SHAPES ##############
 
 export interface LineOptions extends ShapeStyle {
-    position: Point,
     start: Point,
     end: Point,
 }
