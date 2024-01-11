@@ -1,6 +1,6 @@
 <template>
     <div class="section">
-        <h1>Circle</h1> {{ circleShape.center }}
+        <h1>Circle</h1>
         <div class="form-group">
             <label for="circleX">x</label>
             <input
@@ -16,6 +16,24 @@
                 id="circleY"
                 type="number"
                 v-model="positionYInput"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="circleWidth">width</label>
+            <input
+                id="circleWidth"
+                type="number"
+                v-model="widthInput"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="circleHeight">height</label>
+            <input
+                id="circleHeight"
+                type="number"
+                v-model="heightInput"
                 required
             />
         </div>
@@ -68,6 +86,24 @@ const positionYInput = computed({
     },
     set(newValue) {
         circleShape.value.center.y = newValue + circleShape.value.radius
+    }
+})
+
+const widthInput = computed({
+    get() {
+        return boundingBox.width
+    },
+    set(newValue) {
+        circleShape.value.radius = newValue/2
+    }
+})
+
+const heightInput = computed({
+    get() {
+        return boundingBox.height
+    },
+    set(newValue) {
+        circleShape.value.radius = newValue/2
     }
 })
 </script>
