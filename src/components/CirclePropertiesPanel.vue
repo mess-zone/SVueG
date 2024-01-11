@@ -1,12 +1,12 @@
 <template>
     <div class="section">
-        <h1>Circle</h1>
+        <h1>Circle</h1> {{ circleShape.center }}
         <div class="form-group">
             <label for="circleX">x</label>
             <input
                 id="circleX"
                 type="number"
-                v-model="circleShape.center.x"
+                v-model="positionXInput"
                 required
             />
         </div>
@@ -15,7 +15,7 @@
             <input
                 id="circleY"
                 type="number"
-                v-model="circleShape.center.y"
+                v-model="positionYInput"
                 required
             />
         </div>
@@ -40,12 +40,34 @@
     </div>
 </template>
 <script setup lang="ts">
+import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { CircleShape, NodeShapeI } from "@/types";
+import { computed, ref } from "vue";
 
 interface Props {
     node: NodeShapeI;
 }
 
 const { node } = defineProps<Props>();
-const circleShape = node as CircleShape
+const circleShape = ref(node as CircleShape)
+
+const { boundingBox } = useSVGBounding(circleShape)
+
+const positionXInput = computed({
+    get() {
+        return boundingBox.x
+    },
+    set(newValue) {
+        circleShape.value.center.x = newValue + circleShape.value.radius
+    }
+})
+
+const positionYInput = computed({
+    get() {
+        return boundingBox.y
+    },
+    set(newValue) {
+        circleShape.value.center.y = newValue + circleShape.value.radius
+    }
+})
 </script>
