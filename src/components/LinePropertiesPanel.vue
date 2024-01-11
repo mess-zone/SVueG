@@ -1,6 +1,6 @@
 <template>
     <div class="section">
-        <h1>Line</h1> {{  boundingBox }} {{ origin }} {{ center }}
+        <h1>Line</h1>
         <div class="form-group">
             <label for="linePositionX">x</label>
             <input
@@ -19,6 +19,25 @@
                 required
             />
         </div>
+        <div class="form-group">
+            <label for="width">width</label>
+            <input
+                id="width"
+                type="number"
+                v-model="widthInput"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="height">height</label>
+            <input
+                id="height"
+                type="number"
+                v-model="heightInput"
+                required
+            />
+        </div>
+
         <div class="form-group">
             <label for="lineX1">x1</label>
             <input
@@ -69,7 +88,7 @@
 <script setup lang="ts">
 import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { LineShape, NodeShapeI } from '@/types';
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 
 interface Props {
   node: NodeShapeI
@@ -79,7 +98,7 @@ const { node } = defineProps<Props>()
 
 const lineShape = ref(node as LineShape)
 
-const { boundingBox , origin, center, el } = useSVGBounding(lineShape)
+const { boundingBox } = useSVGBounding(lineShape)
 
 const positionXInput = computed({
     get() {
@@ -98,9 +117,28 @@ const positionYInput = computed({
     set(newValue) {
         lineShape.value.start.y = newValue
         lineShape.value.end.y = newValue + boundingBox.height
-
     }
 })
+
+const widthInput = computed({
+    get() {
+        return boundingBox.width
+    },
+    set(newValue) {
+        endInputX.value = positionXInput.value + newValue
+    }
+})
+
+const heightInput = computed({
+    get() {
+        return boundingBox.height
+    },
+    set(newValue) {
+        endInputY.value = positionYInput.value + newValue
+    }
+})
+
+
 
 const startInputX = computed({
     get() {
@@ -137,13 +175,5 @@ const endInputY = computed({
         lineShape.value.end.y = newValue
     }
 })
-
-// watchEffect(() => {
-//     lineShape.value.start.x = startInput.value.x + positionInput.value.x 
-//     lineShape.value.start.y = startInput.value.y + positionInput.value.y
-
-//     lineShape.value.end.x = endInput.value.x + positionInput.value.x 
-//     lineShape.value.end.y = endInput.value.y + positionInput.value.y
-// })
 
 </script>
