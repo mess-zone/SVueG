@@ -2,20 +2,38 @@
     <div class="section">
         <h1>Ellipse</h1>
         <div class="form-group">
-            <label for="ellipseCX">x</label>
+            <label for="ellipseX">x</label>
             <input
-                id="ellipseCX"
+                id="ellipseX"
                 type="number"
-                v-model="ellipseShape.center.x"
+                v-model="positionXInput"
                 required
             />
         </div>
         <div class="form-group">
-            <label for="ellipseCY">y</label>
+            <label for="ellipseY">y</label>
             <input
-                id="ellipseCY"
+                id="ellipseY"
                 type="number"
-                v-model="ellipseShape.center.y"
+                v-model="positionYInput"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="ellipseWidth">width</label>
+            <input
+                id="ellipseWidth"
+                type="number"
+                v-model="widthInput"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="ellipseHeight">height</label>
+            <input
+                id="ellipseHeight"
+                type="number"
+                v-model="heightInput"
                 required
             />
         </div>
@@ -49,7 +67,9 @@
     </div>
 </template>
 <script setup lang="ts">
+import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { EllipseShape, NodeShapeI } from "@/types";
+import { computed, ref } from "vue";
 
 interface Props {
     node: NodeShapeI;
@@ -57,5 +77,43 @@ interface Props {
 
 const { node } = defineProps<Props>();
 
-const ellipseShape = node as EllipseShape
+const ellipseShape = ref(node as EllipseShape)
+
+const { boundingBox } = useSVGBounding(ellipseShape)
+
+const positionXInput = computed({
+    get() {
+        return boundingBox.x
+    },
+    set(newValue) {
+        ellipseShape.value.center.x = newValue + ellipseShape.value.radius.x
+    }
+})
+
+const positionYInput = computed({
+    get() {
+        return boundingBox.y
+    },
+    set(newValue) {
+        ellipseShape.value.center.y = newValue + ellipseShape.value.radius.y
+    }
+})
+
+const widthInput = computed({
+    get() {
+        return boundingBox.width
+    },
+    set(newValue) {
+        ellipseShape.value.radius.x = newValue/2
+    }
+})
+
+const heightInput = computed({
+    get() {
+        return boundingBox.height
+    },
+    set(newValue) {
+        ellipseShape.value.radius.y = newValue/2
+    }
+})
 </script>
