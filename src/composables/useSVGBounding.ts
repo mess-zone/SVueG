@@ -1,15 +1,10 @@
 import type { NodeShapeI, ShapeStyle } from "@/types";
-import { reactive, watch, type Ref, computed } from "vue";
+import { reactive, watch, type Ref, computed, onMounted } from "vue";
 
 export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
 
     const el = computed(() => getSvgElement(target.value) ) 
     
-    watch(target, () => {
-        updateBB()
-        // console.log('BB changed target', target.value, boundingBox)
-    }, { deep: true })
-
     const boundingBox = reactive({
         x: 0,
         y: 0,
@@ -46,6 +41,7 @@ export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
     }
 
     function updateBB() {
+        // console.log('update BB')
         // const el = getSvgElement(target.value)
 
         if(el.value) {
@@ -57,10 +53,21 @@ export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
         }
     }
 
+
+    watch(target, () => {
+        updateBB()
+        // console.log('BB changed target', target.value, boundingBox)
+    }, { deep: true })
+
+
+    onMounted(() => {
+        updateBB()
+    })
     
     return {
         boundingBox,
         center,
         origin,
+        el
     }
 }
