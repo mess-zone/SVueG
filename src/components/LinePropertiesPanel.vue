@@ -43,7 +43,7 @@
             <input
                 id="lineX1"
                 type="number"
-                v-model="startInputX"
+                v-model="lineShape.start.x"
                 required
             />
         </div>
@@ -52,7 +52,7 @@
             <input
                 id="lineY1"
                 type="number"
-                v-model="startInputY"
+                v-model="lineShape.start.y"
                 required
             />
         </div>
@@ -61,7 +61,7 @@
             <input
                 id="lineX2"
                 type="number"
-                v-model="endInputX"
+                v-model="lineShape.end.x"
                 required
             />
         </div>
@@ -70,7 +70,7 @@
             <input
                 id="lineY2"
                 type="number"
-                v-model="endInputY"
+                v-model="lineShape.end.y"
                 required
             />
         </div>
@@ -125,7 +125,7 @@ const widthInput = computed({
         return boundingBox.width
     },
     set(newValue) {
-        endInputX.value = positionXInput.value + newValue
+        lineShape.value.end.x = boundingBox.x + newValue
     }
 })
 
@@ -134,45 +134,7 @@ const heightInput = computed({
         return boundingBox.height
     },
     set(newValue) {
-        endInputY.value = positionYInput.value + newValue
-    }
-})
-
-
-
-const startInputX = computed({
-    get() {
-        return lineShape.value.start.x
-    },
-    set(newValue) {
-        lineShape.value.start.x = newValue
-    }
-})
-
-const startInputY = computed({
-    get() {
-        return lineShape.value.start.y
-    },
-    set(newValue) {
-        lineShape.value.start.y = newValue
-    }
-})
-
-const endInputX = computed({
-    get() {
-        return lineShape.value.end.x
-    },
-    set(newValue) {
-        lineShape.value.end.x = newValue
-    }
-})
-
-const endInputY = computed({
-    get() {
-        return lineShape.value.end.y
-    },
-    set(newValue) {
-        lineShape.value.end.y = newValue
+        lineShape.value.end.y = boundingBox.y + newValue
     }
 })
 
