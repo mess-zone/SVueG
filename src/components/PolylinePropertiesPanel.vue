@@ -90,6 +90,7 @@ const widthInput = computed({
     set(newValue) {
         const delta = (newValue - boundingBox.width) / boundingBox.width
         polylineShape.value.points.forEach(p => { p.x += p.x * delta })
+        polylineShape.value.points[0].x = boundingBox.x
     }
 })
 
@@ -100,6 +101,7 @@ const heightInput = computed({
     set(newValue) {
         const delta = (newValue - boundingBox.height) / boundingBox.height
         polylineShape.value.points.forEach(p => { p.y += p.y * delta })
+        polylineShape.value.points[0].y = boundingBox.y
     }
 })
 
