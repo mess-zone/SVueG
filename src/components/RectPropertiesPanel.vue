@@ -3,71 +3,76 @@
         <h1>Rect</h1>
         <div class="form-group">
             <label for="rectX">x</label>
-            <input
+            <PropertyInputNumber
                 id="rectX"
-                type="number"
                 v-model="rectShape.topLeft.x"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="rectY">y</label>
-            <input
+            <PropertyInputNumber
                 id="rectY"
-                type="number"
                 v-model="rectShape.topLeft.y"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="rectWidth">width</label>
-            <input
+            <PropertyInputNumber
                 id="rectWidth"
-                type="number"
                 v-model="rectShape.size.x"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="rectHeight">height</label>
-            <input
+            <PropertyInputNumber
                 id="rectHeight"
-                type="number"
                 v-model="rectShape.size.y"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="rectRoundX">round x</label>
-            <input
+            <PropertyInputNumber
                 id="rectRoundX"
-                type="number"
                 v-model="rectShape.round.x"
                 required
+                min="0"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="rectRoundY">round y</label>
-            <input
+            <PropertyInputNumber
                 id="rectRoundY"
-                type="number"
                 v-model="rectShape.round.y"
                 required
+                min="0"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="rectRotation">rotation</label>
-            <input
+            <PropertyInputNumber
                 id="rectRotation"
-                type="number"
                 v-model="rectShape.rotation.angle"
                 required
+                step="any"
             />
         </div>
     </div>
 </template>
 <script setup lang="ts">
 import type { NodeShapeI, RectShape } from "@/types";
+import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 
 interface Props {
     node: NodeShapeI;
