@@ -3,7 +3,7 @@
         <h1>Screen</h1>
         <div class="form-group">
             <label for="width">width</label>
-            <input id="width" type="number" v-model="width" required min="0" />
+            <PropertyInputNumber id="width" v-model="width" required min="1" step="any" />
         </div>
         <div class="form-group">
             <label for="height">height</label>
@@ -63,6 +63,7 @@
 <script setup lang="ts">
 import { useCanvasStore } from "../stores/canvasStore";
 import { storeToRefs } from "pinia";
+import PropertyInputNumber from "./PropertyInputNumber.vue";
 
 const canvasStore = useCanvasStore();
 const {
