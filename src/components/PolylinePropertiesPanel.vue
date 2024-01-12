@@ -3,47 +3,50 @@
         <h1>Polyline</h1>
         <div class="form-group">
             <label for="positionX">x</label>
-            <input
+            <PropertyInputNumber
                 id="positionX"
-                type="number"
                 v-model="positionXInput"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="positionY">y</label>
-            <input
+            <PropertyInputNumber
                 id="positionY"
-                type="number"
                 v-model="positionYInput"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="width">width</label>
-            <input
+            <PropertyInputNumber
                 id="width"
-                type="number"
                 v-model="widthInput"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="height">height</label>
-            <input
+            <PropertyInputNumber
                 id="height"
-                type="number"
                 v-model="heightInput"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="lineRotation">rotation</label>
-            <input
+            <PropertyInputNumber
                 id="lineRotation"
                 type="number"
                 v-model="polylineShape.rotation.angle"
                 required
+                step="any"
             />
         </div>
     </div>
@@ -52,6 +55,7 @@
 import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { NodeShapeI, PolylineShape } from '@/types';
 import { computed, ref } from 'vue';
+import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 
 interface Props {
   node: NodeShapeI
