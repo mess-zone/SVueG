@@ -1,6 +1,6 @@
 <template>
     <div class="section">
-        <h1>Path</h1> {{ boundingBox }}
+        <h1>Path</h1>
         <div class="form-group">
             <label for="positionX">x</label>
             <input
@@ -16,6 +16,24 @@
                 id="positionY"
                 type="number"
                 v-model="positionYInput"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="width">width</label>
+            <input
+                id="width"
+                type="number"
+                v-model="widthInput"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="height">height</label>
+            <input
+                id="height"
+                type="number"
+                v-model="heightInput"
                 required
             />
         </div>
@@ -132,6 +150,97 @@ const positionYInput = computed({
                     c.args[5] += delta
                 }
             })
+    }
+})
+
+const widthInput = computed({
+    get() {
+        return boundingBox.width
+    },
+    set(newValue) {
+        const delta = (newValue - boundingBox.width) / boundingBox.width
+        pathShape.value.commands
+            .filter(c => ['M', 'm', 'L', 'l', 'H', 'h'].includes(c.letter))
+            .forEach(c => { 
+                if(c.args) {
+                    c.args[0] += c.args[0] * delta 
+                }
+            })
+
+        pathShape.value.commands
+            .filter(c => ['T', 't'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[0] += delta
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['Q', 'q', 'S', 's'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[0] += delta
+                    c.args[2] += delta
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['C', 'c'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[0] += delta
+                    c.args[2] += delta
+                    c.args[4] += delta
+                }
+            })
+    }
+})
+
+const heightInput = computed({
+    get() {
+        return boundingBox.height
+    },
+    set(newValue) {
+        const delta = (newValue - boundingBox.height) / boundingBox.height
+        pathShape.value.commands
+            .filter(c => ['V', 'v'].includes(c.letter))
+            .forEach(c => { 
+                if(c.args) {
+                    c.args[0] += c.args[0] * delta 
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['M', 'm', 'L', 'l'].includes(c.letter))
+            .forEach(c => { 
+                if(c.args) {
+                    c.args[1] += c.args[1] * delta 
+                }
+            })
+
+
+        pathShape.value.commands
+            .filter(c => ['T', 't'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[1] += delta
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['Q', 'q', 'S', 's'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[1] += delta
+                    c.args[3] += delta
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['C', 'c'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[1] += delta
+                    c.args[3] += delta
+                    c.args[5] += delta
+                }
+            })
+
     }
 })
 </script>
