@@ -20,6 +20,24 @@
             />
         </div>
         <div class="form-group">
+            <label for="width">width</label>
+            <input
+                id="width"
+                type="number"
+                v-model="widthInput"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="height">height</label>
+            <input
+                id="height"
+                type="number"
+                v-model="heightInput"
+                required
+            />
+        </div>
+        <div class="form-group">
             <label for="lineRotation">rotation</label>
             <input
                 id="lineRotation"
@@ -62,6 +80,26 @@ const positionYInput = computed({
     set(newValue) {
         const delta = newValue - boundingBox.y
         polylineShape.value.points.forEach(p => { p.y += delta })
+    }
+})
+
+const widthInput = computed({
+    get() {
+        return boundingBox.width
+    },
+    set(newValue) {
+        const delta = (newValue - boundingBox.width) / boundingBox.width
+        polylineShape.value.points.forEach(p => { p.x += p.x * delta })
+    }
+})
+
+const heightInput = computed({
+    get() {
+        return boundingBox.height
+    },
+    set(newValue) {
+        const delta = (newValue - boundingBox.height) / boundingBox.height
+        polylineShape.value.points.forEach(p => { p.y += p.y * delta })
     }
 })
 
