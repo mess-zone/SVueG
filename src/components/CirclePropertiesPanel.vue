@@ -3,56 +3,59 @@
         <h1>Circle</h1>
         <div class="form-group">
             <label for="circleX">x</label>
-            <input
+            <PropertyInputNumber
                 id="circleX"
-                type="number"
                 v-model="positionXInput"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="circleY">y</label>
-            <input
+            <PropertyInputNumber
                 id="circleY"
-                type="number"
                 v-model="positionYInput"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="circleWidth">width</label>
-            <input
+            <PropertyInputNumber
                 id="circleWidth"
-                type="number"
                 v-model="widthInput"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="circleHeight">height</label>
-            <input
+            <PropertyInputNumber
                 id="circleHeight"
-                type="number"
                 v-model="heightInput"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="circleRadius">radius</label>
-            <input
+            <PropertyInputNumber
                 id="circleRadius"
-                type="number"
                 v-model="circleShape.radius"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="circleRotation">rotation</label>
-            <input
+            <PropertyInputNumber
                 id="circleRotation"
-                type="number"
                 v-model="circleShape.rotation.angle"
                 required
+                step="any"
             />
         </div>
     </div>
@@ -61,6 +64,7 @@
 import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { CircleShape, NodeShapeI } from "@/types";
 import { computed, ref } from "vue";
+import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 
 interface Props {
     node: NodeShapeI;
