@@ -3,65 +3,69 @@
         <h1>Ellipse</h1>
         <div class="form-group">
             <label for="ellipseX">x</label>
-            <input
+            <PropertyInputNumber
                 id="ellipseX"
-                type="number"
                 v-model="positionXInput"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="ellipseY">y</label>
-            <input
+            <PropertyInputNumber
                 id="ellipseY"
-                type="number"
                 v-model="positionYInput"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="ellipseWidth">width</label>
-            <input
+            <PropertyInputNumber
                 id="ellipseWidth"
-                type="number"
                 v-model="widthInput"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="ellipseHeight">height</label>
-            <input
+            <PropertyInputNumber
                 id="ellipseHeight"
-                type="number"
                 v-model="heightInput"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="ellipseRadiusX">radius x</label>
-            <input
+            <PropertyInputNumber
                 id="ellipseRadiusX"
-                type="number"
                 v-model="ellipseShape.radius.x"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="ellipseRadiusY">radius y</label>
-            <input
+            <PropertyInputNumber
                 id="ellipseRadiusY"
-                type="number"
                 v-model="ellipseShape.radius.y"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="ellipseRotation">rotation</label>
-            <input
+            <PropertyInputNumber
                 id="ellipseRotation"
-                type="number"
                 v-model="ellipseShape.rotation.angle"
                 required
+                step="any"
             />
         </div>
     </div>
@@ -70,6 +74,7 @@
 import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { EllipseShape, NodeShapeI } from "@/types";
 import { computed, ref } from "vue";
+import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 
 interface Props {
     node: NodeShapeI;
