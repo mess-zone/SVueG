@@ -3,84 +3,86 @@
         <h1>Line</h1>
         <div class="form-group">
             <label for="linePositionX">x</label>
-            <input
+            <PropertyInputNumber
                 id="linePositionX"
-                type="number"
                 v-model="positionXInput"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="linePositionY">y</label>
-            <input
+            <PropertyInputNumber
                 id="linePositionY"
-                type="number"
                 v-model="positionYInput"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="width">width</label>
-            <input
+            <PropertyInputNumber
                 id="width"
-                type="number"
                 v-model="widthInput"
                 required
+                min="1"
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="height">height</label>
-            <input
+            <PropertyInputNumber
                 id="height"
-                type="number"
                 v-model="heightInput"
                 required
+                min="1"
+                step="any"
             />
         </div>
 
         <div class="form-group">
             <label for="lineX1">x1</label>
-            <input
+            <PropertyInputNumber
                 id="lineX1"
-                type="number"
                 v-model="lineShape.start.x"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="lineY1">y1</label>
-            <input
+            <PropertyInputNumber
                 id="lineY1"
-                type="number"
                 v-model="lineShape.start.y"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="lineX2">x2</label>
-            <input
+            <PropertyInputNumber
                 id="lineX2"
-                type="number"
                 v-model="lineShape.end.x"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="lineY2">y2</label>
-            <input
+            <PropertyInputNumber
                 id="lineY2"
-                type="number"
                 v-model="lineShape.end.y"
                 required
+                step="any"
             />
         </div>
         <div class="form-group">
             <label for="lineRotation">rotation</label>
-            <input
+            <PropertyInputNumber
                 id="lineRotation"
-                type="number"
                 v-model="lineShape.rotation.angle"
                 required
+                step="any"
             />
         </div>
     </div>
@@ -89,6 +91,7 @@
 import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { LineShape, NodeShapeI } from '@/types';
 import { computed, ref } from 'vue';
+import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 
 interface Props {
   node: NodeShapeI
