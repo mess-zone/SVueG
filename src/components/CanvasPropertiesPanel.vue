@@ -7,55 +7,31 @@
         </div>
         <div class="form-group">
             <label for="height">height</label>
-            <input
-                id="height"
-                type="number"
-                v-model="height"
-                required
-                min="0"
-            />
+            <PropertyInputNumber id="height" v-model="height" required min="1" step="any" />
         </div>
         <div class="form-group">
             <label for="aspectRatio">aspectRatio</label>
-            <input
-                id="aspectRatio"
-                type="number"
-                v-model="aspectRatio"
-                required
-                disabled
-            />
+            <PropertyInputNumber id="aspectRatio" v-model="aspectRatio" required disabled step="any" />
         </div>
         <div class="form-group">
             <label for="zoom">zoom (%)</label>
-            <input id="zoom" type="number" v-model="zoom" required min="1" />
+            <PropertyInputNumber id="zoom" v-model="zoom" required min="1" step="any" />
         </div>
         <div class="form-group">
             <label for="viewportWidth">viewportWidth</label>
-            <input
-                id="viewportWidth"
-                type="number"
-                v-model="viewportWidth"
-                required
-                disabled
-            />
+            <PropertyInputNumber id="viewportWidth" v-model="viewportWidth" required disabled step="any" />
         </div>
         <div class="form-group">
             <label for="viewportHeight">viewportHeight</label>
-            <input
-                id="viewportHeight"
-                type="number"
-                v-model="viewportHeight"
-                required
-                disabled
-            />
+            <PropertyInputNumber id="viewportHeight" v-model="viewportHeight" required disabled step="any" />
         </div>
         <div class="form-group">
             <label for="viewportX">viewportX</label>
-            <input id="viewportX" type="number" v-model="viewportX" required />
+            <PropertyInputNumber id="viewportX" v-model="viewportX" required step="any" />
         </div>
         <div class="form-group">
             <label for="viewportY">viewportY</label>
-            <input id="viewportY" type="number" v-model="viewportY" required />
+            <PropertyInputNumber id="viewportY" v-model="viewportY" required step="any" />
         </div>
     </div>
 </template>
@@ -63,7 +39,7 @@
 <script setup lang="ts">
 import { useCanvasStore } from "../stores/canvasStore";
 import { storeToRefs } from "pinia";
-import PropertyInputNumber from "./PropertyInputNumber.vue";
+import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 
 const canvasStore = useCanvasStore();
 const {
