@@ -50,11 +50,37 @@ const positionXInput = computed({
     },
     set(newValue) {
         const delta = newValue - boundingBox.x
+
         pathShape.value.commands
             .filter(c => ['M', 'L', 'H'].includes(c.letter))
             .forEach(c => {
                 if(c.args) {
                     c.args[0] += delta
+                }
+            })
+
+        pathShape.value.commands
+            .filter(c => ['T'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[0] += delta
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['Q', 'S'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[0] += delta
+                    c.args[2] += delta
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['C'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[0] += delta
+                    c.args[2] += delta
+                    c.args[4] += delta
                 }
             })
     }
@@ -66,6 +92,7 @@ const positionYInput = computed({
     },
     set(newValue) {
         const delta = newValue - boundingBox.y
+
         pathShape.value.commands
             .filter(c => ['V'].includes(c.letter))
             .forEach(c => {
@@ -78,6 +105,31 @@ const positionYInput = computed({
             .forEach(c => {
                 if(c.args) {
                     c.args[1] += delta
+                }
+            })
+
+        pathShape.value.commands
+            .filter(c => ['T'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[1] += delta
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['Q', 'S'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[1] += delta
+                    c.args[3] += delta
+                }
+            })
+        pathShape.value.commands
+            .filter(c => ['C'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    c.args[1] += delta
+                    c.args[3] += delta
+                    c.args[5] += delta
                 }
             })
     }
