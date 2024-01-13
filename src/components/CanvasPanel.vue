@@ -7,7 +7,7 @@
         @mousedown="handleMouseDown"
         @mousemove="handleMouseMove"
         @mouseup="handleMouseUp"
-        @mouseleave="handleMouseLeave"
+        @mouseleave="handleMouseUp"
     >
         <!-- Origin coordinate system-->
         <circle cx="0" cy="0" r="2" fill="gray" />
@@ -20,16 +20,6 @@
         />
 
         <BoundingBox /> 
-
-        <line  
-            v-if="dragInfo.isDragging"       
-            :x1="dragInfo.start.x"
-            :y1="dragInfo.start.y"
-            :x2="dragInfo.end.x"
-            :y2="dragInfo.end.y"
-            stroke="magenta"
-            stroke-width="2"
-        />
     </svg>
     {{dragInfo}}
 </template>
@@ -102,37 +92,39 @@ function handleMouseDown(e: MouseEvent) {
 }
 
 function handleMouseUp(e: MouseEvent) {
-    dragInfo.value.isDragging = false
-    // console.log('U', e.offsetX, e.offsetY, e.movementX, e.movementY)
-    // dragInfo.value.start = {
-    //     x: 0,
-    //     y: 0,
-    // }
-    // dragInfo.value.end = {
-    //     x: 0,
-    //     y: 0,
-    // }
-}
+    if(dragInfo.value.isDragging) {
+        dragInfo.value.isDragging = false
 
-function handleMouseMove(e: MouseEvent) {
-    // console.log('M', e.offsetX, e.offsetY, e.movementX, e.movementY)
-    dragInfo.value.end = {
-        x: e.offsetX,
-        y: e.offsetY,
+        // const deltaX = e.offsetX - dragInfo.value.start.x
+        // const deltaY = e.offsetY - dragInfo.value.start.y
+        // viewportX.value -= deltaX
+        // viewportY.value -= deltaY
+        // console.log('U', e.offsetX, e.offsetY, deltaX, deltaY)
+
+        // dragInfo.value.start = {
+        //     x: 0,
+        //     y: 0,
+        // }
+        // dragInfo.value.end = {
+        //     x: 0,
+        //     y: 0,
+        // }
     }
 }
 
-function handleMouseLeave(e: MouseEvent) {
-    dragInfo.value.isDragging = false
-    // console.log('L', e.offsetX, e.offsetY, e.movementX, e.movementY)
-    // dragInfo.value.start = {
-    //     x: 0,
-    //     y: 0,
-    // }
-    // dragInfo.value.end = {
-    //     x: 0,
-    //     y: 0,
-    // }
+function handleMouseMove(e: MouseEvent) {
+    if(dragInfo.value.isDragging) {
+        // console.log('M', e.offsetX, e.offsetY, e.movementX, e.movementY)
+        dragInfo.value.end = {
+            x: e.offsetX,
+            y: e.offsetY,
+        }
+
+        // const deltaX = e.offsetX - dragInfo.value.start.x
+        // const deltaY = e.offsetY - dragInfo.value.start.y
+        viewportX.value -= e.movementX * (( 1 / zoom.value) * 100)
+        viewportY.value -= e.movementY * (( 1 / zoom.value) * 100)
+    }
 }
 
 </script>
