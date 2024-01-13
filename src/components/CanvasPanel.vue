@@ -39,7 +39,7 @@ import Line from "@/components/basicShapes/Line.vue";
 import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue';
 
 const canvasStore = useCanvasStore();
 const {
@@ -169,7 +169,7 @@ onMounted(() => {
     svgCanvas.value.addEventListener('mousemove', canvasMouseMove)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
     svgCanvas.value.removeEventListener('mousemove', canvasMouseMove)
 })
 
@@ -177,6 +177,5 @@ onUnmounted(() => {
 <style>
 svg {
     background-color: antiquewhite;
-    border: 1px solid orange;
 }
 </style>
