@@ -39,7 +39,7 @@ import Line from "@/components/basicShapes/Line.vue";
 import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
-import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue';
 
 const canvasStore = useCanvasStore();
 const {
@@ -138,6 +138,18 @@ function handleWheel(event: WheelEvent) {
 
     // Restrict scale
     zoom.value = Math.min(Math.max(1, zoom.value), 300);
+
+
+    mousePointerInfo.value = {
+        x: (width.value/2  * ( 1 / zoom.value) * 100) + viewportX.value,
+        y: (height.value/2 * ( 1 / zoom.value) * 100) + viewportY.value,
+    }
+
+
+    viewportX.value = -(width.value / (2  * (zoom.value) / 100) )
+    viewportY.value = -(height.value / (2  * (zoom.value) / 100) )
+    // viewportX.value = mousePointerInfo.value.x  - ((width.value/2  * ( 1 / zoom.value) * 100) + viewportX.value)
+    // viewportY.value = mousePointerInfo.value.y  - ((height.value/2  * ( 1 / zoom.value) * 100) + viewportY.value)
 }
 
 onMounted(() => {
@@ -157,10 +169,10 @@ const mousePointerInfo = ref({
 })
 
 function canvasMouseMove(e: MouseEvent) {
-    mousePointerInfo.value = {
-        x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
-        y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
-    }
+    // mousePointerInfo.value = {
+    //     x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
+    //     y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
+    // }
     // console.log('move', e.offsetX, e.offsetY, mousePointerInfo.value.x, mousePointerInfo.value.y)
 
 }
