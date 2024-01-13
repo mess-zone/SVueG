@@ -139,17 +139,20 @@ function handleWheel(event: WheelEvent) {
     // Restrict scale
     zoom.value = Math.min(Math.max(1, zoom.value), 300);
 
-
     mousePointerInfo.value = {
-        x: (width.value/2  * ( 1 / zoom.value) * 100) + viewportX.value,
-        y: (height.value/2 * ( 1 / zoom.value) * 100) + viewportY.value,
+        x: (event.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
+        y: (event.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
     }
+    // mousePointerInfo.value = {
+    //     x: (width.value/2  * ( 1 / zoom.value) * 100) + viewportX.value,
+    //     y: (height.value/2 * ( 1 / zoom.value) * 100) + viewportY.value,
+    // }
 
+    // viewportX.value = -( (width.value / 2)  * 100/zoom.value ) + 25
+    // viewportY.value = -( (height.value / 2)  * 100/zoom.value ) + 105
 
-    viewportX.value = -(width.value / (2  * (zoom.value) / 100) )
-    viewportY.value = -(height.value / (2  * (zoom.value) / 100) )
-    // viewportX.value = mousePointerInfo.value.x  - ((width.value/2  * ( 1 / zoom.value) * 100) + viewportX.value)
-    // viewportY.value = mousePointerInfo.value.y  - ((height.value/2  * ( 1 / zoom.value) * 100) + viewportY.value)
+    viewportX.value = mousePointerInfo.value.x - (width.value/2)
+    viewportY.value = mousePointerInfo.value.y - (height.value/2)
 }
 
 onMounted(() => {
@@ -169,10 +172,10 @@ const mousePointerInfo = ref({
 })
 
 function canvasMouseMove(e: MouseEvent) {
-    // mousePointerInfo.value = {
-    //     x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
-    //     y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
-    // }
+    mousePointerInfo.value = {
+        x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
+        y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
+    }
     // console.log('move', e.offsetX, e.offsetY, mousePointerInfo.value.x, mousePointerInfo.value.y)
 
 }
