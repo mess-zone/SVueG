@@ -36,7 +36,7 @@ import Line from "@/components/basicShapes/Line.vue";
 import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const canvasStore = useCanvasStore();
 const {
@@ -126,6 +126,27 @@ function handleMouseMove(e: MouseEvent) {
         viewportY.value -= e.movementY * (( 1 / zoom.value) * 100)
     }
 }
+
+
+
+
+function handleWheel(event: WheelEvent) {
+    event.preventDefault();
+    // console.log(event.deltaY)
+    zoom.value += event.deltaY * -0.01
+
+    // Restrict scale
+    zoom.value = Math.min(Math.max(1, zoom.value), 300);
+}
+
+onMounted(() => {
+    addEventListener("wheel", handleWheel)
+})
+
+onUnmounted(() => {
+    // @ts-ignore
+    removeEventListener("whell", handleWheel)
+})
 
 </script>
 <style>
