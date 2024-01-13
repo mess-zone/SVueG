@@ -1,5 +1,6 @@
 <template>
     <svg
+        ref="svgCanvas"
         :width="width"
         :height="height"
         xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +12,7 @@
     >
         <!-- Origin coordinate system-->
         <circle cx="0" cy="0" r="2" fill="gray" />
- 
+
         <component
             v-for="node in nodeList"
             :key="node.id"
@@ -20,6 +21,8 @@
         />
 
         <BoundingBox /> 
+
+        <circle :cx="mousePointerInfo.x" :cy="mousePointerInfo.y" r="2" fill="magenta" />
     </svg>
     {{dragInfo}}
 </template>
@@ -64,10 +67,6 @@ supportedShapes.set('Polygon', Polygon)
 supportedShapes.set('Path', Path)
 
 
-
-
-const handTool = ref(true)
-
 const dragInfo = ref({
     isDragging: false,
     start: {
@@ -79,6 +78,8 @@ const dragInfo = ref({
         y: 0,
     },
 })
+
+
 
 
 
@@ -131,8 +132,8 @@ function handleMouseMove(e: MouseEvent) {
 
 
 function handleWheel(event: WheelEvent) {
-    event.preventDefault();
-    // console.log(event.deltaY)
+    // event.preventDefault();
+    // console.log(event.offsetX, event.offsetY)
     zoom.value += event.deltaY * -0.01
 
     // Restrict scale
@@ -146,6 +147,30 @@ onMounted(() => {
 onUnmounted(() => {
     // @ts-ignore
     removeEventListener("whell", handleWheel)
+})
+
+
+const svgCanvas = ref()
+const mousePointerInfo = ref({
+    x: 0,
+    y: 0,
+})
+
+function canvasMouseMove(e: MouseEvent) {
+    mousePointerInfo.value = {
+        x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
+        y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
+    }
+    // console.log('move', e.offsetX, e.offsetY, mousePointerInfo.value.x, mousePointerInfo.value.y)
+
+}
+
+onMounted(() => {
+    svgCanvas.value.addEventListener('mousemove', canvasMouseMove)
+})
+
+onUnmounted(() => {
+    svgCanvas.value.removeEventListener('mousemove', canvasMouseMove)
 })
 
 </script>
