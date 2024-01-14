@@ -23,6 +23,9 @@
         <BoundingBox /> 
 
         <circle :cx="mousePointerInfo.x" :cy="mousePointerInfo.y" r="2" fill="magenta" />
+        <line :x1="screenTopLeft.x" :y1="screenTopLeft.y" :x2="screenCenter.x" :y2="screenCenter.y" stroke="cyan" stroke-width="2" />
+        <circle :cx="screenCenter.x" :cy="screenCenter.y" r="5" fill="cyan" />
+        <circle :cx="screenTopLeft.x" :cy="screenTopLeft.y" r="10" fill="cyan" />
     </svg>
 </template>
 
@@ -39,6 +42,7 @@ import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
 import { computed, onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue';
+import type { Point } from '@/types';
 
 const canvasStore = useCanvasStore();
 const {
@@ -130,9 +134,20 @@ function handleMouseMove(e: MouseEvent) {
 }
 
 
+const screenCenter = ref<Point>({
+    x: 0,
+    y: 0,
+})
 
+const screenTopLeft = ref<Point>({
+    x: 0,
+    y: 0,
+})
 
 function handleWheel(event: WheelEvent) {
+    // screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
+    // mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
+
     // event.preventDefault();
     // console.log(event.offsetX, event.offsetY)
     zoom.value += event.deltaY * -0.01
@@ -140,10 +155,16 @@ function handleWheel(event: WheelEvent) {
     // Restrict scale
     zoom.value = Math.min(Math.max(1, zoom.value), 300);
 
-    mousePointerInfo.value = {
-        x: (event.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
-        y: (event.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
-    }
+    screenTopLeft.value = toRelative({ x: 0, y: 0 })
+    screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
+    mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
+
+
+
+    // mousePointerInfo.value = {
+    //     x: (event.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
+    //     y: (event.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
+    // }
     // mousePointerInfo.value = {
     //     x: (width.value/2  * ( 1 / zoom.value) * 100) + viewportX.value,
     //     y: (height.value/2 * ( 1 / zoom.value) * 100) + viewportY.value,
@@ -152,17 +173,17 @@ function handleWheel(event: WheelEvent) {
     // viewportX.value = -( (width.value / 2)  * 100/zoom.value ) + 25
     // viewportY.value = -( (height.value / 2)  * 100/zoom.value ) + 105
 
-    viewportX.value = mousePointerInfo.value.x - (width.value/2)
-    viewportY.value = mousePointerInfo.value.y - (height.value/2)
+    viewportX.value = screenTopLeft.value.x
+    viewportY.value = screenTopLeft.value.y
 }
 
 onMounted(() => {
-    // addEventListener("wheel", handleWheel)
+    addEventListener("wheel", handleWheel)
 })
 
 onUnmounted(() => {
     // @ts-ignore
-    // removeEventListener("whell", handleWheel)
+    removeEventListener("whell", handleWheel)
 })
 
 
@@ -172,19 +193,14 @@ const mousePointerInfo = ref({
     y: 0,
 })
 
-function canvasMouseMove(e: MouseEvent) {
-    const relativePos = toRelative({ x: e.offsetX, y: e.offsetY })
-    // console.log(relativePos)
-    mousePointerInfo.value = relativePos
-    // mousePointerInfo.value = {
-    //     x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
-    //     y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
-    // }
+function canvasMouseMove(event: MouseEvent) {
+    screenTopLeft.value = toRelative({ x: 0, y: 0 })
+    screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
+    mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
 
-    const absolutePos = toAbsolute({ x: 170, y: 47 })
-    console.log(absolutePos)
+    // const absolutePos = toAbsolute({ x: 170, y: 47 })
+    // console.log(absolutePos)
     // console.log('move', e.offsetX, e.offsetY, mousePointerInfo.value.x, mousePointerInfo.value.y)
-
 }
 
 onMounted(() => {
