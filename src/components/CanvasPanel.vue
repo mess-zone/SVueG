@@ -53,6 +53,8 @@ const {
     zoom,
 } = storeToRefs(canvasStore);
 
+const { toRelative } = canvasStore
+
 const nodeStore =  useNodeListStore()
 const { nodeList } = storeToRefs(nodeStore)
 
@@ -156,12 +158,12 @@ function handleWheel(event: WheelEvent) {
 }
 
 onMounted(() => {
-    addEventListener("wheel", handleWheel)
+    // addEventListener("wheel", handleWheel)
 })
 
 onUnmounted(() => {
     // @ts-ignore
-    removeEventListener("whell", handleWheel)
+    // removeEventListener("whell", handleWheel)
 })
 
 
@@ -172,10 +174,13 @@ const mousePointerInfo = ref({
 })
 
 function canvasMouseMove(e: MouseEvent) {
-    mousePointerInfo.value = {
-        x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
-        y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
-    }
+    const relativePos = toRelative({ x: e.offsetX, y: e.offsetY })
+    console.log(relativePos)
+    mousePointerInfo.value = relativePos
+    // mousePointerInfo.value = {
+    //     x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
+    //     y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
+    // }
     // console.log('move', e.offsetX, e.offsetY, mousePointerInfo.value.x, mousePointerInfo.value.y)
 
 }

@@ -11,13 +11,13 @@ import { createPathShape } from "@/factories/PathShapeFactory";
 import { useSVGBounding } from "@/composables/useSVGBounding";
 
 const rectShape = createRectShape({
-    topLeft: { x: 30, y: 30 },
-    size: { x: 100, y: 50 },
+    topLeft: { x: 0, y: 0 },
+    size: { x: 800, y: 600 },
     round: { x: 0, y: 0 },
     rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
-    stroke: "black",
+    stroke: "orange",
     fill: "transparent",
-    strokeWidth: 5,
+    strokeWidth: 2,
 })
 
 const rectShape2 = createRectShape({
