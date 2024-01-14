@@ -145,7 +145,9 @@ const screenTopLeft = ref<Point>({
 })
 
 function handleWheel(event: WheelEvent) {
+    const rotationOrigin = toRelative({ x: width.value/2, y: height.value/2 })
     // screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
+    console.log('rotatioOrigin', rotationOrigin)
     // mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
 
     // event.preventDefault();
