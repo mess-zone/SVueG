@@ -24,7 +24,6 @@
 
         <circle :cx="mousePointerInfo.x" :cy="mousePointerInfo.y" r="2" fill="magenta" />
     </svg>
-    {{dragInfo}}
 </template>
 
 <script setup lang="ts">
@@ -53,7 +52,7 @@ const {
     zoom,
 } = storeToRefs(canvasStore);
 
-const { toRelative } = canvasStore
+const { toRelative, toAbsolute } = canvasStore
 
 const nodeStore =  useNodeListStore()
 const { nodeList } = storeToRefs(nodeStore)
@@ -175,12 +174,15 @@ const mousePointerInfo = ref({
 
 function canvasMouseMove(e: MouseEvent) {
     const relativePos = toRelative({ x: e.offsetX, y: e.offsetY })
-    console.log(relativePos)
+    // console.log(relativePos)
     mousePointerInfo.value = relativePos
     // mousePointerInfo.value = {
     //     x: (e.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
     //     y: (e.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
     // }
+
+    const absolutePos = toAbsolute({ x: 170, y: 47 })
+    console.log(absolutePos)
     // console.log('move', e.offsetX, e.offsetY, mousePointerInfo.value.x, mousePointerInfo.value.y)
 
 }

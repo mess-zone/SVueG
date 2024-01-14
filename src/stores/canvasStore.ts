@@ -14,7 +14,7 @@ export const useCanvasStore = defineStore('canvas', () => {
     const viewportY = ref(0);
     const zoom = ref(100);
 
-    function toRelative(absolute: Point) {
+    function toRelative(absolute: Point): Point {
         const percentX = inverseLerp(0, width.value, absolute.x)
         const relativeX = lerp(viewportX.value, viewportWidth.value + viewportX.value, percentX)
 
@@ -23,6 +23,19 @@ export const useCanvasStore = defineStore('canvas', () => {
         return {
             x: relativeX,
             y: relativeY
+        }
+    }
+
+    function toAbsolute(relative: Point): Point {
+        const percentX = inverseLerp(viewportX.value, viewportWidth.value + viewportX.value, relative.x)
+        const absoluteX = lerp(0, width.value, percentX)
+
+        const percentY = inverseLerp(viewportY.value, viewportHeight.value + viewportY.value, relative.y)
+        const absoluteY = lerp(0, height.value, percentY)
+
+        return { 
+            x: absoluteX,
+            y: absoluteY,
         }
     }
 
@@ -36,5 +49,6 @@ export const useCanvasStore = defineStore('canvas', () => {
         viewportY,
         zoom,
         toRelative,
+        toAbsolute,
     }
 })
