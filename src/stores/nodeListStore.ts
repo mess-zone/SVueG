@@ -17,17 +17,37 @@ const rectShape = createRectShape({
     rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
     stroke: "orange",
     fill: "transparent",
-    strokeWidth: 2,
+    strokeWidth: 4,
 })
 
 const rectShape2 = createRectShape({
-    topLeft: { x: 50, y: 60 },
-    size: { x: 157, y: 200 },
-    round: { x: 10, y: 10 },
+    topLeft: { x: 0, y: 0 },
+    size: { x: 1066, y: 800 },
+    round: { x: 0, y: 0 },
     rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
-    stroke: "black",
-    fill: "gray",
-    strokeWidth: 2,
+    stroke: "green",
+    fill: "transparent",
+    strokeWidth: 4,
+})
+
+const rectShape3 = createRectShape({
+    topLeft: { x: 0, y: 0 },
+    size: { x: 640, y: 480 },
+    round: { x: 0, y: 0 },
+    rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
+    stroke: "green",
+    fill: "transparent",
+    strokeWidth: 4,
+})
+
+const rectShape4 = createRectShape({
+    topLeft: { x: 0, y: 0 },
+    size: { x: 1600, y: 1200 },
+    round: { x: 0, y: 0 },
+    rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
+    stroke: "orange",
+    fill: "transparent",
+    strokeWidth: 4,
 })
 
 const circleShape = createCircleShape({
@@ -49,8 +69,8 @@ const ellipseShape = createEllipseShape({
 })
 
 const lineShape = createLineShape({
-    start: { x: 25, y: 105 },
-    end: { x: 83, y: 151 },
+    start: { x: 0, y: 0 },
+    end: { x: 400, y: 300 },
     rotation: { angle: 0, origin: { x: 'auto', y: 'auto' } },
     stroke: "black",
     fill: "transparent",
@@ -127,6 +147,8 @@ export const useNodeListStore = defineStore('nodeList', () => {
 
     addNode(rectShape)
     addNode(rectShape2)
+    addNode(rectShape3)
+    addNode(rectShape4)
     addNode(circleShape)
     addNode(ellipseShape)
     addNode(polygonShape)

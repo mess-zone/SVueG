@@ -41,7 +41,7 @@ import Line from "@/components/basicShapes/Line.vue";
 import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
-import { computed, onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue';
 import type { Point } from '@/types';
 
 const canvasStore = useCanvasStore();
@@ -56,7 +56,7 @@ const {
     zoom,
 } = storeToRefs(canvasStore);
 
-const { toRelative, toAbsolute } = canvasStore
+const { toRelative } = canvasStore
 
 const nodeStore =  useNodeListStore()
 const { nodeList } = storeToRefs(nodeStore)
@@ -100,21 +100,6 @@ function handleMouseDown(e: MouseEvent) {
 function handleMouseUp(e: MouseEvent) {
     if(dragInfo.value.isDragging) {
         dragInfo.value.isDragging = false
-
-        // const deltaX = e.offsetX - dragInfo.value.start.x
-        // const deltaY = e.offsetY - dragInfo.value.start.y
-        // viewportX.value -= deltaX
-        // viewportY.value -= deltaY
-        // console.log('U', e.offsetX, e.offsetY, deltaX, deltaY)
-
-        // dragInfo.value.start = {
-        //     x: 0,
-        //     y: 0,
-        // }
-        // dragInfo.value.end = {
-        //     x: 0,
-        //     y: 0,
-        // }
     }
 }
 
@@ -144,39 +129,47 @@ const screenTopLeft = ref<Point>({
     y: 0,
 })
 
-function handleWheel(event: WheelEvent) {
-    const rotationOrigin = toRelative({ x: width.value/2, y: height.value/2 })
-    // screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
-    console.log('rotatioOrigin', rotationOrigin)
-    // mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
+const viewportBefore = ref<Point>({
+    x: 0, 
+    y: 0,
+})
+const viewportAfter = ref<Point>({
+    x: 0, 
+    y: 0,
+})
+const viewportMargin = ref<Point>({
+    x: 0, 
+    y: 0,
+})
 
-    // event.preventDefault();
-    // console.log(event.offsetX, event.offsetY)
-    zoom.value += event.deltaY * -0.01
+function handleWheel(event: WheelEvent) {
+    viewportBefore.value = {
+        x: viewportWidth.value,
+        y: viewportHeight.value
+    }
+
+    // zoom.value += event.deltaY * -0.01
+    zoom.value += event.deltaY * -0.10
 
     // Restrict scale
-    zoom.value = Math.min(Math.max(1, zoom.value), 300);
+    zoom.value = Math.min(Math.max(10, zoom.value), 300);
+
+    viewportAfter.value = {
+        x: viewportWidth.value,
+        y: viewportHeight.value
+    }
+
+    viewportMargin.value = {
+        x: (viewportAfter.value.x - viewportBefore.value.x) / 2,
+        y: (viewportAfter.value.y - viewportBefore.value.y) / 2,
+    }
+
+    viewportX.value -= viewportMargin.value.x
+    viewportY.value -= viewportMargin.value.y
 
     screenTopLeft.value = toRelative({ x: 0, y: 0 })
     screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
     mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
-
-
-
-    // mousePointerInfo.value = {
-    //     x: (event.offsetX  * ( 1 / zoom.value) * 100) + viewportX.value,
-    //     y: (event.offsetY * ( 1 / zoom.value) * 100) + viewportY.value,
-    // }
-    // mousePointerInfo.value = {
-    //     x: (width.value/2  * ( 1 / zoom.value) * 100) + viewportX.value,
-    //     y: (height.value/2 * ( 1 / zoom.value) * 100) + viewportY.value,
-    // }
-
-    // viewportX.value = -( (width.value / 2)  * 100/zoom.value ) + 25
-    // viewportY.value = -( (height.value / 2)  * 100/zoom.value ) + 105
-
-    viewportX.value = screenTopLeft.value.x
-    viewportY.value = screenTopLeft.value.y
 }
 
 onMounted(() => {
@@ -199,10 +192,6 @@ function canvasMouseMove(event: MouseEvent) {
     screenTopLeft.value = toRelative({ x: 0, y: 0 })
     screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
     mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
-
-    // const absolutePos = toAbsolute({ x: 170, y: 47 })
-    // console.log(absolutePos)
-    // console.log('move', e.offsetX, e.offsetY, mousePointerInfo.value.x, mousePointerInfo.value.y)
 }
 
 onMounted(() => {
