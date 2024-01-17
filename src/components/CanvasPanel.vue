@@ -220,7 +220,7 @@ onBeforeUnmount(() => {
 })
 
 </script>
-<style>
+<style scoped>
 svg {
     background-color: antiquewhite;
 }
