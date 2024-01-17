@@ -182,6 +182,23 @@ onUnmounted(() => {
 })
 
 
+
+onMounted(() => {
+    handleResize()
+    addEventListener("resize", handleResize)
+})
+
+onUnmounted(() => {
+    // @ts-ignore
+    removeEventListener("resize", handleResize)
+})
+
+function handleResize() {
+    width.value = window.innerWidth
+    height.value = window.innerHeight
+}
+
+
 const svgCanvas = ref()
 const mousePointerInfo = ref({
     x: 0,

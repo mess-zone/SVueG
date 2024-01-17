@@ -1,8 +1,8 @@
 <template>
     <div class="page-container">
-        <LayersPanel />
-        <CanvasPanel />
-        <PropertiesPanel />
+        <CanvasPanel class="canvas-panel"/>
+        <LayersPanel class="layers-panel"/>
+        <PropertiesPanel class="properties-panel"/>
     </div>
 </template>
 <script setup lang="ts">
@@ -13,7 +13,27 @@ import PropertiesPanel from '@/components/PropertiesPanel.vue'
 
 <style scoped>
 .page-container {
-    display: flex;
-    margin: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-panel {
+    position: absolute;
+    z-index: 1;
+}
+.layers-panel {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+}
+.properties-panel {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    right: 0;
 }
 </style>

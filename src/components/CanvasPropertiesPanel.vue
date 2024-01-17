@@ -3,11 +3,11 @@
         <h1>Screen</h1>
         <div class="form-group">
             <label for="width">width</label>
-            <PropertyInputNumber id="width" v-model="width" required min="1" step="any" />
+            <PropertyInputNumber id="width" v-model="width" required min="1" step="any" disabled />
         </div>
         <div class="form-group">
             <label for="height">height</label>
-            <PropertyInputNumber id="height" v-model="height" required min="1" step="any" />
+            <PropertyInputNumber id="height" v-model="height" required min="1" step="any" disabled />
         </div>
         <div class="form-group">
             <label for="aspectRatio">aspectRatio</label>
