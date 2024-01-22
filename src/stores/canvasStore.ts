@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import type { Point } from "@/types";
 import { inverseLerp, lerp } from "@/helpers/math";
 import { useWindowResize } from "@/composables/useWindowResize";
+import { useZoom } from "@/composables/useZoom";
 
 export const useCanvasStore = defineStore('canvas', () => {
 
@@ -10,11 +11,13 @@ export const useCanvasStore = defineStore('canvas', () => {
 
     const aspectRatio = computed(() => (width.value / height.value).toFixed(2));
 
-    const viewportWidth = computed(() => ((width.value * 1) / zoom.value) * 100);
-    const viewportHeight = computed(() => ((height.value * 1) / zoom.value) * 100);
-    const viewportX = ref(0);
-    const viewportY = ref(0);
-    const zoom = ref(100);
+    const {
+        zoom,
+        viewportWidth,
+        viewportHeight,
+        viewportX,
+        viewportY,
+    } = useZoom(width, height)
 
     function toRelative(absolute: Point): Point {
         const percentX = inverseLerp(0, width.value, absolute.x)

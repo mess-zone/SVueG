@@ -1,5 +1,6 @@
 <template>
     <svg
+        id="svgCanvas"
         ref="svgCanvas"
         :width="width"
         :height="height"
@@ -168,9 +169,9 @@ function handleWheel(event: WheelEvent) {
     viewportX.value -= viewportMargin.value.x
     viewportY.value -= viewportMargin.value.y
 
-    screenTopLeft.value = toRelative({ x: 0, y: 0 })
-    screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
-    mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
+    // screenTopLeft.value = toRelative({ x: 0, y: 0 })
+    // screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
+    // mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
 }
 
 onMounted(() => {
@@ -182,6 +183,10 @@ onUnmounted(() => {
     removeEventListener("whell", handleWheel)
 })
 
+watch(zoom, updatePoints)
+watch(width, updatePoints)
+watch(height, updatePoints)
+
 const svgCanvas = ref()
 const mousePointerInfo = ref({
     x: 0,
@@ -190,11 +195,15 @@ const mousePointerInfo = ref({
 
 const { cursorPosition } = useMouse(svgCanvas)
 
-watch(cursorPosition, () => {
+watch(cursorPosition, updatePoints)
+
+function updatePoints() {
     screenTopLeft.value = toRelative({ x: 0, y: 0 })
     screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
     mousePointerInfo.value = toRelative(cursorPosition.value)
-})
+}
+
+
 
 </script>
 <style scoped>
