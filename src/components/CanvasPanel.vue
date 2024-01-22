@@ -182,35 +182,11 @@ onUnmounted(() => {
     removeEventListener("whell", handleWheel)
 })
 
-
-
-onMounted(() => {
-    handleResize()
-    addEventListener("resize", handleResize)
-})
-
-onUnmounted(() => {
-    // @ts-ignore
-    removeEventListener("resize", handleResize)
-})
-
-function handleResize() {
-    width.value = window.innerWidth
-    height.value = window.innerHeight
-}
-
-
 const svgCanvas = ref()
 const mousePointerInfo = ref({
     x: 0,
     y: 0,
 })
-
-// function canvasMouseMove(event: MouseEvent) {
-//     screenTopLeft.value = toRelative({ x: 0, y: 0 })
-//     screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
-//     mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
-// }
 
 const { cursorPosition } = useMouse(svgCanvas)
 

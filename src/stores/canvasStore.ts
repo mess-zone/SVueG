@@ -2,10 +2,12 @@ import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 import type { Point } from "@/types";
 import { inverseLerp, lerp } from "@/helpers/math";
+import { useWindowResize } from "@/composables/useWindowResize";
 
 export const useCanvasStore = defineStore('canvas', () => {
-    const width = ref(800);
-    const height = ref(600);
+
+    const { width, height } = useWindowResize()
+
     const aspectRatio = computed(() => (width.value / height.value).toFixed(2));
 
     const viewportWidth = computed(() => ((width.value * 1) / zoom.value) * 100);
