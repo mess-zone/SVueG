@@ -41,8 +41,9 @@ import Line from "@/components/basicShapes/Line.vue";
 import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
-import { onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, onUnmounted, ref, watch } from 'vue';
 import type { Point } from '@/types';
+import { useMouse } from '@/composables/useMouse';
 
 const canvasStore = useCanvasStore();
 const {
@@ -205,18 +206,18 @@ const mousePointerInfo = ref({
     y: 0,
 })
 
-function canvasMouseMove(event: MouseEvent) {
+// function canvasMouseMove(event: MouseEvent) {
+//     screenTopLeft.value = toRelative({ x: 0, y: 0 })
+//     screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
+//     mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
+// }
+
+const { cursorPosition } = useMouse(svgCanvas)
+
+watch(cursorPosition, () => {
     screenTopLeft.value = toRelative({ x: 0, y: 0 })
     screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
-    mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
-}
-
-onMounted(() => {
-    svgCanvas.value.addEventListener('mousemove', canvasMouseMove)
-})
-
-onBeforeUnmount(() => {
-    svgCanvas.value.removeEventListener('mousemove', canvasMouseMove)
+    mousePointerInfo.value = toRelative(cursorPosition.value)
 })
 
 </script>
