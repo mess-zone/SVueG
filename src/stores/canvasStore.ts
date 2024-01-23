@@ -4,6 +4,7 @@ import type { Point } from "@/types";
 import { inverseLerp, lerp } from "@/helpers/math";
 import { useWindowResize } from "@/composables/useWindowResize";
 import { useZoom } from "@/composables/useZoom";
+import { usePan } from "@/composables/usePan";
 
 export const useCanvasStore = defineStore('canvas', () => {
 
@@ -11,13 +12,13 @@ export const useCanvasStore = defineStore('canvas', () => {
 
     const aspectRatio = computed(() => (width.value / height.value).toFixed(2));
 
+    const { viewportX, viewportY, absolutePan, relativePan } = usePan()
+
     const {
         zoom,
         viewportWidth,
         viewportHeight,
-        viewportX,
-        viewportY,
-    } = useZoom(width, height)
+    } = useZoom(width, height, relativePan)
 
     function toRelative(absolute: Point): Point {
         const percentX = inverseLerp(0, width.value, absolute.x)
@@ -53,6 +54,7 @@ export const useCanvasStore = defineStore('canvas', () => {
         viewportX,
         viewportY,
         zoom,
+        absolutePan,
         toRelative,
         toAbsolute,
     }
