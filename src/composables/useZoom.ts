@@ -1,4 +1,4 @@
-import { computed, onMounted, onUnmounted, readonly, ref, type Ref } from "vue"
+import { computed, readonly, ref, type Ref } from "vue"
 
 export function useZoom(width: Ref<number>, height: Ref<number>, deltaPan: (offsetX: number, offsetY: number) => void) {
 
@@ -62,23 +62,27 @@ export function useZoom(width: Ref<number>, height: Ref<number>, deltaPan: (offs
         deltaPan(viewportOffset.x, viewportOffset.y)
     }
 
-    function handleWheel(event: WheelEvent) {
-        centerDeltaZoom(event.deltaY * -0.001)
-    }
+    // function handleWheel(event: WheelEvent) {
+    //     // console.log(event.target, document.querySelector('#svgCanvas')?.contains(event.target as Node))
+    //     if(document.querySelector('#svgCanvas')?.contains(event.target as Node)) {
+    //         centerDeltaZoom(event.deltaY * -0.001)
+    //     }
+    // }
     
-    onMounted(() => {
-        addEventListener("wheel", handleWheel)
-    })
+    // onMounted(() => {
+    //     addEventListener("wheel", handleWheel)
+    // })
     
-    onUnmounted(() => {
-        // @ts-ignore
-        removeEventListener("whell", handleWheel)
-    })
+    // onUnmounted(() => {
+    //     // @ts-ignore
+    //     removeEventListener("whell", handleWheel)
+    // })
 
     return {
         zoomLevel: readonly(zoomLevel),
         viewportWidth,
         viewportHeight,
         centerZoomTo,
+        centerDeltaZoom,
     }
 }

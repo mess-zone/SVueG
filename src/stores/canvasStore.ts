@@ -1,4 +1,4 @@
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { defineStore } from "pinia";
 import type { Point } from "@/types";
 import { inverseLerp, lerp } from "@/helpers/math";
@@ -19,6 +19,7 @@ export const useCanvasStore = defineStore('canvas', () => {
         viewportWidth,
         viewportHeight,
         centerZoomTo,
+        centerDeltaZoom,
     } = useZoom(width, height, deltaPan)
 
     function toRelative(absolute: Point): Point {
@@ -56,6 +57,7 @@ export const useCanvasStore = defineStore('canvas', () => {
         viewportY,
         zoomLevel,
         centerZoomTo,
+        centerDeltaZoom,
         absoluteDeltaPan,
         deltaPan,
         panTo,

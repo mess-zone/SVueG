@@ -42,7 +42,7 @@ import Line from "@/components/basicShapes/Line.vue";
 import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
-import { onBeforeUnmount, onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import type { Point } from '@/types';
 import { useMouse } from '@/composables/useMouse';
 
@@ -58,7 +58,7 @@ const {
     zoomLevel,
 } = storeToRefs(canvasStore);
 
-const { toRelative, absoluteDeltaPan } = canvasStore
+const { toRelative, absoluteDeltaPan, centerDeltaZoom } = canvasStore
 
 const nodeStore =  useNodeListStore()
 const { nodeList } = storeToRefs(nodeStore)
@@ -136,6 +136,25 @@ function updatePoints() {
     mousePointerInfo.value = toRelative(cursorPosition.value)
 }
 
+
+
+
+// handle wheel events
+
+function handleWheel(event: WheelEvent) {
+    if(svgCanvas.value.contains(event.target as Node)) {
+        centerDeltaZoom(event.deltaY * -0.001)
+    }
+}
+
+onMounted(() => {
+    addEventListener("wheel", handleWheel)
+})
+
+onUnmounted(() => {
+    // @ts-ignore
+    removeEventListener("whell", handleWheel)
+})
 
 
 </script>
