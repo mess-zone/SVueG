@@ -12,7 +12,7 @@ export const useCanvasStore = defineStore('canvas', () => {
 
     const aspectRatio = computed(() => (width.value / height.value).toFixed(2));
 
-    const { viewportX, viewportY, absolutePan, relativePan } = usePan()
+    const { viewportX, viewportY, absolutePan, relativePan, panTo } = usePan()
 
     const {
         zoom,
@@ -55,6 +55,8 @@ export const useCanvasStore = defineStore('canvas', () => {
         viewportY,
         zoom,
         absolutePan,
+        relativePan,
+        panTo,
         toRelative,
         toAbsolute,
     }

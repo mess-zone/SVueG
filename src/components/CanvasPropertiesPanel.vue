@@ -27,11 +27,11 @@
         </div>
         <div class="form-group">
             <label for="viewportX">viewportX</label>
-            <PropertyInputNumber id="viewportX" v-model="viewportX" required step="any" />
+            <PropertyInputNumber id="viewportX" v-model="viewportXInput" required step="any" />
         </div>
         <div class="form-group">
             <label for="viewportY">viewportY</label>
-            <PropertyInputNumber id="viewportY" v-model="viewportY" required step="any" />
+            <PropertyInputNumber id="viewportY" v-model="viewportYInput" required step="any" />
         </div>
     </div>
 </template>
@@ -40,6 +40,7 @@
 import { useCanvasStore } from "../stores/canvasStore";
 import { storeToRefs } from "pinia";
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
+import { computed } from "vue";
 
 const canvasStore = useCanvasStore();
 const {
@@ -52,4 +53,24 @@ const {
     viewportY,
     zoom,
 } = storeToRefs(canvasStore);
+
+const { panTo } = canvasStore
+
+const viewportXInput = computed({
+    get() {
+        return viewportX.value
+    },
+    set(newValue) {
+        panTo(newValue, viewportY.value)
+    }
+})
+
+const viewportYInput = computed({
+    get() {
+        return viewportY.value
+    },
+    set(newValue) {
+        panTo(viewportX.value, newValue)
+    }
+})
 </script>
