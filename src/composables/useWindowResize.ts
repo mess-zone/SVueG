@@ -1,7 +1,6 @@
-import { onMounted, onUnmounted, ref } from "vue"
+import { onMounted, onUnmounted, readonly, ref } from "vue"
 
 export function useWindowResize() {
-
     const width = ref(800)
     const height = ref(600)
 
@@ -21,7 +20,7 @@ export function useWindowResize() {
     }
 
     return {
-        width,
-        height,
+        width: readonly(width),
+        height: readonly(height),
     }
 }

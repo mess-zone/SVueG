@@ -3,6 +3,7 @@ import { computed, onMounted, onUnmounted, ref, type Ref } from "vue"
 export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (offsetX: number, offsetY: number) => void) {
 
     // TODO zoom should be a decimal value
+    // TODO zoom should be readonly?
     const zoom = ref(100);
     const viewportWidth = computed(() => ((width.value * 1) / zoom.value) * 100);
     const viewportHeight = computed(() => ((height.value * 1) / zoom.value) * 100);
