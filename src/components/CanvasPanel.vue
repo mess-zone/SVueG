@@ -45,6 +45,10 @@ import Path from "@/components/basicShapes/Path.vue";
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import type { Point } from '@/types';
 import { useMouse } from '@/composables/useMouse';
+import { useToobarStore } from '@/stores/toolbarStore';
+
+const toolbarStore = useToobarStore()
+const { selectedTool } = storeToRefs(toolbarStore)
 
 const canvasStore = useCanvasStore();
 const {

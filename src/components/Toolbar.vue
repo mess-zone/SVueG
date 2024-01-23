@@ -1,6 +1,6 @@
 <template>
     <div class="app-toolbar">
-        <button class="tool">
+        <button class="tool" :class="{ 'tool--selected': selectedTool == 'select' }" @click="() => selectedTool = 'select'" title="Select">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24"
@@ -13,7 +13,7 @@
             </svg>
         </button>
 
-        <button class="tool tool--selected">
+        <button class="tool" :class="{ 'tool--selected': selectedTool == 'hand' }"  @click="() => selectedTool = 'hand'" title="Hand">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24"
@@ -27,6 +27,14 @@
         </button>
     </div>
 </template>
+
+<script setup lang="ts">
+import { useToobarStore } from '@/stores/toolbarStore';
+import { storeToRefs } from 'pinia';
+
+const toolbarStore = useToobarStore()
+const { selectedTool } = storeToRefs(toolbarStore)
+</script>
 
 <style scoped>
 .app-toolbar {
