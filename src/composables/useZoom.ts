@@ -6,21 +6,21 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
     const viewportWidth = computed(() => width.value / zoomLevel.value);
     const viewportHeight = computed(() => height.value / zoomLevel.value);
 
-    function doZoom(delta: number) {
-        zoomLevel.value += delta
-
-        // Restrict scale
-        zoomLevel.value = Math.min(Math.max(0.1, zoomLevel.value), 3);
-    }
-
     function zoomTo(percent: number) {
         zoomLevel.value = percent
 
         // Restrict scale
         zoomLevel.value = Math.min(Math.max(0.1, zoomLevel.value), 3);
     }
+    
+    function deltaZoom(delta: number) {
+        zoomLevel.value += delta
 
-    function centerZoom(percent: number) {
+        // Restrict scale
+        zoomLevel.value = Math.min(Math.max(0.1, zoomLevel.value), 3);
+    }
+
+    function centerZoomTo(percent: number) {
         const viewportBefore = {
             x: viewportWidth.value,
             y: viewportHeight.value
@@ -41,13 +41,13 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
         relativePan(viewportOffset.x, viewportOffset.y)
     }
 
-    function handleWheel(event: WheelEvent) {
+    function centerDeltaZoom(delta: number) {
         const viewportBefore = {
             x: viewportWidth.value,
             y: viewportHeight.value
         }
 
-        doZoom(event.deltaY * -0.001)
+        deltaZoom(delta)
 
         const viewportAfter = {
             x: viewportWidth.value,
@@ -60,6 +60,10 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
         }
     
         relativePan(viewportOffset.x, viewportOffset.y)
+    }
+
+    function handleWheel(event: WheelEvent) {
+        centerDeltaZoom(event.deltaY * -0.001)
     }
     
     onMounted(() => {
@@ -75,6 +79,6 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
         zoomLevel: readonly(zoomLevel),
         viewportWidth,
         viewportHeight,
-        centerZoom,
+        centerZoomTo,
     }
 }

@@ -18,7 +18,7 @@ export const useCanvasStore = defineStore('canvas', () => {
         zoomLevel,
         viewportWidth,
         viewportHeight,
-        centerZoom,
+        centerZoomTo,
     } = useZoom(width, height, relativePan)
 
     function toRelative(absolute: Point): Point {
@@ -55,7 +55,7 @@ export const useCanvasStore = defineStore('canvas', () => {
         viewportX,
         viewportY,
         zoomLevel,
-        centerZoom,
+        centerZoomTo,
         absolutePan,
         relativePan,
         panTo,

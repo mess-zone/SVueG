@@ -54,7 +54,7 @@ const {
     zoomLevel,
 } = storeToRefs(canvasStore);
 
-const { panTo, centerZoom } = canvasStore
+const { panTo, centerZoomTo } = canvasStore
 
 const viewportXInput = computed({
     get() {
@@ -79,7 +79,7 @@ const zoomInput = computed({
         return zoomLevel.value * 100
     },
     set(newValue) {
-        centerZoom(newValue / 100)
+        centerZoomTo(newValue / 100)
         // zoomLevel.value = newValue / 100
     }
 })
