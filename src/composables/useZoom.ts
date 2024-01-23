@@ -4,16 +4,16 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
 
     // TODO zoom should be a decimal value
     // TODO zoom should be readonly?
-    const zoom = ref(100);
-    const viewportWidth = computed(() => ((width.value * 1) / zoom.value) * 100);
-    const viewportHeight = computed(() => ((height.value * 1) / zoom.value) * 100);
+    const zoomLevel = ref(100);
+    const viewportWidth = computed(() => ((width.value * 1) / zoomLevel.value) * 100);
+    const viewportHeight = computed(() => ((height.value * 1) / zoomLevel.value) * 100);
 
     function doZoom(delta: number) {
         // zoom.value += delta * -0.01
-        zoom.value += delta
+        zoomLevel.value += delta
 
         // Restrict scale
-        zoom.value = Math.min(Math.max(10, zoom.value), 300);
+        zoomLevel.value = Math.min(Math.max(10, zoomLevel.value), 300);
     }
 
     function handleWheel(event: WheelEvent) {
@@ -49,7 +49,7 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
     })
 
     return {
-        zoom,
+        zoomLevel,
         viewportWidth,
         viewportHeight,
     }

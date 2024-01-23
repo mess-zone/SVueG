@@ -4,8 +4,8 @@ export function usePan() {
     const viewportX = ref(0);
     const viewportY = ref(0);
 
-    function absolutePan(offsetX: number, offsetY: number, zoom: number) {
-        relativePan(offsetX * (( 1 / zoom) * 100), offsetY * (( 1 / zoom) * 100))
+    function absolutePan(offsetX: number, offsetY: number, zoomLevel: number) {
+        relativePan(offsetX * (( 1 / zoomLevel) * 100), offsetY * (( 1 / zoomLevel) * 100))
     }
 
     function relativePan(offsetX: number, offsetY: number) {

@@ -15,7 +15,7 @@ export const useCanvasStore = defineStore('canvas', () => {
     const { viewportX, viewportY, absolutePan, relativePan, panTo } = usePan()
 
     const {
-        zoom,
+        zoomLevel,
         viewportWidth,
         viewportHeight,
     } = useZoom(width, height, relativePan)
@@ -53,7 +53,7 @@ export const useCanvasStore = defineStore('canvas', () => {
         viewportHeight,
         viewportX,
         viewportY,
-        zoom,
+        zoomLevel,
         absolutePan,
         relativePan,
         panTo,

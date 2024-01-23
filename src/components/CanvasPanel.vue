@@ -55,7 +55,7 @@ const {
     viewportHeight,
     viewportX,
     viewportY,
-    zoom,
+    zoomLevel,
 } = storeToRefs(canvasStore);
 
 const { toRelative, absolutePan } = canvasStore
@@ -95,7 +95,7 @@ function handleMouseMove(e: MouseEvent) {
             y: e.offsetY,
         }
 
-        absolutePan(e.movementX, e.movementY, zoom.value)
+        absolutePan(e.movementX, e.movementY, zoomLevel.value)
         // const deltaX = e.offsetX - dragInfo.value.start.x
         // const deltaY = e.offsetY - dragInfo.value.start.y
     }
@@ -111,7 +111,7 @@ const screenTopLeft = ref<Point>({
     y: 0,
 })
 
-watch(zoom, updatePoints)
+watch(zoomLevel, updatePoints)
 watch(width, updatePoints)
 watch(height, updatePoints)
 

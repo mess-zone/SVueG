@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <label for="zoom">zoom (%)</label>
-            <PropertyInputNumber id="zoom" v-model="zoom" required min="1" step="any" />
+            <PropertyInputNumber id="zoom" v-model="zoomLevel" required min="1" step="any" />
         </div>
         <div class="form-group">
             <label for="viewportWidth">viewportWidth</label>
@@ -51,7 +51,7 @@ const {
     viewportHeight,
     viewportX,
     viewportY,
-    zoom,
+    zoomLevel,
 } = storeToRefs(canvasStore);
 
 const { panTo } = canvasStore
