@@ -1,6 +1,6 @@
 import { computed, onMounted, onUnmounted, readonly, ref, type Ref } from "vue"
 
-export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (offsetX: number, offsetY: number) => void) {
+export function useZoom(width: Ref<number>, height: Ref<number>, deltaPan: (offsetX: number, offsetY: number) => void) {
 
     const zoomLevel = ref(1);
     const viewportWidth = computed(() => width.value / zoomLevel.value);
@@ -12,7 +12,7 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
         // Restrict scale
         zoomLevel.value = Math.min(Math.max(0.1, zoomLevel.value), 3);
     }
-    
+
     function deltaZoom(delta: number) {
         zoomLevel.value += delta
 
@@ -38,7 +38,7 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
             y: (viewportAfter.y - viewportBefore.y) / 2,
         }
     
-        relativePan(viewportOffset.x, viewportOffset.y)
+        deltaPan(viewportOffset.x, viewportOffset.y)
     }
 
     function centerDeltaZoom(delta: number) {
@@ -59,7 +59,7 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
             y: (viewportAfter.y - viewportBefore.y) / 2,
         }
     
-        relativePan(viewportOffset.x, viewportOffset.y)
+        deltaPan(viewportOffset.x, viewportOffset.y)
     }
 
     function handleWheel(event: WheelEvent) {

@@ -58,7 +58,7 @@ const {
     zoomLevel,
 } = storeToRefs(canvasStore);
 
-const { toRelative, absolutePan } = canvasStore
+const { toRelative, absoluteDeltaPan } = canvasStore
 
 const nodeStore =  useNodeListStore()
 const { nodeList } = storeToRefs(nodeStore)
@@ -95,7 +95,7 @@ function handleMouseMove(e: MouseEvent) {
             y: e.offsetY,
         }
 
-        absolutePan(e.movementX, e.movementY, zoomLevel.value)
+        absoluteDeltaPan(e.movementX, e.movementY, zoomLevel.value)
         // const deltaX = e.offsetX - dragInfo.value.start.x
         // const deltaY = e.offsetY - dragInfo.value.start.y
     }

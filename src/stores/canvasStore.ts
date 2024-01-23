@@ -12,14 +12,14 @@ export const useCanvasStore = defineStore('canvas', () => {
 
     const aspectRatio = computed(() => (width.value / height.value).toFixed(2));
 
-    const { viewportX, viewportY, absolutePan, relativePan, panTo } = usePan()
+    const { viewportX, viewportY, absoluteDeltaPan, deltaPan, panTo } = usePan()
 
     const {
         zoomLevel,
         viewportWidth,
         viewportHeight,
         centerZoomTo,
-    } = useZoom(width, height, relativePan)
+    } = useZoom(width, height, deltaPan)
 
     function toRelative(absolute: Point): Point {
         const percentX = inverseLerp(0, width.value, absolute.x)
@@ -56,8 +56,8 @@ export const useCanvasStore = defineStore('canvas', () => {
         viewportY,
         zoomLevel,
         centerZoomTo,
-        absolutePan,
-        relativePan,
+        absoluteDeltaPan,
+        deltaPan,
         panTo,
         toRelative,
         toAbsolute,

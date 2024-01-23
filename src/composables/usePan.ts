@@ -4,11 +4,11 @@ export function usePan() {
     const viewportX = ref(0);
     const viewportY = ref(0);
 
-    function absolutePan(offsetX: number, offsetY: number, zoomLevel: number) {
-        relativePan(offsetX / zoomLevel, offsetY / zoomLevel)
+    function absoluteDeltaPan(offsetX: number, offsetY: number, zoomLevel: number) {
+        deltaPan(offsetX / zoomLevel, offsetY / zoomLevel)
     }
 
-    function relativePan(offsetX: number, offsetY: number) {
+    function deltaPan(offsetX: number, offsetY: number) {
         viewportX.value -= offsetX 
         viewportY.value -= offsetY
     }
@@ -21,8 +21,8 @@ export function usePan() {
     return {
         viewportX: readonly(viewportX),
         viewportY: readonly(viewportY),
-        absolutePan,
-        relativePan,
+        absoluteDeltaPan,
+        deltaPan,
         panTo,
     }
 }
