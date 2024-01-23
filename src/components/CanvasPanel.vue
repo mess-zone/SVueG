@@ -74,41 +74,23 @@ supportedShapes.set('Polygon', Polygon)
 supportedShapes.set('Path', Path)
 
 
-const dragInfo = ref({
-    isDragging: false,
-    start: {
-        x: 0,
-        y: 0,
-    },
-    end: {
-        x: 0,
-        y: 0,
-    },
-})
-
-
-
-
-
 function handleMouseDown(e: MouseEvent) {
-    dragInfo.value.isDragging = true
-    dragInfo.value.start = {
+    isDragging.value = true
+    dragStart.value = {
         x: e.offsetX,
         y: e.offsetY,
     }
-    // console.log('D', e.offsetX, e.offsetY, e.movementX, e.movementY)
 }
 
 function handleMouseUp(e: MouseEvent) {
-    if(dragInfo.value.isDragging) {
-        dragInfo.value.isDragging = false
+    if(isDragging.value) {
+        isDragging.value = false
     }
 }
 
 function handleMouseMove(e: MouseEvent) {
-    if(dragInfo.value.isDragging) {
-        // console.log('M', e.offsetX, e.offsetY, e.movementX, e.movementY)
-        dragInfo.value.end = {
+    if(isDragging.value) {
+        dragEnd.value = {
             x: e.offsetX,
             y: e.offsetY,
         }
@@ -120,7 +102,6 @@ function handleMouseMove(e: MouseEvent) {
     }
 }
 
-
 const screenCenter = ref<Point>({
     x: 0,
     y: 0,
@@ -129,58 +110,6 @@ const screenCenter = ref<Point>({
 const screenTopLeft = ref<Point>({
     x: 0,
     y: 0,
-})
-
-const viewportBefore = ref<Point>({
-    x: 0, 
-    y: 0,
-})
-const viewportAfter = ref<Point>({
-    x: 0, 
-    y: 0,
-})
-const viewportMargin = ref<Point>({
-    x: 0, 
-    y: 0,
-})
-
-function handleWheel(event: WheelEvent) {
-    viewportBefore.value = {
-        x: viewportWidth.value,
-        y: viewportHeight.value
-    }
-
-    // zoom.value += event.deltaY * -0.01
-    zoom.value += event.deltaY * -0.10
-
-    // Restrict scale
-    zoom.value = Math.min(Math.max(10, zoom.value), 300);
-
-    viewportAfter.value = {
-        x: viewportWidth.value,
-        y: viewportHeight.value
-    }
-
-    viewportMargin.value = {
-        x: (viewportAfter.value.x - viewportBefore.value.x) / 2,
-        y: (viewportAfter.value.y - viewportBefore.value.y) / 2,
-    }
-
-    viewportX.value -= viewportMargin.value.x
-    viewportY.value -= viewportMargin.value.y
-
-    // screenTopLeft.value = toRelative({ x: 0, y: 0 })
-    // screenCenter.value = toRelative({ x: width.value/2, y: height.value/2 })
-    // mousePointerInfo.value = toRelative({ x: event.offsetX, y: event.offsetY })
-}
-
-onMounted(() => {
-    addEventListener("wheel", handleWheel)
-})
-
-onUnmounted(() => {
-    // @ts-ignore
-    removeEventListener("whell", handleWheel)
 })
 
 watch(zoom, updatePoints)
@@ -193,7 +122,12 @@ const mousePointerInfo = ref({
     y: 0,
 })
 
-const { cursorPosition } = useMouse(svgCanvas)
+const { 
+    cursorPosition,
+    isDragging,
+    dragStart,
+    dragEnd,
+} = useMouse(svgCanvas)
 
 watch(cursorPosition, updatePoints)
 
