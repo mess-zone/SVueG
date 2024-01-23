@@ -25,7 +25,6 @@ import Toolbar from "@/components/Toolbar.vue";
 .canvas-panel {
     position: absolute;
     z-index: 1;
-    cursor: grab;
 }
 .layers-panel {
     position: absolute;

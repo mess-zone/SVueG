@@ -10,6 +10,7 @@
         @mousemove="handleMouseMove"
         @mouseup="handleMouseUp"
         @mouseleave="handleMouseUp"
+        :class="cursor"
     >
         <!-- Origin coordinate system-->
         <circle cx="0" cy="0" r="2" fill="gray" />
@@ -42,13 +43,28 @@ import Line from "@/components/basicShapes/Line.vue";
 import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
 import type { Point } from '@/types';
 import { useMouse } from '@/composables/useMouse';
 import { useToobarStore } from '@/stores/toolbarStore';
 
+const svgCanvas = ref()
+const mousePointerInfo = ref({
+    x: 0,
+    y: 0,
+})
+
+const { 
+    cursorPosition,
+    isDragging,
+    dragStart,
+    dragEnd,
+} = useMouse(svgCanvas)
+
+watch(cursorPosition, updatePoints)
+
 const toolbarStore = useToobarStore()
-const { selectedTool } = storeToRefs(toolbarStore)
+const { selectedTool, cursor } = storeToRefs(toolbarStore)
 
 const canvasStore = useCanvasStore();
 const {
@@ -79,31 +95,50 @@ supportedShapes.set('Path', Path)
 
 
 function handleMouseDown(e: MouseEvent) {
+    e.preventDefault()
     isDragging.value = true
     dragStart.value = {
         x: e.offsetX,
         y: e.offsetY,
     }
+    // cursor.value = 'grabbing'
+    // console.log('mousedown', cursor.value)
+
 }
 
 function handleMouseUp(e: MouseEvent) {
-    if(isDragging.value) {
+    e.preventDefault()
+    // if(isDragging.value) {
         isDragging.value = false
-    }
+    // }
+    // cursor.value = 'grab'
+    // console.log('mouseup', cursor.value)
+
 }
 
 function handleMouseMove(e: MouseEvent) {
+    e.preventDefault()
     if(isDragging.value) {
         dragEnd.value = {
             x: e.offsetX,
             y: e.offsetY,
         }
 
-        absoluteDeltaPan(e.movementX, e.movementY, zoomLevel.value)
-        // const deltaX = e.offsetX - dragInfo.value.start.x
-        // const deltaY = e.offsetY - dragInfo.value.start.y
+        if(selectedTool.value == 'hand') {
+            absoluteDeltaPan(e.movementX, e.movementY, zoomLevel.value)
+            // const deltaX = e.offsetX - dragInfo.value.start.x
+            // const deltaY = e.offsetY - dragInfo.value.start.y
+        }
     }
 }
+
+// watchEffect(() => {
+//     if(isDragging.value) {
+//         cursor.value = 'grabbing'
+//     } else {
+//         cursor.value = 'grab'
+//     }
+// })
 
 const screenCenter = ref<Point>({
     x: 0,
@@ -119,20 +154,7 @@ watch(zoomLevel, updatePoints)
 watch(width, updatePoints)
 watch(height, updatePoints)
 
-const svgCanvas = ref()
-const mousePointerInfo = ref({
-    x: 0,
-    y: 0,
-})
 
-const { 
-    cursorPosition,
-    isDragging,
-    dragStart,
-    dragEnd,
-} = useMouse(svgCanvas)
-
-watch(cursorPosition, updatePoints)
 
 function updatePoints() {
     screenTopLeft.value = toRelative({ x: 0, y: 0 })
@@ -163,7 +185,18 @@ onUnmounted(() => {
 
 </script>
 <style scoped>
-svg {
+#svgCanvas {
     background-color: antiquewhite;
+}
+
+#svgCanvas.select-tool {
+    cursor: default;
+}
+#svgCanvas.hand-tool {
+    cursor: grab;
+}
+
+#svgCanvas.hand-tool:active {
+    cursor: grabbing;
 }
 </style>
