@@ -14,6 +14,34 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
         zoomLevel.value = Math.min(Math.max(0.1, zoomLevel.value), 3);
     }
 
+    function zoomTo(percent: number) {
+        zoomLevel.value = percent
+
+        // Restrict scale
+        zoomLevel.value = Math.min(Math.max(0.1, zoomLevel.value), 3);
+    }
+
+    function centerZoom(percent: number) {
+        const viewportBefore = {
+            x: viewportWidth.value,
+            y: viewportHeight.value
+        }
+
+        zoomTo(percent)
+
+        const viewportAfter = {
+            x: viewportWidth.value,
+            y: viewportHeight.value
+        }
+    
+        const viewportOffset = {
+            x: (viewportAfter.x - viewportBefore.x) / 2,
+            y: (viewportAfter.y - viewportBefore.y) / 2,
+        }
+    
+        relativePan(viewportOffset.x, viewportOffset.y)
+    }
+
     function handleWheel(event: WheelEvent) {
         const viewportBefore = {
             x: viewportWidth.value,
@@ -48,5 +76,6 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
         zoomLevel,
         viewportWidth,
         viewportHeight,
+        centerZoom,
     }
 }
