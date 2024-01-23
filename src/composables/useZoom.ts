@@ -2,18 +2,16 @@ import { computed, onMounted, onUnmounted, ref, type Ref } from "vue"
 
 export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (offsetX: number, offsetY: number) => void) {
 
-    // TODO zoom should be a decimal value
     // TODO zoom should be readonly?
-    const zoomLevel = ref(100);
-    const viewportWidth = computed(() => ((width.value * 1) / zoomLevel.value) * 100);
-    const viewportHeight = computed(() => ((height.value * 1) / zoomLevel.value) * 100);
+    const zoomLevel = ref(1);
+    const viewportWidth = computed(() => width.value / zoomLevel.value);
+    const viewportHeight = computed(() => height.value / zoomLevel.value);
 
     function doZoom(delta: number) {
-        // zoom.value += delta * -0.01
         zoomLevel.value += delta
 
         // Restrict scale
-        zoomLevel.value = Math.min(Math.max(10, zoomLevel.value), 300);
+        zoomLevel.value = Math.min(Math.max(0.1, zoomLevel.value), 3);
     }
 
     function handleWheel(event: WheelEvent) {
@@ -22,9 +20,7 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
             y: viewportHeight.value
         }
 
-        // zoom.value += event.deltaY * -0.10
-        // zoom.value = Math.min(Math.max(10, zoom.value), 300);
-        doZoom(event.deltaY * -0.10)
+        doZoom(event.deltaY * -0.001)
 
         const viewportAfter = {
             x: viewportWidth.value,

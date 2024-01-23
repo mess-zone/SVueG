@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <label for="zoom">zoom (%)</label>
-            <PropertyInputNumber id="zoom" v-model="zoomLevel" required min="1" step="any" />
+            <PropertyInputNumber id="zoom" v-model="zoomInput" required min="10" max="300" step="any" />
         </div>
         <div class="form-group">
             <label for="viewportWidth">viewportWidth</label>
@@ -71,6 +71,15 @@ const viewportYInput = computed({
     },
     set(newValue) {
         panTo(viewportX.value, newValue)
+    }
+})
+
+const zoomInput = computed({
+    get() {
+        return zoomLevel.value * 100
+    },
+    set(newValue) {
+        zoomLevel.value = newValue / 100
     }
 })
 </script>
