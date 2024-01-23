@@ -1,8 +1,7 @@
-import { computed, onMounted, onUnmounted, ref, type Ref } from "vue"
+import { computed, onMounted, onUnmounted, readonly, ref, type Ref } from "vue"
 
 export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (offsetX: number, offsetY: number) => void) {
 
-    // TODO zoom should be readonly?
     const zoomLevel = ref(1);
     const viewportWidth = computed(() => width.value / zoomLevel.value);
     const viewportHeight = computed(() => height.value / zoomLevel.value);
@@ -73,7 +72,7 @@ export function useZoom(width: Ref<number>, height: Ref<number>, relativePan: (o
     })
 
     return {
-        zoomLevel,
+        zoomLevel: readonly(zoomLevel),
         viewportWidth,
         viewportHeight,
         centerZoom,
