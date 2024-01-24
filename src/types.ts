@@ -64,7 +64,7 @@ export type PathCommandLetters = 'M' | 'm' | 'L' | 'l' | 'H' | 'h' | 'V' | 'v' |
 
 export interface PathCommand {
     letter: PathCommandLetters,
-    args?: number[]
+    args?: (number | null)[]
 }
 
 export interface PathOptions extends ShapeStyle {
@@ -100,7 +100,7 @@ export interface NodeShapeI {
 
 // export interface PolylineShape extends NodeShapeI, PolylineOptions {}
 
-export interface PathShape extends NodeShapeI, PathOptions {}
+// export interface PathShape extends NodeShapeI, PathOptions {}
 
 
 // export type LayoutNodeType = LineShape | PolylineShape | RectShape | CircleShape | EllipseShape | PolygonShape | PathShape;

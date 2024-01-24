@@ -10,7 +10,8 @@
 </template>
 <script setup lang="ts">
 import { useSVGBounding } from "@/composables/useSVGBounding";
-import { type NodeShapeI, type PathShape } from '@/types'
+import type { PathShapeObj } from "@/factories/PathShapeFactory";
+import { type NodeShapeI } from '@/types'
 import { computed, ref } from 'vue';
 
 interface Props {
@@ -19,7 +20,7 @@ interface Props {
 
 const { node } = defineProps<Props>();
 
-const shape = ref(node as PathShape);
+const shape = ref(node as PathShapeObj);
 
 const stringCommands = computed(() => {
     return shape.value.commands.map(command => `${command.letter} ${command.args?.join(' ') || '' }`).join(' ')

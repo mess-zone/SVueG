@@ -105,10 +105,10 @@ const polygonShape = createPolygonShape({
 
 const pathLineShape = createPathShape({
     commands: [
-        { letter: "M", args: [100, 200] },
-        { letter: "l", args: [100, 67] },
-        { letter: "h", args: [-50] },
-        { letter: "V", args: [150] },
+        { letter: "M", args: [0, 0] },
+        { letter: "L", args: [120, 67] },
+        { letter: "H", args: [-50, null] },
+        { letter: "V", args: [null, 130] },
         { letter: "Z" },
     ],
     rotation: { angle: 0, origin: { x: 'auto', y: 'auto' } },
@@ -121,9 +121,9 @@ const pathCurveShape = createPathShape({
     commands: [
         { letter: "M", args: [10, 300] },
         { letter: "C", args: [10, 200, 30, 200, 110, 300] },
-        { letter: "s", args: [60, -40, 150, -40] },
-        { letter: "q", args: [-20, -40, 20, -60] },
-        { letter: "t", args: [-20, -40] },
+        { letter: "S", args: [60, -40, 150, -40] },
+        { letter: "Q", args: [-20, -40, 20, -60] },
+        { letter: "T", args: [-20, -40] },
     ],
     rotation: { angle: 0, origin: { x: 'auto', y: 'auto' } },
     fill: "transparent",
