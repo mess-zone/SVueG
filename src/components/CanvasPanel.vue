@@ -22,6 +22,9 @@
             :node="node"
         />
 
+        <!-- TODO aplicar rotação -->
+        <rect v-for="node in nodeList" :key="'box-' + node.id" :x="node.x" :y="node.y" :width="node.width" :height="node.height" fill="cyan" fill-opacity=".5" />
+
         <BoundingBox /> 
 
         <circle :cx="mousePointerInfo.x" :cy="mousePointerInfo.y" r="2" fill="magenta" />
