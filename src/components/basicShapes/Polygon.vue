@@ -10,7 +10,8 @@
 </template>
 <script setup lang="ts">
 import { useSVGBounding } from "@/composables/useSVGBounding";
-import { type NodeShapeI, type PolygonShape } from '@/types'
+import type { PolygonShapeObj } from "@/factories/PolygonShapeFactory";
+import { type NodeShapeI } from '@/types'
 import { computed, ref } from 'vue';
 
 interface Props {
@@ -19,7 +20,7 @@ interface Props {
 
 const { node } = defineProps<Props>();
 
-const shape = ref(node as PolygonShape);
+const shape = ref(node as PolygonShapeObj);
 
 const stringPoints = computed(() => {
     return shape.value.points.map(point => `${point.x}, ${point.y}`).join(' ')

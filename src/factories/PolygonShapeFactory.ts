@@ -1,14 +1,83 @@
-import type { PolygonOptions, PolygonShape } from "@/types";
+import type { BoundingBoxType, NodeShapeI, Point, PolygonOptions, Rotation } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
-export function createPolygonShape({ points, rotation, stroke, fill, strokeWidth }: PolygonOptions): PolygonShape {
-    return {
-        id: uuidv4(),
-        tag: "Polygon",
+export function createPolygonShape(options: PolygonOptions): PolygonShapeObj {
+    return new PolygonShapeObj(options)
+}
+
+export class PolygonShapeObj implements NodeShapeI {
+    id: string;
+    tag: string = 'Polygon';
+    rotation: Rotation;
+
+    fill: string;
+    stroke: string;
+    strokeWidth: number;
+
+    points: Point[]
+
+    constructor({
         points,
-        rotation,
+        rotation, 
         stroke,
         fill,
         strokeWidth,
+    }: PolygonOptions) {
+        this.id = uuidv4()
+
+        this.rotation = rotation
+        this.fill = fill
+        this.stroke = stroke
+        this.strokeWidth = strokeWidth
+
+        this.points = points
+    }
+
+    get x(): number {
+        return  Math.min(...this.points.map(p => p.x))
+    }
+
+    get y(): number {
+        return  Math.min(...this.points.map(p => p.y))
+    }
+
+    set x(value: number) {
+        const delta = value - this.x
+        this.points.forEach(p => { p.x += delta })
+    }
+
+    set y(value: number) {
+        const delta = value - this.y
+        this.points.forEach(p => { p.y += delta })
+    }
+
+    get width(): number {
+        return Math.abs( Math.max(...this.points.map(p => p.x)) - this.x )
+    }
+
+    get height(): number {
+        return Math.abs( Math.max(...this.points.map(p => p.y)) - this.y )
+    }
+
+    set width(value: number) {
+        const delta = (value - this.width) / this.width
+        this.points.forEach(p => { p.x += p.x * delta })
+        // this.points[0].x = this.x
+    }
+
+    set height(value: number) {
+        const delta = (value - this.height) / this.height
+        this.points.forEach(p => { p.y += p.y * delta })
+        // this.points[0].y = this.y
+    }
+
+    // TODO bounding box deve retornar o menor ponto x,y e o maior ponto x,y
+    get boundingBox(): BoundingBoxType {
+        return {
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height,
+        }
     }
 }
