@@ -1,4 +1,4 @@
-import type { NodeShapeI, PathCommand, PathOptions, Point, Rotation } from "@/types";
+import type { BoundingBoxType, NodeShapeI, PathCommand, PathOptions, Point, Rotation } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createPathShape(options: PathOptions): PathShapeObj {
@@ -251,5 +251,15 @@ export class PathShapeObj implements NodeShapeI {
                     c.args[5] += delta
                 }
             })
+    }
+
+    // TODO bounding box deve retornar o menor ponto x,y e o maior ponto x,y
+    get boundingBox(): BoundingBoxType {
+        return {
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height,
+        }
     }
 }
