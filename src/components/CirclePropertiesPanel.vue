@@ -61,23 +61,27 @@
     </div>
 </template>
 <script setup lang="ts">
-import { useSVGBounding } from "@/composables/useSVGBounding";
-import type { CircleShape, NodeShapeI } from "@/types";
+// import { useSVGBounding } from "@/composables/useSVGBounding";
+import type { NodeShapeI } from "@/types";
 import { computed, ref } from "vue";
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
+import type { CircleShapeObj } from "@/factories/CircleShapeFactory";
 
 interface Props {
     node: NodeShapeI;
 }
 
 const { node } = defineProps<Props>();
-const circleShape = ref(node as CircleShape)
+const circleShape = ref(node as CircleShapeObj)
 
-const { boundingBox } = useSVGBounding(circleShape)
+// const { boundingBox } = useSVGBounding(circleShape)
+
+// TODO a lógica de alteração dos getters deveria estar dentro da classe circleShapeObj
+
 
 const positionXInput = computed({
     get() {
-        return boundingBox.x
+        return circleShape.value.boundingBox.x
     },
     set(newValue) {
         circleShape.value.center.x = newValue + circleShape.value.radius
@@ -86,7 +90,7 @@ const positionXInput = computed({
 
 const positionYInput = computed({
     get() {
-        return boundingBox.y
+        return  circleShape.value.boundingBox.y
     },
     set(newValue) {
         circleShape.value.center.y = newValue + circleShape.value.radius
@@ -95,7 +99,7 @@ const positionYInput = computed({
 
 const widthInput = computed({
     get() {
-        return boundingBox.width
+        return  circleShape.value.boundingBox.width
     },
     set(newValue) {
         circleShape.value.radius = newValue/2
@@ -104,7 +108,7 @@ const widthInput = computed({
 
 const heightInput = computed({
     get() {
-        return boundingBox.height
+        return  circleShape.value.boundingBox.height
     },
     set(newValue) {
         circleShape.value.radius = newValue/2

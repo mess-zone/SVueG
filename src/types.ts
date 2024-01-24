@@ -79,6 +79,10 @@ export interface PathOptions extends ShapeStyle {
 export interface NodeShapeI {
     id: string,
     tag: string,
+    // topLeft: Point,
+    // size: Point,
+    // rotation: Rotation,
+    // boundingBox: BoundingBoxType,
 }
 
 export interface LineShape extends NodeShapeI, LineOptions {}

@@ -71,13 +71,14 @@
     </div>
 </template>
 <script setup lang="ts">
-import type { NodeShapeI, RectShape } from "@/types";
+import type { NodeShapeI } from "@/types";
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
+import type { RectShapeObj } from "@/factories/RectShapeFactory";
 
 interface Props {
     node: NodeShapeI;
 }
 
 const { node } = defineProps<Props>();
-const rectShape = node as RectShape
+const rectShape = node as RectShapeObj
 </script>
