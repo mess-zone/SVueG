@@ -5,7 +5,7 @@
             <label for="positionX">x</label>
             <PropertyInputNumber
                 id="positionX"
-                v-model="positionXInput"
+                v-model="pathShape.x"
                 required
                 step="any"
             />
@@ -14,7 +14,7 @@
             <label for="positionY">y</label>
             <PropertyInputNumber
                 id="positionY"
-                v-model="positionYInput"
+                v-model="pathShape.y"
                 required
                 step="any"
             />
@@ -67,111 +67,111 @@ const pathShape = ref(node as PathShapeObj)
 
 const { boundingBox } = useSVGBounding(pathShape)
 
-const positionXInput = computed({
-    get() {
-        return pathShape.value.x
-    },
-    set(newValue) {
-        const delta = newValue - boundingBox.x
+// const positionXInput = computed({
+//     get() {
+//         return pathShape.value.x
+//     },
+//     set(newValue) {
+//         const delta = newValue - boundingBox.x
 
-        pathShape.value.commands
-            .filter(c => ['M', 'L', 'H'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[0] += delta
-                }
-            })
+//         pathShape.value.commands
+//             .filter(c => ['M', 'L', 'H'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[0] += delta
+//                 }
+//             })
 
-        pathShape.value.commands
-            .filter(c => ['T'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[0] += delta
-                }
-            })
-        pathShape.value.commands
-            .filter(c => ['Q', 'S'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[0] += delta
-                    // @ts-ignore
-                    c.args[2] += delta
-                }
-            })
-        pathShape.value.commands
-            .filter(c => ['C'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[0] += delta
-                    // @ts-ignore
-                    c.args[2] += delta
-                    // @ts-ignore
-                    c.args[4] += delta
-                }
-            })
-    }
-})
+//         pathShape.value.commands
+//             .filter(c => ['T'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[0] += delta
+//                 }
+//             })
+//         pathShape.value.commands
+//             .filter(c => ['Q', 'S'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[0] += delta
+//                     // @ts-ignore
+//                     c.args[2] += delta
+//                 }
+//             })
+//         pathShape.value.commands
+//             .filter(c => ['C'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[0] += delta
+//                     // @ts-ignore
+//                     c.args[2] += delta
+//                     // @ts-ignore
+//                     c.args[4] += delta
+//                 }
+//             })
+//     }
+// })
 
-const positionYInput = computed({
-    get() {
-        return pathShape.value.y
-    },
-    set(newValue) {
-        const delta = newValue - boundingBox.y
+// const positionYInput = computed({
+//     get() {
+//         return pathShape.value.y
+//     },
+//     set(newValue) {
+//         const delta = newValue - boundingBox.y
 
-        pathShape.value.commands
-            .filter(c => ['V'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[1] += delta
-                }
-            })
-        pathShape.value.commands
-            .filter(c => ['M', 'L'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[1] += delta
-                }
-            })
+//         pathShape.value.commands
+//             .filter(c => ['V'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[1] += delta
+//                 }
+//             })
+//         pathShape.value.commands
+//             .filter(c => ['M', 'L'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[1] += delta
+//                 }
+//             })
 
-        pathShape.value.commands
-            .filter(c => ['T'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[1] += delta
-                }
-            })
-        pathShape.value.commands
-            .filter(c => ['Q', 'S'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[1] += delta
-                    // @ts-ignore
-                    c.args[3] += delta
-                }
-            })
-        pathShape.value.commands
-            .filter(c => ['C'].includes(c.letter))
-            .forEach(c => {
-                if(c.args) {
-                    // @ts-ignore
-                    c.args[1] += delta
-                    // @ts-ignore
-                    c.args[3] += delta
-                    // @ts-ignore
-                    c.args[5] += delta
-                }
-            })
-    }
-})
+//         pathShape.value.commands
+//             .filter(c => ['T'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[1] += delta
+//                 }
+//             })
+//         pathShape.value.commands
+//             .filter(c => ['Q', 'S'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[1] += delta
+//                     // @ts-ignore
+//                     c.args[3] += delta
+//                 }
+//             })
+//         pathShape.value.commands
+//             .filter(c => ['C'].includes(c.letter))
+//             .forEach(c => {
+//                 if(c.args) {
+//                     // @ts-ignore
+//                     c.args[1] += delta
+//                     // @ts-ignore
+//                     c.args[3] += delta
+//                     // @ts-ignore
+//                     c.args[5] += delta
+//                 }
+//             })
+//     }
+// })
 
 const widthInput = computed({
     get() {

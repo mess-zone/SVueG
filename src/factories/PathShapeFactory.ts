@@ -34,41 +34,127 @@ export class PathShapeObj implements NodeShapeI {
         this.commands = commands
     }
 
-    get x(): number {
+    getPoints() {
         const commands = this.commands
-            .filter(c => ['M', 'L', 'H', 'V', 'T', 'Q', 'S', 'C'].includes(c.letter))
+            .filter(c => ['M', 'L', 'H', 'V', 'T', 'Q', 'S', 'C', 'Z'].includes(c.letter))
 
-        const points: number[] = []
+        const points = []
         for(const command of commands) {
             if(command.args) {
                 for(let i = 0; i < command.args.length; i+=2) {
-                    if(command.args[i] !== null) {
-                        points.push(command.args[i] as number)
-                    }
+                    points.push({
+                        x: command.args[i],
+                        y: command.args[i + 1]
+                    })
                 }
             }
-
         }
 
-        return  Math.min(...points)
+        return points
+    }
+
+    get x(): number {
+        const xCoordinates = this.getPoints().filter(p => p.x != null).map(p => p.x as number)
+
+        return  Math.min(...xCoordinates)
     }
 
     get y(): number {
-        const commands = this.commands
-            .filter(c => ['M', 'L', 'H', 'V', 'T', 'Q', 'S', 'C'].includes(c.letter))
+        const yCoordinates = this.getPoints().filter(p => p.y != null).map(p => p.y as number)
 
-        const points: number[] = []
-        for(const command of commands) {
-            if(command.args) {
-                for(let i = 1; i < command.args.length; i+=2) {
-                    if(command.args[i] !== null) {
-                        points.push(command.args[i] as number)
-                    }
-                }
-            }
 
-        }
-
-        return  Math.min(...points)
+        return  Math.min(...yCoordinates)
     }
+
+    set x(value) {
+        const delta = value - this.x
+
+        this.commands
+            .filter(c => ['M', 'L', 'H'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    // @ts-ignore
+                    c.args[0] += delta
+                }
+            })
+
+        this.commands
+            .filter(c => ['T'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    // @ts-ignore
+                    c.args[0] += delta
+                }
+            })
+        this.commands
+            .filter(c => ['Q', 'S'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    // @ts-ignore
+                    c.args[0] += delta
+                    // @ts-ignore
+                    c.args[2] += delta
+                }
+            })
+        this.commands
+            .filter(c => ['C'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    // @ts-ignore
+                    c.args[0] += delta
+                    // @ts-ignore
+                    c.args[2] += delta
+                    // @ts-ignore
+                    c.args[4] += delta
+                }
+            })
+    }
+
+    set y(value) {
+        const delta = value - this.y
+
+        this.commands
+            .filter(c => ['M', 'L', 'V'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    // @ts-ignore
+                    c.args[1] += delta
+                }
+            })
+
+        this.commands
+            .filter(c => ['T'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    // @ts-ignore
+                    c.args[1] += delta
+                }
+            })
+        this.commands
+            .filter(c => ['Q', 'S'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    // @ts-ignore
+                    c.args[1] += delta
+                    // @ts-ignore
+                    c.args[3] += delta
+                }
+            })
+        this.commands
+            .filter(c => ['C'].includes(c.letter))
+            .forEach(c => {
+                if(c.args) {
+                    // @ts-ignore
+                    c.args[1] += delta
+                    // @ts-ignore
+                    c.args[3] += delta
+                    // @ts-ignore
+                    c.args[5] += delta
+                }
+            })
+    }
+
+    // get width(): number {
+
+    // }
 }
