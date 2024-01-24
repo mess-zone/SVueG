@@ -13,7 +13,8 @@
 </template>
 <script setup lang="ts">
 import { useSVGBounding } from "@/composables/useSVGBounding";
-import type { EllipseShape, NodeShapeI } from '@/types';
+import type { EllipseShapeObj } from "@/factories/EllipseShapeFactory";
+import type { NodeShapeI } from '@/types';
 import { ref } from 'vue';
 
 interface Props {
@@ -22,7 +23,7 @@ interface Props {
 
 const { node } = defineProps<Props>();
 
-const shape = ref(node as EllipseShape);
+const shape = ref(node as EllipseShapeObj);
 
 const { origin } = useSVGBounding(shape)
 </script>

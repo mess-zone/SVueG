@@ -90,11 +90,11 @@ export interface NodeShapeI {
 
 export interface LineShape extends NodeShapeI, LineOptions {}
 
-export interface RectShape extends NodeShapeI, RectOptions {}
+// export interface RectShape extends NodeShapeI, RectOptions {}
 
-export interface CircleShape extends NodeShapeI, CircleOptions {}
+// export interface CircleShape extends NodeShapeI, CircleOptions {}
 
-export interface EllipseShape extends NodeShapeI, EllipseOptions {}
+// export interface EllipseShape extends NodeShapeI, EllipseOptions {}
 
 export interface PolygonShape extends NodeShapeI, PolygonOptions {}
 
@@ -103,7 +103,7 @@ export interface PolylineShape extends NodeShapeI, PolylineOptions {}
 export interface PathShape extends NodeShapeI, PathOptions {}
 
 
-export type LayoutNodeType = LineShape | PolylineShape | RectShape | CircleShape | EllipseShape | PolygonShape | PathShape;
+// export type LayoutNodeType = LineShape | PolylineShape | RectShape | CircleShape | EllipseShape | PolygonShape | PathShape;
 
 
 export interface BoundingBoxType {
