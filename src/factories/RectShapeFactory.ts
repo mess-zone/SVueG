@@ -1,15 +1,17 @@
-import type { BoundingBoxType, Point, RectOptions, RectShape, Rotation } from "@/types";
+import type { BoundingBoxType, NodeShapeI, Point, RectOptions, Rotation } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createRectShape(options: RectOptions): RectShapeObj {
     return new RectShapeObj(options)
 }
 
-export class RectShapeObj implements RectShape {
+export class RectShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Rect';
-    topLeft: Point;
-    size: Point;
+    x: number
+    y: number
+    width: number
+    height: number
     rotation: Rotation;
 
     fill: string;
@@ -28,8 +30,10 @@ export class RectShapeObj implements RectShape {
         round,
     }: RectOptions) {
         this.id = uuidv4()
-        this.topLeft = topLeft
-        this.size = size
+        this.x = topLeft.x
+        this.y = topLeft.y
+        this.width = size.x
+        this.height = size.y
         this.rotation = rotation
         this.fill = fill
         this.stroke = stroke
@@ -39,10 +43,10 @@ export class RectShapeObj implements RectShape {
 
     get boundingBox(): BoundingBoxType {
         return {
-            x: this.topLeft.x,
-            y: this.topLeft.y,
-            width: this.size.x,
-            height: this.size.y,
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height,
         }
     }
 }

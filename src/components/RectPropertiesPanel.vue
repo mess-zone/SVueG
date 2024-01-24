@@ -5,7 +5,7 @@
             <label for="rectX">x</label>
             <PropertyInputNumber
                 id="rectX"
-                v-model="rectShape.topLeft.x"
+                v-model="rectShape.x"
                 required
                 step="any"
             />
@@ -14,7 +14,7 @@
             <label for="rectY">y</label>
             <PropertyInputNumber
                 id="rectY"
-                v-model="rectShape.topLeft.y"
+                v-model="rectShape.y"
                 required
                 step="any"
             />
@@ -23,7 +23,7 @@
             <label for="rectWidth">width</label>
             <PropertyInputNumber
                 id="rectWidth"
-                v-model="rectShape.size.x"
+                v-model="rectShape.width"
                 required
                 min="1"
                 step="any"
@@ -33,7 +33,7 @@
             <label for="rectHeight">height</label>
             <PropertyInputNumber
                 id="rectHeight"
-                v-model="rectShape.size.y"
+                v-model="rectShape.height"
                 required
                 min="1"
                 step="any"

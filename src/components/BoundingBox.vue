@@ -16,17 +16,16 @@ import { storeToRefs } from "pinia";
 import Rect from "./basicShapes/Rect.vue";
 import Circle from "./basicShapes/Circle.vue";
 
-import { createRectShape } from "@/factories/RectShapeFactory";
-import { createCircleShape } from "@/factories/CircleShapeFactory";
+import { RectShapeObj, createRectShape } from "@/factories/RectShapeFactory";
+import { CircleShapeObj, createCircleShape } from "@/factories/CircleShapeFactory";
 
-import type { RectShape, CircleShape } from "@/types";
 import type { ShapeStyle } from "@/types";
 
 const nodeStore = useNodeListStore();
 const { selectedNode, selectedBB: selectedBoundingBox, selectedOrigin } =
     storeToRefs(nodeStore);
 
-const rectShape = ref<RectShape>(
+const rectShape = ref<RectShapeObj>(
     createRectShape({
         topLeft: { x: 0, y: 0 },
         size: { x: 0, y: 0 },
@@ -38,7 +37,7 @@ const rectShape = ref<RectShape>(
     })
 );
 
-const topLeft = ref<CircleShape>(
+const topLeft = ref<CircleShapeObj>(
     createCircleShape({
         center: {
             x: 0,
@@ -52,7 +51,7 @@ const topLeft = ref<CircleShape>(
     })
 );
 
-const topRight = ref<CircleShape>(
+const topRight = ref<CircleShapeObj>(
     createCircleShape({
         center: {
             x: 0,
@@ -66,7 +65,7 @@ const topRight = ref<CircleShape>(
     })
 );
 
-const bottomLeft = ref<CircleShape>(
+const bottomLeft = ref<CircleShapeObj>(
     createCircleShape({
         center: {
             x: 0,
@@ -80,7 +79,7 @@ const bottomLeft = ref<CircleShape>(
     })
 );
 
-const bottomRight = ref<CircleShape>(
+const bottomRight = ref<CircleShapeObj>(
     createCircleShape({
         center: {
             x: 0,
@@ -103,15 +102,12 @@ watchEffect(() => {
         if (selectedBoundingBox.value) {
             const nodeRotationAngle = shapeStyle.rotation.angle || 0;
     
-            rectShape.value.topLeft = {
-                x: selectedBoundingBox.value.x,
-                y: selectedBoundingBox.value.y,
-            };
-            rectShape.value.size = {
-                x: selectedBoundingBox.value.width,
-                y: selectedBoundingBox.value.height,
-            };
-    
+            rectShape.value.x = selectedBoundingBox.value.x
+            rectShape.value.y = selectedBoundingBox.value.y
+
+            rectShape.value.width = selectedBoundingBox.value.width
+            rectShape.value.height = selectedBoundingBox.value.height
+  
             rectShape.value.rotation.origin = selectedOrigin.value
             rectShape.value.rotation.angle = nodeRotationAngle;
     

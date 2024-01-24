@@ -5,7 +5,7 @@
             <label for="circleX">x</label>
             <PropertyInputNumber
                 id="circleX"
-                v-model="positionXInput"
+                v-model="circleShape.x"
                 required
                 step="any"
             />
@@ -14,7 +14,7 @@
             <label for="circleY">y</label>
             <PropertyInputNumber
                 id="circleY"
-                v-model="positionYInput"
+                v-model="circleShape.y"
                 required
                 step="any"
             />
@@ -23,7 +23,7 @@
             <label for="circleWidth">width</label>
             <PropertyInputNumber
                 id="circleWidth"
-                v-model="widthInput"
+                v-model="circleShape.width"
                 required
                 min="1"
                 step="any"
@@ -33,7 +33,7 @@
             <label for="circleHeight">height</label>
             <PropertyInputNumber
                 id="circleHeight"
-                v-model="heightInput"
+                v-model="circleShape.height"
                 required
                 min="1"
                 step="any"
@@ -61,9 +61,8 @@
     </div>
 </template>
 <script setup lang="ts">
-// import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { NodeShapeI } from "@/types";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 import type { CircleShapeObj } from "@/factories/CircleShapeFactory";
 
@@ -74,44 +73,4 @@ interface Props {
 const { node } = defineProps<Props>();
 const circleShape = ref(node as CircleShapeObj)
 
-// const { boundingBox } = useSVGBounding(circleShape)
-
-// TODO a lógica de alteração dos getters deveria estar dentro da classe circleShapeObj
-
-
-const positionXInput = computed({
-    get() {
-        return circleShape.value.boundingBox.x
-    },
-    set(newValue) {
-        circleShape.value.center.x = newValue + circleShape.value.radius
-    }
-})
-
-const positionYInput = computed({
-    get() {
-        return  circleShape.value.boundingBox.y
-    },
-    set(newValue) {
-        circleShape.value.center.y = newValue + circleShape.value.radius
-    }
-})
-
-const widthInput = computed({
-    get() {
-        return  circleShape.value.boundingBox.width
-    },
-    set(newValue) {
-        circleShape.value.radius = newValue/2
-    }
-})
-
-const heightInput = computed({
-    get() {
-        return  circleShape.value.boundingBox.height
-    },
-    set(newValue) {
-        circleShape.value.radius = newValue/2
-    }
-})
 </script>

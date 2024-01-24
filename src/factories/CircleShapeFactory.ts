@@ -1,11 +1,11 @@
-import type { BoundingBoxType, CircleOptions, CircleShape, Point, Rotation } from "@/types";
+import type { BoundingBoxType, CircleOptions, NodeShapeI, Point, Rotation } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
-export function createCircleShape(options: CircleOptions): CircleShape {
+export function createCircleShape(options: CircleOptions): CircleShapeObj {
     return new CircleShapeObj(options)
 }
 
-export class CircleShapeObj implements CircleShape {
+export class CircleShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Circle';
     rotation: Rotation;
@@ -26,7 +26,6 @@ export class CircleShapeObj implements CircleShape {
         radius,
     }: CircleOptions) {
         this.id = uuidv4()
-
         this.rotation = rotation
         this.fill = fill
         this.stroke = stroke
@@ -35,26 +34,44 @@ export class CircleShapeObj implements CircleShape {
         this.radius = radius
     }
 
-    get topLeft(): Point {
-        return {
-            x: this.center.x - this.radius,
-            y: this.center.y - this.radius,
-        }
+    get x(): number {
+        return this.center.x - this.radius
     }
 
-    get size(): Point {
-        return {
-            x: this.radius * 2,
-            y: this.radius * 2,
-        }
+    get y(): number {
+        return this.center.y - this.radius
+    }
+
+    set x(value: number) {
+        this.center.x = value + this.radius
+    }
+
+    set y(value: number) {
+        this.center.y = value + this.radius
+    }
+
+    get width(): number {
+        return this.radius * 2
+    }
+
+    get height(): number {
+        return this.radius * 2
+    }
+
+    set width(value: number) {
+        this.radius = value/2
+    }
+
+    set height(value: number) {
+        this.radius = value/2
     }
 
     get boundingBox(): BoundingBoxType {
         return {
-            x: this.topLeft.x,
-            y: this.topLeft.y,
-            width: this.size.x,
-            height: this.size.y,
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height,
         }
     }
 

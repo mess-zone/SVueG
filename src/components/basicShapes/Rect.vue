@@ -1,12 +1,12 @@
 <template>
     <rect
         :data-node-id="shape.id"
-        :x="shape.topLeft.x"
-        :y="shape.topLeft.y"
+        :x="shape.x"
+        :y="shape.y"
         :rx="shape.round.x"
         :ry="shape.round.y"
-        :width="shape.size.x"
-        :height="shape.size.y"
+        :width="shape.width"
+        :height="shape.height"
         :stroke="shape.stroke"
         :fill="shape.fill"
         :stroke-width="shape.strokeWidth"
@@ -15,7 +15,8 @@
 </template>
 <script setup lang="ts">
 import { useSVGBounding } from "@/composables/useSVGBounding";
-import { type NodeShapeI, type RectShape } from "@/types";
+import type { RectShapeObj } from "@/factories/RectShapeFactory";
+import { type NodeShapeI } from "@/types";
 import { ref } from "vue";
 
 interface Props {
@@ -24,7 +25,7 @@ interface Props {
 
 const { node } = defineProps<Props>();
 
-const shape = ref(node as RectShape);
+const shape = ref(node as RectShapeObj);
 
 const { origin } = useSVGBounding(shape)
 
