@@ -98,7 +98,7 @@ export interface NodeShapeI {
 
 export interface PolygonShape extends NodeShapeI, PolygonOptions {}
 
-export interface PolylineShape extends NodeShapeI, PolylineOptions {}
+// export interface PolylineShape extends NodeShapeI, PolylineOptions {}
 
 export interface PathShape extends NodeShapeI, PathOptions {}
 

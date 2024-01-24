@@ -5,7 +5,7 @@
             <label for="positionX">x</label>
             <PropertyInputNumber
                 id="positionX"
-                v-model="positionXInput"
+                v-model="polylineShape.x"
                 required
                 step="any"
             />
@@ -14,7 +14,7 @@
             <label for="positionY">y</label>
             <PropertyInputNumber
                 id="positionY"
-                v-model="positionYInput"
+                v-model="polylineShape.y"
                 required
                 step="any"
             />
@@ -23,7 +23,7 @@
             <label for="width">width</label>
             <PropertyInputNumber
                 id="width"
-                v-model="widthInput"
+                v-model="polylineShape.width"
                 required
                 min="1"
                 step="any"
@@ -33,7 +33,7 @@
             <label for="height">height</label>
             <PropertyInputNumber
                 id="height"
-                v-model="heightInput"
+                v-model="polylineShape.height"
                 required
                 min="1"
                 step="any"
@@ -52,10 +52,10 @@
     </div>
 </template>
 <script setup lang="ts">
-import { useSVGBounding } from "@/composables/useSVGBounding";
-import type { NodeShapeI, PolylineShape } from '@/types';
-import { computed, ref } from 'vue';
+import type { NodeShapeI } from '@/types';
+import { ref } from 'vue';
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
+import type { PolylineShapeObj } from "@/factories/PolylineShapeFactory";
 
 interface Props {
   node: NodeShapeI
@@ -63,50 +63,6 @@ interface Props {
 
 const { node } = defineProps<Props>()
 
-const polylineShape = ref(node as PolylineShape)
-
-const { boundingBox } = useSVGBounding(polylineShape)
-
-const positionXInput = computed({
-    get() {
-        return boundingBox.x
-    },
-    set(newValue) {
-        const delta = newValue - boundingBox.x
-        polylineShape.value.points.forEach(p => { p.x += delta })
-    }
-})
-
-const positionYInput = computed({
-    get() {
-        return boundingBox.y
-    },
-    set(newValue) {
-        const delta = newValue - boundingBox.y
-        polylineShape.value.points.forEach(p => { p.y += delta })
-    }
-})
-
-const widthInput = computed({
-    get() {
-        return boundingBox.width
-    },
-    set(newValue) {
-        const delta = (newValue - boundingBox.width) / boundingBox.width
-        polylineShape.value.points.forEach(p => { p.x += p.x * delta })
-        polylineShape.value.points[0].x = boundingBox.x
-    }
-})
-
-const heightInput = computed({
-    get() {
-        return boundingBox.height
-    },
-    set(newValue) {
-        const delta = (newValue - boundingBox.height) / boundingBox.height
-        polylineShape.value.points.forEach(p => { p.y += p.y * delta })
-        polylineShape.value.points[0].y = boundingBox.y
-    }
-})
+const polylineShape = ref(node as PolylineShapeObj)
 
 </script>
