@@ -8,6 +8,7 @@ export function createRectShape(options: RectOptions): RectShapeObj {
 export class RectShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Rect';
+    // TODO x e y devem ser valores derivados de topLeft
     x: number
     y: number
     width: number

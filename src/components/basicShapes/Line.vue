@@ -12,7 +12,8 @@
 </template>
 <script setup lang="ts">
 import { useSVGBounding } from "@/composables/useSVGBounding";
-import { type LineShape, type NodeShapeI } from '@/types'
+import type { LineShapeObj } from "@/factories/LineShapeFactory";
+import { type NodeShapeI } from '@/types'
 import { ref } from 'vue';
 
 interface Props {
@@ -21,7 +22,7 @@ interface Props {
 
 const { node } = defineProps<Props>();
 
-const shape = ref(node as LineShape);
+const shape = ref(node as LineShapeObj);
 
 const { origin } = useSVGBounding(shape)
 </script>

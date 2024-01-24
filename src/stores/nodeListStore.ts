@@ -69,8 +69,8 @@ const ellipseShape = createEllipseShape({
 })
 
 const lineShape = createLineShape({
-    start: { x: 0, y: 0 },
-    end: { x: 400, y: 300 },
+    start: { x: 10, y: 10 },
+    end: { x: 400, y: 10 },
     rotation: { angle: 0, origin: { x: 'auto', y: 'auto' } },
     stroke: "black",
     fill: "transparent",

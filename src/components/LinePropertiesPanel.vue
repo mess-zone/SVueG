@@ -5,7 +5,7 @@
             <label for="linePositionX">x</label>
             <PropertyInputNumber
                 id="linePositionX"
-                v-model="positionXInput"
+                v-model="lineShape.x"
                 required
                 step="any"
             />
@@ -14,7 +14,7 @@
             <label for="linePositionY">y</label>
             <PropertyInputNumber
                 id="linePositionY"
-                v-model="positionYInput"
+                v-model="lineShape.y"
                 required
                 step="any"
             />
@@ -23,7 +23,7 @@
             <label for="width">width</label>
             <PropertyInputNumber
                 id="width"
-                v-model="widthInput"
+                v-model="lineShape.width"
                 required
                 min="1"
                 step="any"
@@ -33,9 +33,9 @@
             <label for="height">height</label>
             <PropertyInputNumber
                 id="height"
-                v-model="heightInput"
+                v-model="lineShape.height"
                 required
-                min="1"
+                min="0"
                 step="any"
             />
         </div>
@@ -88,10 +88,10 @@
     </div>
 </template>
 <script setup lang="ts">
-import { useSVGBounding } from "@/composables/useSVGBounding";
-import type { LineShape, NodeShapeI } from '@/types';
-import { computed, ref } from 'vue';
+import type { NodeShapeI } from '@/types';
+import { ref } from 'vue';
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
+import type { LineShapeObj } from "@/factories/LineShapeFactory";
 
 interface Props {
   node: NodeShapeI
@@ -99,46 +99,6 @@ interface Props {
 
 const { node } = defineProps<Props>()
 
-const lineShape = ref(node as LineShape)
-
-const { boundingBox } = useSVGBounding(lineShape)
-
-const positionXInput = computed({
-    get() {
-        return boundingBox.x
-    },
-    set(newValue) {
-        lineShape.value.start.x = newValue
-        lineShape.value.end.x = newValue + boundingBox.width
-    }
-})
-
-const positionYInput = computed({
-    get() {
-        return boundingBox.y
-    },
-    set(newValue) {
-        lineShape.value.start.y = newValue
-        lineShape.value.end.y = newValue + boundingBox.height
-    }
-})
-
-const widthInput = computed({
-    get() {
-        return boundingBox.width
-    },
-    set(newValue) {
-        lineShape.value.end.x = boundingBox.x + newValue
-    }
-})
-
-const heightInput = computed({
-    get() {
-        return boundingBox.height
-    },
-    set(newValue) {
-        lineShape.value.end.y = boundingBox.y + newValue
-    }
-})
+const lineShape = ref(node as LineShapeObj)
 
 </script>

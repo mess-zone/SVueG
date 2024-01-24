@@ -88,7 +88,7 @@ export interface NodeShapeI {
     // strokeWidth: number;
 }
 
-export interface LineShape extends NodeShapeI, LineOptions {}
+// export interface LineShape extends NodeShapeI, LineOptions {}
 
 // export interface RectShape extends NodeShapeI, RectOptions {}
 
