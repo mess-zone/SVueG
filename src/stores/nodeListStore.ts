@@ -10,7 +10,17 @@ import { createPolygonShape } from "@/factories/PolygonShapeFactory";
 import { createPathShape } from "@/factories/PathShapeFactory";
 import { useSVGBounding } from "@/composables/useSVGBounding";
 
-const rectShape = createRectShape({
+const rectShape1 = createRectShape({
+    topLeft: { x: 0, y: 0 },
+    size: { x: 640, y: 480 },
+    round: { x: 0, y: 0 },
+    rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
+    stroke: "green",
+    fill: "transparent",
+    strokeWidth: 4,
+})
+
+const rectShape2 = createRectShape({
     topLeft: { x: 0, y: 0 },
     size: { x: 800, y: 600 },
     round: { x: 0, y: 0 },
@@ -20,19 +30,9 @@ const rectShape = createRectShape({
     strokeWidth: 4,
 })
 
-const rectShape2 = createRectShape({
-    topLeft: { x: 0, y: 0 },
-    size: { x: 1066, y: 800 },
-    round: { x: 0, y: 0 },
-    rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
-    stroke: "green",
-    fill: "transparent",
-    strokeWidth: 4,
-})
-
 const rectShape3 = createRectShape({
     topLeft: { x: 0, y: 0 },
-    size: { x: 640, y: 480 },
+    size: { x: 1066, y: 800 },
     round: { x: 0, y: 0 },
     rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
     stroke: "green",
@@ -150,10 +150,10 @@ export const useNodeListStore = defineStore('nodeList', () => {
         selectedNode.value = node
     }
 
-    addNode(rectShape)
-    addNode(rectShape2)
-    addNode(rectShape3)
     addNode(rectShape4)
+    addNode(rectShape3)
+    addNode(rectShape2)
+    addNode(rectShape1)
     addNode(circleShape)
     addNode(ellipseShape)
     addNode(polygonShape)
@@ -165,6 +165,16 @@ export const useNodeListStore = defineStore('nodeList', () => {
     function isSelected(node: NodeShapeI) {
         if(selectedNode.value) {
             if(selectedNode.value.id === node.id) {
+                return true
+            }
+        }
+    
+        return false
+    }
+
+    function isHovered(node: NodeShapeI) {
+        if(hoveredNode.value) {
+            if(hoveredNode.value.id === node.id) {
                 return true
             }
         }
@@ -189,5 +199,6 @@ export const useNodeListStore = defineStore('nodeList', () => {
         selectedOrigin,
 
         hoveredNode,
+        isHovered,
     }
 })

@@ -3,7 +3,7 @@
         <div class="section">
             <h1>Layers</h1>
             <ul class="nodeList">
-                <li class="node" v-for="node in nodeStack" :key="node.id" :class="{ 'node--selected': isSelected(node) }" @click="selectNode(node)">
+                <li class="node" v-for="node in nodeStack" :key="node.id" :class="{ 'node--selected': isSelected(node), 'node--hovered': isHovered(node) }" @click="selectNode(node)">
                     [{{ node.tag }}] {{ node.id }}
                 </li>
             </ul>    
@@ -18,7 +18,7 @@ import { storeToRefs } from 'pinia'
 
 const nodeStore =  useNodeListStore()
 const { nodeStack } = storeToRefs(nodeStore)
-const { selectNode, isSelected } = nodeStore
+const { selectNode, isSelected, isHovered } = nodeStore
 
 </script>
 
@@ -31,14 +31,16 @@ const { selectNode, isSelected } = nodeStore
     }
 
     .node {
+        border: 1px solid transparent;
         padding: 5px;
     }
 
-    .node:hover {
-        background-color: rgb(165, 242, 255);
+    .node:hover,
+    .node.node--hovered {
+        border-color: blue;
     }
 
     .node.node--selected {
-        border: 1px solid blue;
+        background-color: rgb(165, 242, 255);
     }
 </style>
