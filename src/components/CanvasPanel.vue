@@ -23,9 +23,7 @@
                 :node="node"
             />
     
-            <!-- TODO aplicar rotação -->
-            <rect v-for="node in nodeList" :key="'box-' + node.id" :x="node.x" :y="node.y" :width="node.width" :height="node.height" fill="cyan" fill-opacity=".5" />
-    
+
             <!-- <BoundingBox />  -->
     
             <circle :cx="mousePointerInfo.x" :cy="mousePointerInfo.y" r="2" fill="magenta" />
@@ -40,8 +38,11 @@
             :height="height"
             :viewBox="`0 0 ${width} ${height}`"
             xmlns="http://www.w3.org/2000/svg">
-            <BoundingBox />
+
+            <HoveredBoundingBox />
+            <SelectedBoundingBox />
             <circle :cx="cursorPosition.x" :cy="cursorPosition.y" r="2" fill="green" />
+
         </svg>
     </div>
 </template>
@@ -50,7 +51,8 @@
 import { useNodeListStore } from '../stores/nodeListStore'
 import { useCanvasStore } from "../stores/canvasStore";
 import { storeToRefs } from "pinia";
-import BoundingBox from "@/components/BoundingBox.vue";
+import HoveredBoundingBox from "@/components/HoveredBoundingBox.vue";
+import SelectedBoundingBox from "@/components/SelectedBoundingBox.vue";
 import Rect from "@/components/basicShapes/Rect.vue";
 import Circle from "@/components/basicShapes/Circle.vue";
 import Ellipse from "@/components/basicShapes/Ellipse.vue";
@@ -96,7 +98,7 @@ const {
 const { toRelative, absoluteDeltaPan, centerDeltaZoom } = canvasStore
 
 const nodeStore =  useNodeListStore()
-const { nodeList } = storeToRefs(nodeStore)
+const { nodeList, hoveredNode } = storeToRefs(nodeStore)
 
 
 const supportedShapes = new Map()
@@ -190,12 +192,15 @@ function hasCollision(point: Point, box: BoundingBoxType) {
 watch(cursorPosition, () => {
     const point = toRelative(cursorPosition.value)
     console.log(cursorPosition.value, point)
+    hoveredNode.value = null
     for(const node of nodeList.value) {
         if(hasCollision(point, node.boundingBox)) {
             console.log(node)
+            hoveredNode.value = node
             return
         }
     }
+
 })
 
 

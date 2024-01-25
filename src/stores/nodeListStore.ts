@@ -167,6 +167,8 @@ export const useNodeListStore = defineStore('nodeList', () => {
         return false
     }
 
+    const hoveredNode = ref<NodeShapeI | null>(null)
+
     const { boundingBox: selectedBB, center: selectedCenter, origin: selectedOrigin } = useSVGBounding(selectedNode)
 
     return {
@@ -179,5 +181,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
         selectedBB,
         selectedCenter,
         selectedOrigin,
+
+        hoveredNode,
     }
 })
