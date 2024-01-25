@@ -11,6 +11,7 @@
 import { ref, watchEffect } from "vue";
 
 import { useNodeListStore } from "../stores/nodeListStore";
+import { useCanvasStore } from "@/stores/canvasStore";
 import { storeToRefs } from "pinia";
 
 import Rect from "./basicShapes/Rect.vue";
@@ -20,6 +21,9 @@ import { RectShapeObj, createRectShape } from "@/factories/RectShapeFactory";
 import { CircleShapeObj, createCircleShape } from "@/factories/CircleShapeFactory";
 
 import type { ShapeStyle } from "@/types";
+
+const canvasStore = useCanvasStore()
+const { toAbsolute } = canvasStore
 
 const nodeStore = useNodeListStore();
 const { selectedNode, selectedBB: selectedBoundingBox, selectedOrigin } =
@@ -102,40 +106,51 @@ watchEffect(() => {
         if (selectedBoundingBox.value) {
             const nodeRotationAngle = shapeStyle.rotation.angle || 0;
     
-            rectShape.value.x = selectedBoundingBox.value.x
-            rectShape.value.y = selectedBoundingBox.value.y
+            const tl = toAbsolute({
+                x: selectedBoundingBox.value.x,
+                y: selectedBoundingBox.value.y,
+            })
+            rectShape.value.x =  tl.x
+            rectShape.value.y = tl.y
 
-            rectShape.value.width = selectedBoundingBox.value.width
-            rectShape.value.height = selectedBoundingBox.value.height
+
+            const s = toAbsolute({
+                x: selectedBoundingBox.value.width,
+                y: selectedBoundingBox.value.height,
+            })
+            rectShape.value.width = s.x
+            rectShape.value.height = s.y
   
             rectShape.value.rotation.origin = selectedOrigin.value
             rectShape.value.rotation.angle = nodeRotationAngle;
     
-            topLeft.value.center = {
-                x: selectedBoundingBox.value.x,
-                y: selectedBoundingBox.value.y,
-            };
+            topLeft.value.center = tl
             topLeft.value.rotation.origin = selectedOrigin.value;
             topLeft.value.rotation.angle = nodeRotationAngle;
     
-            topRight.value.center = {
+
+            const tr = toAbsolute({
                 x: selectedBoundingBox.value.x + selectedBoundingBox.value.width,
                 y: selectedBoundingBox.value.y,
-            };
+            })
+            topRight.value.center = tr
             topRight.value.rotation.origin = selectedOrigin.value;
             topRight.value.rotation.angle = nodeRotationAngle;
     
-            bottomLeft.value.center = {
+
+            const bl = toAbsolute({
                 x: selectedBoundingBox.value.x,
                 y: selectedBoundingBox.value.y + selectedBoundingBox.value.height,
-            };
+            })
+            bottomLeft.value.center = bl
             bottomLeft.value.rotation.origin = selectedOrigin.value;
             bottomLeft.value.rotation.angle = nodeRotationAngle;
     
-            bottomRight.value.center = {
+            const br = toAbsolute({
                 x: selectedBoundingBox.value.x + selectedBoundingBox.value.width,
                 y: selectedBoundingBox.value.y + selectedBoundingBox.value.height,
-            };
+            })
+            bottomRight.value.center = br
             bottomRight.value.rotation.origin = selectedOrigin.value;
             bottomRight.value.rotation.angle = nodeRotationAngle;
         }

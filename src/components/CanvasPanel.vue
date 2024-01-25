@@ -1,37 +1,49 @@
 <template>
-    <svg
-        id="svgCanvas"
-        ref="svgCanvas"
-        :width="width"
-        :height="height"
-        xmlns="http://www.w3.org/2000/svg"
-        :viewBox="`${viewportX} ${viewportY} ${viewportWidth} ${viewportHeight}`"
-        @mousedown="handleMouseDown"
-        @mousemove="handleMouseMove"
-        @mouseup="handleMouseUp"
-        @mouseleave="handleMouseUp"
-        :class="cursor"
-    >
-        <!-- Origin coordinate system-->
-        <circle cx="0" cy="0" r="2" fill="gray" />
-
-        <component
-            v-for="node in nodeList"
-            :key="node.id"
-            :is="supportedShapes.get(node.tag)"
-            :node="node"
-        />
-
-        <!-- TODO aplicar rotação -->
-        <rect v-for="node in nodeList" :key="'box-' + node.id" :x="node.x" :y="node.y" :width="node.width" :height="node.height" fill="cyan" fill-opacity=".5" />
-
-        <BoundingBox /> 
-
-        <circle :cx="mousePointerInfo.x" :cy="mousePointerInfo.y" r="2" fill="magenta" />
-        <line :x1="screenTopLeft.x" :y1="screenTopLeft.y" :x2="screenCenter.x" :y2="screenCenter.y" stroke="cyan" stroke-width="2" />
-        <circle :cx="screenCenter.x" :cy="screenCenter.y" r="5" fill="cyan" />
-        <circle :cx="screenTopLeft.x" :cy="screenTopLeft.y" r="10" fill="cyan" />
-    </svg>
+    <div>
+        <svg
+            id="svgCanvas"
+            ref="svgCanvas"
+            :width="width"
+            :height="height"
+            xmlns="http://www.w3.org/2000/svg"
+            :viewBox="`${viewportX} ${viewportY} ${viewportWidth} ${viewportHeight}`"
+            @mousedown="handleMouseDown"
+            @mousemove="handleMouseMove"
+            @mouseup="handleMouseUp"
+            @mouseleave="handleMouseUp"
+            :class="cursor"
+        >
+            <!-- Origin coordinate system-->
+            <circle cx="0" cy="0" r="2" fill="gray" />
+    
+            <component
+                v-for="node in nodeList"
+                :key="node.id"
+                :is="supportedShapes.get(node.tag)"
+                :node="node"
+            />
+    
+            <!-- TODO aplicar rotação -->
+            <rect v-for="node in nodeList" :key="'box-' + node.id" :x="node.x" :y="node.y" :width="node.width" :height="node.height" fill="cyan" fill-opacity=".5" />
+    
+            <!-- <BoundingBox />  -->
+    
+            <circle :cx="mousePointerInfo.x" :cy="mousePointerInfo.y" r="2" fill="magenta" />
+            <line :x1="screenTopLeft.x" :y1="screenTopLeft.y" :x2="screenCenter.x" :y2="screenCenter.y" stroke="cyan" stroke-width="2" />
+            <circle :cx="screenCenter.x" :cy="screenCenter.y" r="5" fill="cyan" />
+            <circle :cx="screenTopLeft.x" :cy="screenTopLeft.y" r="10" fill="cyan" />
+        </svg>
+        <svg 
+            id="svgCanvasMarks"             
+            ref="svgCanvasMarks"
+            :width="width"
+            :height="height"
+            :viewBox="`0 0 ${width} ${height}`"
+            xmlns="http://www.w3.org/2000/svg">
+            <BoundingBox />
+            <circle :cx="cursorPosition.x" :cy="cursorPosition.y" r="2" fill="green" />
+        </svg>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -190,6 +202,9 @@ onUnmounted(() => {
 <style scoped>
 #svgCanvas {
     background-color: antiquewhite;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #svgCanvas.select-tool {
@@ -201,5 +216,14 @@ onUnmounted(() => {
 
 #svgCanvas.hand-tool:active {
     cursor: grabbing;
+}
+
+
+#svgCanvasMarks {
+    /* background-color: rgba(137, 43, 226, 0.692); */
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 </style>
