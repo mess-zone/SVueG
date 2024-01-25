@@ -118,9 +118,6 @@ function handleMouseDown(e: MouseEvent) {
         x: e.offsetX,
         y: e.offsetY,
     }
-    // cursor.value = 'grabbing'
-    // console.log('mousedown', cursor.value)
-
 }
 
 function handleMouseUp(e: MouseEvent) {
@@ -128,34 +125,37 @@ function handleMouseUp(e: MouseEvent) {
     // if(isDragging.value) {
         isDragging.value = false
     // }
-    // cursor.value = 'grab'
-    // console.log('mouseup', cursor.value)
-
 }
 
 function handleMouseMove(e: MouseEvent) {
     e.preventDefault()
+    const point = {
+        x: e.offsetX,
+        y: e.offsetY,
+    }
+
     if(isDragging.value) {
-        dragEnd.value = {
-            x: e.offsetX,
-            y: e.offsetY,
-        }
+        dragEnd.value = point
 
         if(selectedTool.value == 'hand') {
+            hoveredNode.value = null
             absoluteDeltaPan(e.movementX, e.movementY, zoomLevel.value)
             // const deltaX = e.offsetX - dragInfo.value.start.x
             // const deltaY = e.offsetY - dragInfo.value.start.y
+        } 
+    } else {
+        if(selectedTool.value == 'select') {
+            const relativePoint = toRelative(point)
+            hoveredNode.value = null
+            for(const node of nodeList.value) {
+                if(hasCollision(relativePoint, node.boundingBox)) {
+                    hoveredNode.value = node
+                    return
+                }
+            }
         }
     }
 }
-
-// watchEffect(() => {
-//     if(isDragging.value) {
-//         cursor.value = 'grabbing'
-//     } else {
-//         cursor.value = 'grab'
-//     }
-// })
 
 const screenCenter = ref<Point>({
     x: 0,
@@ -188,22 +188,6 @@ function hasCollision(point: Point, box: BoundingBoxType) {
     }
     return false
 }
-
-watch(cursorPosition, () => {
-    const point = toRelative(cursorPosition.value)
-    console.log(cursorPosition.value, point)
-    hoveredNode.value = null
-    for(const node of nodeList.value) {
-        if(hasCollision(point, node.boundingBox)) {
-            console.log(node)
-            hoveredNode.value = node
-            return
-        }
-    }
-
-})
-
-
 
 // handle wheel events
 
