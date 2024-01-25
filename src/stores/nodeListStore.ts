@@ -1,6 +1,6 @@
 import type { NodeShapeI } from "@/types";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { createRectShape } from "@/factories/RectShapeFactory";
 import { createCircleShape } from "@/factories/CircleShapeFactory";
 import { createEllipseShape } from "@/factories/EllipseShapeFactory";
@@ -135,6 +135,11 @@ const pathCurveShape = createPathShape({
 export const useNodeListStore = defineStore('nodeList', () => {
     const nodeList = ref<NodeShapeI[]>([])
 
+    const nodeStack = computed(() => {
+        // @ts-ignore
+        return nodeList.value.toReversed()
+    })
+
     const selectedNode = ref<NodeShapeI>()
 
     function addNode(node: NodeShapeI) {
@@ -173,6 +178,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
 
     return {
         nodeList,
+        nodeStack,
         addNode,
         selectedNode,
         selectNode,

@@ -98,7 +98,7 @@ const {
 const { toRelative, absoluteDeltaPan, centerDeltaZoom } = canvasStore
 
 const nodeStore =  useNodeListStore()
-const { nodeList, hoveredNode } = storeToRefs(nodeStore)
+const { nodeList, nodeStack, hoveredNode } = storeToRefs(nodeStore)
 
 
 const supportedShapes = new Map()
@@ -147,7 +147,7 @@ function handleMouseMove(e: MouseEvent) {
         if(selectedTool.value == 'select') {
             const relativePoint = toRelative(point)
             hoveredNode.value = null
-            for(const node of nodeList.value) {
+            for(const node of nodeStack.value) {
                 if(hasCollision(relativePoint, node.boundingBox)) {
                     hoveredNode.value = node
                     return
