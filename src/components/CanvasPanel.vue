@@ -59,7 +59,7 @@ import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
-import type { Point } from '@/types';
+import type { BoundingBoxType, NodeShapeI, Point } from '@/types';
 import { useMouse } from '@/composables/useMouse';
 import { useToobarStore } from '@/stores/toolbarStore';
 
@@ -177,6 +177,26 @@ function updatePoints() {
     mousePointerInfo.value = toRelative(cursorPosition.value)
 }
 
+function hasCollision(point: Point, box: BoundingBoxType) {
+    if( point.x >= box.x && // right of the left edge
+        point.x <= box.x + box.width && // left of the right edge
+        point.y >= box.y && // bellow the top
+        point.y <= box.y + box.height) { // above the bottom
+            return true
+    }
+    return false
+}
+
+watch(cursorPosition, () => {
+    const point = toRelative(cursorPosition.value)
+    console.log(cursorPosition.value, point)
+    for(const node of nodeList.value) {
+        if(hasCollision(point, node.boundingBox)) {
+            console.log(node)
+            return
+        }
+    }
+})
 
 
 
