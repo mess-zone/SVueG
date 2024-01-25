@@ -3,7 +3,7 @@
         <div class="section">
             <h1>Layers</h1>
             <ul class="nodeList">
-                <li class="node" v-for="node in nodeStack" :key="node.id" :class="{ 'node--selected': isSelected(node), 'node--hovered': isHovered(node) }" @click="selectNode(node)">
+                <li class="node" v-for="node in nodeStack" :key="node.id" :class="{ 'node--selected': isSelected(node), 'node--hovered': isHovered(node) }" @click="selectNode(node)" @mouseover="handleMouseOver(node)" @mouseout="handleMouseOut">
                     [{{ node.tag }}] {{ node.id }}
                 </li>
             </ul>    
@@ -13,12 +13,30 @@
 </template>
 
 <script setup lang="ts">
+import type { NodeShapeI } from '@/types';
 import { useNodeListStore } from '../stores/nodeListStore'
 import { storeToRefs } from 'pinia'
 
 const nodeStore =  useNodeListStore()
-const { nodeStack } = storeToRefs(nodeStore)
+const { nodeStack, hoveredNode } = storeToRefs(nodeStore)
 const { selectNode, isSelected, isHovered } = nodeStore
+
+function clearHover() {
+    hoveredNode.value = null
+}
+
+function hoverNode(node: NodeShapeI) {
+    console.log('over', node)
+    hoveredNode.value = node
+}
+
+function handleMouseOver(node: NodeShapeI) {
+    hoverNode(node)
+}
+
+function handleMouseOut() {
+    clearHover()
+}
 
 </script>
 
