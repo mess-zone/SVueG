@@ -7,5 +7,6 @@ export function lerp( a: number, b: number, alpha: number ) {
 }
 
 export function inverseLerp(x: number, y: number, a: number) {
-    return clamp((a - x) / (y - x))
+    return (a - x) / (y - x)
+    // return clamp((a - x) / (y - x))
 }
