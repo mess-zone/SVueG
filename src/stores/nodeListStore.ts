@@ -140,7 +140,7 @@ export const useNodeListStore = defineStore('nodeList', () => {
         return nodeList.value.toReversed()
     })
 
-    const selectedNode = ref<NodeShapeI>()
+    const selectedNode = ref<NodeShapeI | null>(null)
 
     function addNode(node: NodeShapeI) {
         nodeList.value.push(node);

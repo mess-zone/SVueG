@@ -1,7 +1,7 @@
 import type { NodeShapeI, ShapeStyle } from "@/types";
 import { reactive, watch, type Ref, computed, onMounted } from "vue";
 
-export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
+export function useSVGBounding(target: Ref<NodeShapeI | null>) {
 
     const el = computed(() => getSvgElement(target.value) ) 
     
@@ -33,7 +33,7 @@ export function useSVGBounding(target: Ref<NodeShapeI |undefined>) {
         return { x: 0, y: 0 }
       })
     
-    function getSvgElement(node: NodeShapeI | undefined) {
+    function getSvgElement(node: NodeShapeI | null) {
         if(node) {
             return document.querySelector(`[data-node-id='${node.id}']`) as SVGGraphicsElement
         }

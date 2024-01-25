@@ -98,7 +98,7 @@ const {
 const { toRelative, absoluteDeltaPan, centerDeltaZoom } = canvasStore
 
 const nodeStore =  useNodeListStore()
-const { nodeList, nodeStack, hoveredNode } = storeToRefs(nodeStore)
+const { nodeList, nodeStack, selectedNode, hoveredNode } = storeToRefs(nodeStore)
 
 
 const supportedShapes = new Map()
@@ -117,6 +117,10 @@ function handleMouseDown(e: MouseEvent) {
     dragStart.value = {
         x: e.offsetX,
         y: e.offsetY,
+    }
+
+    if(selectedTool.value == 'select') {
+        selectedNode.value = hoveredNode.value
     }
 }
 

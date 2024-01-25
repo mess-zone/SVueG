@@ -26,7 +26,7 @@ function clearHover() {
 }
 
 function hoverNode(node: NodeShapeI) {
-    console.log('over', node)
+    // console.log('over', node)
     hoveredNode.value = node
 }
 
