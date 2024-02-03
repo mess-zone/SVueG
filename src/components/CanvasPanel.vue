@@ -61,7 +61,7 @@ import Polyline from "@/components/basicShapes/Polyline.vue";
 import Polygon from "@/components/basicShapes/Polygon.vue";
 import Path from "@/components/basicShapes/Path.vue";
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
-import type { BoundingBoxType, NodeShapeI, Point } from '@/types';
+import type { BoundingBoxType, NodeShapeI, Point, Rotation } from '@/types';
 import { useMouse } from '@/composables/useMouse';
 import { useToobarStore } from '@/stores/toolbarStore';
 
@@ -152,7 +152,7 @@ function handleMouseMove(e: MouseEvent) {
             const relativePoint = toRelative(point)
             hoveredNode.value = null
             for(const node of nodeStack.value) {
-                if(hasCollision(relativePoint, node.boundingBox)) {
+                if(hasCollision(relativePoint, node.boundingBox, node.rotation)) {
                     hoveredNode.value = node
                     return
                 }
@@ -183,7 +183,25 @@ function updatePoints() {
     mousePointerInfo.value = toRelative(cursorPosition.value)
 }
 
-function hasCollision(point: Point, box: BoundingBoxType) {
+function hasCollision(point: Point, box: BoundingBoxType, rotation: Rotation) {
+    // const tl = {
+    //     x: box.x,
+    //     y: box.y,
+    // }
+    // const tr = {
+    //     x: box.x + box.width,
+    //     y: box.y,
+    // }
+    // const bl = {
+    //     x: box.x,
+    //     y: box.y + box.height,
+    // }
+    // const br = {
+    //     x: box.x + box.width,
+    //     y: box.y + box.height,
+    // }
+    // console.log(tl, tr, bl, br)
+
     if( point.x >= box.x && // right of the left edge
         point.x <= box.x + box.width && // left of the right edge
         point.y >= box.y && // bellow the top
