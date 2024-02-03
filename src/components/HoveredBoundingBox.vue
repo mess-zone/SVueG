@@ -16,7 +16,7 @@ import Polygon from "./basicShapes/Polygon.vue";
 
 import { RectShapeObj, createRectShape } from "@/factories/RectShapeFactory";
 
-import type { NodeShapeI, ShapeStyle } from "@/types";
+import type { NodeShapeI, Point, ShapeStyle } from "@/types";
 import { PolygonShapeObj, createPolygonShape } from "@/factories/PolygonShapeFactory";
 
 const canvasStore = useCanvasStore()
@@ -53,6 +53,21 @@ const polygonShape = ref<PolygonShapeObj>(
     })
 )
 
+function degreesToRad(degrees: number) {
+    return degrees * Math.PI / 180.0
+}
+
+function rotate(point: Point, angle: number) {
+    const rad = degreesToRad(angle)
+    const cos = Math.cos(rad)
+    const sin = Math.sin(rad)
+
+    return {
+        x: (point.x * cos) + (point.y * sin),
+        y: -(point.y * cos) + (point.x * sin),
+    }
+}
+
 
 watchEffect(() => {
     const shapeStyle = hoveredNode.value as unknown as ShapeStyle
@@ -61,25 +76,25 @@ watchEffect(() => {
     if(bb && shapeStyle) {
             const nodeRotationAngle = shapeStyle.rotation.angle || 0;
 
-            const tl = toAbsolute({
+            const tl = toAbsolute(rotate({
                 x: bb.x,
                 y: bb.y,
-            })
+            }, nodeRotationAngle))
 
-            const tr = toAbsolute({
+            const tr = toAbsolute(rotate({
                 x: bb.x + bb.width,
                 y: bb.y,
-            })
+            }, nodeRotationAngle))
 
-            const bl = toAbsolute({
+            const bl = toAbsolute(rotate({
                 x: bb.x,
                 y: bb.y + bb.height,
-            })
+            }, nodeRotationAngle))
     
-            const br = toAbsolute({
+            const br = toAbsolute(rotate({
                 x: bb.x + bb.width,
                 y: bb.y + bb.height,
-            })
+            }, nodeRotationAngle))
 
             // rectShape.value.x =  tl.x
             // rectShape.value.y = tl.y
