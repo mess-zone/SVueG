@@ -64,6 +64,8 @@ import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
 import type { BoundingBoxType, NodeShapeI, Point } from '@/types';
 import { useMouse } from '@/composables/useMouse';
 import { useToobarStore } from '@/stores/toolbarStore';
+import { getBoundingPoly } from '@/helpers/math';
+import { hasPolyPointCollision } from '../helpers/math.js'
 
 const svgCanvas = ref()
 const mousePointerInfo = ref({
@@ -183,33 +185,9 @@ function updatePoints() {
     mousePointerInfo.value = toRelative(cursorPosition.value)
 }
 
-// TODO use polygon to detect collision, not box
 function hasCollision(point: Point, box: BoundingBoxType, rotation: number) {
-    // const tl = {
-    //     x: box.x,
-    //     y: box.y,
-    // }
-    // const tr = {
-    //     x: box.x + box.width,
-    //     y: box.y,
-    // }
-    // const bl = {
-    //     x: box.x,
-    //     y: box.y + box.height,
-    // }
-    // const br = {
-    //     x: box.x + box.width,
-    //     y: box.y + box.height,
-    // }
-    // console.log(tl, tr, bl, br)
-
-    if( point.x >= box.x && // right of the left edge
-        point.x <= box.x + box.width && // left of the right edge
-        point.y >= box.y && // bellow the top
-        point.y <= box.y + box.height) { // above the bottom
-            return true
-    }
-    return false
+    const vertices = getBoundingPoly(box, rotation)
+    return hasPolyPointCollision(point, vertices)
 }
 
 // handle wheel events
