@@ -5,11 +5,11 @@
         :stroke="shape.stroke"
         :fill="shape.fill"
         :stroke-width="shape.strokeWidth"
-        :transform="`rotate(${shape.rotation.angle}, ${origin.x}, ${origin.y})`"
+        :transform="`rotate(${shape.rotation.angle})`"
+        style="transform-box: fill-box; transform-origin: 50% 50%"
     />
 </template>
 <script setup lang="ts">
-import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { PolylineShapeObj } from "@/factories/PolylineShapeFactory";
 import { type NodeShapeI } from '@/types'
 import { computed, ref } from 'vue';
@@ -26,5 +26,4 @@ const stringPoints = computed(() => {
     return shape.value.points.map(point => `${point.x}, ${point.y}`).join(' ')
 })
 
-const { origin } = useSVGBounding(shape)
 </script>

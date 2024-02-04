@@ -7,11 +7,11 @@
         :y2="shape.end.y"
         :stroke="shape.stroke"
         :stroke-width="shape.strokeWidth"
-        :transform="`rotate(${shape.rotation.angle}, ${origin.x}, ${origin.y})`"
+        :transform="`rotate(${shape.rotation.angle})`"
+        style="transform-box: fill-box; transform-origin: 50% 50%"
     />
 </template>
 <script setup lang="ts">
-import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { LineShapeObj } from "@/factories/LineShapeFactory";
 import { type NodeShapeI } from '@/types'
 import { ref } from 'vue';
@@ -24,5 +24,4 @@ const { node } = defineProps<Props>();
 
 const shape = ref(node as LineShapeObj);
 
-const { origin } = useSVGBounding(shape)
 </script>
