@@ -71,7 +71,6 @@
     </div>
 </template>
 <script setup lang="ts">
-// import { useSVGBounding } from "@/composables/useSVGBounding";
 import type { NodeShapeI } from "@/types";
 import { ref } from "vue";
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";

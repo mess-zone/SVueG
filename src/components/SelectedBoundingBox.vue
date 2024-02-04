@@ -102,41 +102,42 @@ const bottomRight = ref<CircleShapeObj>(
 
 const nodeRotationAngle = ref(0)
 
+// TODO refactor like HoveredBoundingBox
 watchEffect(() => {
     const shapeStyle = selectedNode.value as unknown as ShapeStyle
     const bb = selectedNode.value?.boundingBox
 
     if(bb && shapeStyle) {
-            nodeRotationAngle.value = shapeStyle.rotation || 0;
+        nodeRotationAngle.value = shapeStyle.rotation || 0;
 
-            const tl = toAbsolute({
-                x: bb.x,
-                y: bb.y,
-            })
-            topLeft.value.center = tl
+        const tl = toAbsolute({
+            x: bb.x,
+            y: bb.y,
+        })
+        topLeft.value.center = tl
 
-            const tr = toAbsolute({
-                x: bb.x + bb.width,
-                y: bb.y,
-            })
-            topRight.value.center = tr
-            const bl = toAbsolute({
-                x: bb.x,
-                y: bb.y + bb.height,
-            })
-            bottomLeft.value.center = bl
-    
-            const br = toAbsolute({
-                x: bb.x + bb.width,
-                y: bb.y + bb.height,
-            })
-            bottomRight.value.center = br
+        const tr = toAbsolute({
+            x: bb.x + bb.width,
+            y: bb.y,
+        })
+        topRight.value.center = tr
+        const bl = toAbsolute({
+            x: bb.x,
+            y: bb.y + bb.height,
+        })
+        bottomLeft.value.center = bl
 
-            rectShape.value.x =  tl.x
-            rectShape.value.y = tl.y
+        const br = toAbsolute({
+            x: bb.x + bb.width,
+            y: bb.y + bb.height,
+        })
+        bottomRight.value.center = br
 
-            rectShape.value.width =  br.x - tl.x
-            rectShape.value.height = br.y - tl.y
+        rectShape.value.x =  tl.x
+        rectShape.value.y = tl.y
+
+        rectShape.value.width =  br.x - tl.x
+        rectShape.value.height = br.y - tl.y
     }
 
 });

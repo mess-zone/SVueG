@@ -8,7 +8,6 @@ import { createLineShape } from "@/factories/LineShapeFactory";
 import { createPolylineShape } from "@/factories/PolylineShapeFactory";
 import { createPolygonShape } from "@/factories/PolygonShapeFactory";
 import { createPathShape } from "@/factories/PathShapeFactory";
-import { useSVGBounding } from "@/composables/useSVGBounding";
 
 const rectShape1 = createRectShape({
     topLeft: { x: 0, y: 0 },
@@ -184,7 +183,6 @@ export const useNodeListStore = defineStore('nodeList', () => {
 
     const hoveredNode = ref<NodeShapeI | null>(null)
 
-    const { boundingBox: selectedBB, center: selectedCenter, origin: selectedOrigin } = useSVGBounding(selectedNode)
 
     return {
         nodeList,
@@ -193,11 +191,6 @@ export const useNodeListStore = defineStore('nodeList', () => {
         selectedNode,
         selectNode,
         isSelected,
-
-        selectedBB,
-        selectedCenter,
-        selectedOrigin,
-
         hoveredNode,
         isHovered,
     }
