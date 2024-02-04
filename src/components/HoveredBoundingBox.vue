@@ -35,9 +35,9 @@ const polygonShape = ref<PolygonShapeObj>(
 
 watchEffect(() => {
     if(hoveredNode.value) {
-        const points = getBoundingPoly(hoveredNode.value.boundingBox, hoveredNode.value.rotation)
+        const vectors = getBoundingPoly(hoveredNode.value.boundingBox, hoveredNode.value.rotation)
 
-        polygonShape.value.points = points.map(relativePoint => toAbsolute(relativePoint))
+        polygonShape.value.points = vectors.map(relativePoint => toAbsolute(relativePoint))
     }
 });
 </script>

@@ -102,7 +102,8 @@ export function getBoundingPoly(boundingBox: BoundingBoxType, rotation: number) 
         y: boundingBox.y + boundingBox.height,
     }, shapeCenter, rotation)
 
-    return [ tl, tr, br, bl ]
+    // TODO why the topleft clockwise order doesnt work? Os valores de y parecem estar trocados 
+    return [ bl, br, tr, tl ]
     
 }
 

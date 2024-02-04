@@ -23,8 +23,6 @@ import Circle from "./basicShapes/Circle.vue";
 import { RectShapeObj, createRectShape } from "@/factories/RectShapeFactory";
 import { CircleShapeObj, createCircleShape } from "@/factories/CircleShapeFactory";
 
-import type { ShapeStyle } from "@/types";
-
 const canvasStore = useCanvasStore()
 const { toAbsolute } = canvasStore
 
@@ -102,13 +100,16 @@ const bottomRight = ref<CircleShapeObj>(
 
 const nodeRotationAngle = ref(0)
 
-// TODO refactor like HoveredBoundingBox
 watchEffect(() => {
-    const shapeStyle = selectedNode.value as unknown as ShapeStyle
-    const bb = selectedNode.value?.boundingBox
+    if(selectedNode.value) {
+        const bb = selectedNode.value.boundingBox
+    
+        nodeRotationAngle.value = selectedNode.value.rotation;
 
-    if(bb && shapeStyle) {
-        nodeRotationAngle.value = shapeStyle.rotation || 0;
+        // TODO doesnot work
+        // const vectors = getBoundingPoly(selectedNode.value.boundingBox, selectedNode.value.rotation)
+        // console.log(vectors.map(relativePoint => toAbsolute(relativePoint)))
+
 
         const tl = toAbsolute({
             x: bb.x,
