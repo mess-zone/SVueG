@@ -80,7 +80,7 @@
             <label for="lineRotation">rotation</label>
             <PropertyInputNumber
                 id="lineRotation"
-                v-model="lineShape.rotation.angle"
+                v-model="lineShape.rotation"
                 required
                 step="any"
             />

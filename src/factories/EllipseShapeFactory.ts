@@ -1,4 +1,4 @@
-import type { BoundingBoxType, EllipseOptions, NodeShapeI, Point, Rotation } from "@/types";
+import type { BoundingBoxType, EllipseOptions, NodeShapeI, Point } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createEllipseShape(options: EllipseOptions): EllipseShapeObj {
@@ -8,7 +8,7 @@ export function createEllipseShape(options: EllipseOptions): EllipseShapeObj {
 export class EllipseShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Ellipse';
-    rotation: Rotation;
+    rotation: number;
 
     fill: string;
     stroke: string;

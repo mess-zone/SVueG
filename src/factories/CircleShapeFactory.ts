@@ -1,4 +1,4 @@
-import type { BoundingBoxType, CircleOptions, NodeShapeI, Point, Rotation } from "@/types";
+import type { BoundingBoxType, CircleOptions, NodeShapeI, Point } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createCircleShape(options: CircleOptions): CircleShapeObj {
@@ -8,7 +8,7 @@ export function createCircleShape(options: CircleOptions): CircleShapeObj {
 export class CircleShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Circle';
-    rotation: Rotation;
+    rotation: number;
 
     fill: string;
     stroke: string;

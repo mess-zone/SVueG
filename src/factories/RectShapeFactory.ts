@@ -1,4 +1,4 @@
-import type { BoundingBoxType, NodeShapeI, Point, RectOptions, Rotation } from "@/types";
+import type { BoundingBoxType, NodeShapeI, Point, RectOptions } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createRectShape(options: RectOptions): RectShapeObj {
@@ -13,7 +13,7 @@ export class RectShapeObj implements NodeShapeI {
     y: number
     width: number
     height: number
-    rotation: Rotation;
+    rotation: number;
 
     fill: string;
     stroke: string;

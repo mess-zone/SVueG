@@ -44,7 +44,7 @@
             <PropertyInputNumber
                 id="lineRotation"
                 type="number"
-                v-model="polylineShape.rotation.angle"
+                v-model="polylineShape.rotation"
                 required
                 step="any"
             />

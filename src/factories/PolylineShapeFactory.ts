@@ -1,4 +1,4 @@
-import type { BoundingBoxType, NodeShapeI, Point, PolylineOptions, Rotation } from "@/types";
+import type { BoundingBoxType, NodeShapeI, Point, PolylineOptions } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createPolylineShape(options: PolylineOptions): PolylineShapeObj {
@@ -8,7 +8,7 @@ export function createPolylineShape(options: PolylineOptions): PolylineShapeObj 
 export class PolylineShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Polyline';
-    rotation: Rotation;
+    rotation: number;
 
     fill: string;
     stroke: string;

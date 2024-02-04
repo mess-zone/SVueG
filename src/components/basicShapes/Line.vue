@@ -7,7 +7,7 @@
         :y2="shape.end.y"
         :stroke="shape.stroke"
         :stroke-width="shape.strokeWidth"
-        :transform="`rotate(${shape.rotation.angle})`"
+        :transform="`rotate(${shape.rotation})`"
         style="transform-box: fill-box; transform-origin: 50% 50%"
     />
 </template>

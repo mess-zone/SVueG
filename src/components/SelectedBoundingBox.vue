@@ -37,7 +37,7 @@ const rectShape = ref<RectShapeObj>(
         topLeft: { x: 0, y: 0 },
         size: { x: 0, y: 0 },
         round: { x: 0, y: 0 },
-        rotation: { angle: 0, origin: { x: 0, y: 0 } },
+        rotation: 0,
         stroke: "blue",
         fill: "transparent",
         strokeWidth: 2,
@@ -51,7 +51,7 @@ const topLeft = ref<CircleShapeObj>(
             y: 0,
         },
         radius: 4,
-        rotation: { angle: 0, origin: { x: 0, y: 0 } },
+        rotation: 0,
         fill: "blue",
         stroke: "",
         strokeWidth: 0,
@@ -65,7 +65,7 @@ const topRight = ref<CircleShapeObj>(
             y: 0,
         },
         radius: 4,
-        rotation: { angle: 0, origin: { x: 0, y: 0 } },
+        rotation: 0,
         fill: "blue",
         stroke: "",
         strokeWidth: 0,
@@ -79,7 +79,7 @@ const bottomLeft = ref<CircleShapeObj>(
             y: 0,
         },
         radius: 4,
-        rotation: { angle: 0, origin: { x: 0, y: 0 } },
+        rotation: 0,
         fill: "blue",
         stroke: "",
         strokeWidth: 0,
@@ -93,7 +93,7 @@ const bottomRight = ref<CircleShapeObj>(
             y: 0,
         },
         radius: 4,
-        rotation: { angle: 0, origin: { x: 0, y: 0 } },
+        rotation: 0,
         fill: "blue",
         stroke: "",
         strokeWidth: 0,
@@ -107,7 +107,7 @@ watchEffect(() => {
     const bb = selectedNode.value?.boundingBox
 
     if(bb && shapeStyle) {
-            nodeRotationAngle.value = shapeStyle.rotation.angle || 0;
+            nodeRotationAngle.value = shapeStyle.rotation || 0;
 
             const tl = toAbsolute({
                 x: bb.x,

@@ -3,15 +3,15 @@ export type Point = {
     y: number,
 }
 
-export type RotationPoint = {
-    x: number | 'auto',
-    y: number | 'auto',
-}
+// export type RotationPoint = {
+//     x: number | 'auto',
+//     y: number | 'auto',
+// }
 
-export type Rotation = {
-    angle: number,
-    origin: RotationPoint,
-}
+// export type Rotation = {
+//     angle: number,
+//     origin: RotationPoint,
+// }
 
 // export interface LineStyle {
 //     stroke: string
@@ -25,7 +25,7 @@ export interface ShapeStyle {
     stroke: string,
     strokeWidth: number,
 
-    rotation: Rotation,
+    rotation: number, // degrees
 }
 
 // ############ PRIMITIVE SHAPES ##############
@@ -83,7 +83,7 @@ export interface NodeShapeI {
     y: number, 
     width: number, 
     height: number,
-    rotation: Rotation,
+    rotation: number,
     boundingBox: BoundingBoxType,
 
     fill: string;

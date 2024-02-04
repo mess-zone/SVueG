@@ -1,6 +1,12 @@
 import type { NodeShapeI, ShapeStyle } from "@/types";
 import { reactive, watch, type Ref, computed, onMounted } from "vue";
 
+/**
+ * 
+ * @deprecated
+ * @param target 
+ * @returns 
+ */
 export function useSVGBounding(target: Ref<NodeShapeI | null>) {
 
     const el = computed(() => getSvgElement(target.value) ) 
@@ -25,10 +31,7 @@ export function useSVGBounding(target: Ref<NodeShapeI | null>) {
 
     const origin = computed(() => {
         if(shapeStyle) {
-            return {
-              x: shapeStyle.value.rotation.origin.x == 'auto' ? center.value.x : shapeStyle.value.rotation.origin.x,
-              y: shapeStyle.value.rotation.origin.y == 'auto' ? center.value.y : shapeStyle.value.rotation.origin.y,
-            }
+            return center
         }
         return { x: 0, y: 0 }
       })

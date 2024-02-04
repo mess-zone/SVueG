@@ -1,4 +1,4 @@
-import type { BoundingBoxType, LineOptions, NodeShapeI, Point, Rotation } from "@/types";
+import type { BoundingBoxType, LineOptions, NodeShapeI, Point } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createLineShape(options: LineOptions): LineShapeObj {
@@ -8,7 +8,7 @@ export function createLineShape(options: LineOptions): LineShapeObj {
 export class LineShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Line';
-    rotation: Rotation;
+    rotation: number;
 
     fill: string;
     stroke: string;

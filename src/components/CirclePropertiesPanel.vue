@@ -53,7 +53,7 @@
             <label for="circleRotation">rotation</label>
             <PropertyInputNumber
                 id="circleRotation"
-                v-model="circleShape.rotation.angle"
+                v-model="circleShape.rotation"
                 required
                 step="any"
             />

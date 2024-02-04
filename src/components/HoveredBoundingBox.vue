@@ -46,7 +46,7 @@ const polygonShape = ref<PolygonShapeObj>(
             { x: 0, y: 0 },
             { x: 0, y: 0 },
         ],
-        rotation: { angle: 0, origin: { x: 'auto' , y: 'auto' } },
+        rotation: 0,
         stroke: "transparent",
         strokeWidth: 0,
         fill: "#00ffff54",
@@ -68,13 +68,12 @@ function rotate(point: Point, angle: number) {
     }
 }
 
-
 watchEffect(() => {
     const shapeStyle = hoveredNode.value as unknown as ShapeStyle
     const bb = hoveredNode.value?.boundingBox
 
     if(bb && shapeStyle) {
-            const nodeRotationAngle = shapeStyle.rotation.angle || 0;
+            const nodeRotationAngle = shapeStyle.rotation || 0;
 
             const tl = toAbsolute(rotate({
                 x: bb.x,

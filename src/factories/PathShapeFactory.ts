@@ -1,4 +1,4 @@
-import type { BoundingBoxType, NodeShapeI, PathCommand, PathOptions, Point, Rotation } from "@/types";
+import type { BoundingBoxType, NodeShapeI, PathCommand, PathOptions } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createPathShape(options: PathOptions): PathShapeObj {
@@ -9,7 +9,7 @@ export function createPathShape(options: PathOptions): PathShapeObj {
 export class PathShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Path';
-    rotation: Rotation;
+    rotation: number;
 
     fill: string;
     stroke: string;

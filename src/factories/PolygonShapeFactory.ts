@@ -1,4 +1,4 @@
-import type { BoundingBoxType, NodeShapeI, Point, PolygonOptions, Rotation } from "@/types";
+import type { BoundingBoxType, NodeShapeI, Point, PolygonOptions } from "@/types";
 import { v4 as uuidv4 } from 'uuid';
 
 export function createPolygonShape(options: PolygonOptions): PolygonShapeObj {
@@ -8,7 +8,7 @@ export function createPolygonShape(options: PolygonOptions): PolygonShapeObj {
 export class PolygonShapeObj implements NodeShapeI {
     id: string;
     tag: string = 'Polygon';
-    rotation: Rotation;
+    rotation: number;
 
     fill: string;
     stroke: string;

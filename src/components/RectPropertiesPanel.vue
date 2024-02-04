@@ -63,7 +63,7 @@
             <label for="rectRotation">rotation</label>
             <PropertyInputNumber
                 id="rectRotation"
-                v-model="rectShape.rotation.angle"
+                v-model="rectShape.rotation"
                 required
                 step="any"
             />

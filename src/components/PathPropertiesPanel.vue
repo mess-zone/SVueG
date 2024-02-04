@@ -44,7 +44,7 @@
             <PropertyInputNumber
                 id="pathRotation"
                 type="number"
-                v-model="pathShape.rotation.angle"
+                v-model="pathShape.rotation"
                 required
                 step="any"
             />

@@ -43,7 +43,7 @@
             <label for="polygonRotation">rotation</label>
             <PropertyInputNumber
                 id="polygonRotation"
-                v-model="polygonShape.rotation.angle"
+                v-model="polygonShape.rotation"
                 required
                 step="any"
             />

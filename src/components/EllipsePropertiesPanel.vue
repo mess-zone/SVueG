@@ -63,7 +63,7 @@
             <label for="ellipseRotation">rotation</label>
             <PropertyInputNumber
                 id="ellipseRotation"
-                v-model="ellipseShape.rotation.angle"
+                v-model="ellipseShape.rotation"
                 required
                 step="any"
             />
