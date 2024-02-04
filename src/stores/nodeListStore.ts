@@ -107,7 +107,7 @@ const pathLineShape = createPathShape({
     commands: [
         { letter: "M", args: [0, 0] },
         { letter: "L", args: [120, 67] },
-        { letter: "H", args: [-50, null] },
+        { letter: "H", args: [-150, null] },
         { letter: "V", args: [null, 130] },
         { letter: "Z" },
     ],

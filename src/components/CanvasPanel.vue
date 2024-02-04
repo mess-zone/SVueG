@@ -183,6 +183,7 @@ function updatePoints() {
     mousePointerInfo.value = toRelative(cursorPosition.value)
 }
 
+// TODO use polygon to detect collision, not box
 function hasCollision(point: Point, box: BoundingBoxType, rotation: number) {
     // const tl = {
     //     x: box.x,
