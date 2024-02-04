@@ -1,5 +1,8 @@
 <template>
-    <g v-if="selectedNode">
+    <g v-if="selectedNode"
+        :transform="`rotate(${nodeRotationAngle})`"
+        style="transform-box: fill-box; transform-origin: 50% 50%"
+    >
         <Rect :node="rectShape" />
         <Circle :node="topLeft" />
         <Circle :node="topRight" />
@@ -26,7 +29,7 @@ const canvasStore = useCanvasStore()
 const { toAbsolute } = canvasStore
 
 const nodeStore = useNodeListStore();
-const { selectedNode, selectedOrigin } =
+const { selectedNode } =
     storeToRefs(nodeStore);
 
 const rectShape = ref<RectShapeObj>(
@@ -97,56 +100,43 @@ const bottomRight = ref<CircleShapeObj>(
     })
 );
 
+const nodeRotationAngle = ref(0)
+
 watchEffect(() => {
     const shapeStyle = selectedNode.value as unknown as ShapeStyle
     const bb = selectedNode.value?.boundingBox
 
     if(bb && shapeStyle) {
-            const nodeRotationAngle = shapeStyle.rotation.angle || 0;
+            nodeRotationAngle.value = shapeStyle.rotation.angle || 0;
 
             const tl = toAbsolute({
                 x: bb.x,
                 y: bb.y,
             })
             topLeft.value.center = tl
-            topLeft.value.rotation.origin = selectedOrigin.value;
-            topLeft.value.rotation.angle = nodeRotationAngle;
-    
 
             const tr = toAbsolute({
                 x: bb.x + bb.width,
                 y: bb.y,
             })
             topRight.value.center = tr
-            topRight.value.rotation.origin = selectedOrigin.value;
-            topRight.value.rotation.angle = nodeRotationAngle;
-    
-
             const bl = toAbsolute({
                 x: bb.x,
                 y: bb.y + bb.height,
             })
             bottomLeft.value.center = bl
-            bottomLeft.value.rotation.origin = selectedOrigin.value;
-            bottomLeft.value.rotation.angle = nodeRotationAngle;
     
             const br = toAbsolute({
                 x: bb.x + bb.width,
                 y: bb.y + bb.height,
             })
             bottomRight.value.center = br
-            bottomRight.value.rotation.origin = selectedOrigin.value;
-            bottomRight.value.rotation.angle = nodeRotationAngle;
-
 
             rectShape.value.x =  tl.x
             rectShape.value.y = tl.y
 
             rectShape.value.width =  br.x - tl.x
             rectShape.value.height = br.y - tl.y
-  
-            rectShape.value.rotation.origin = selectedOrigin.value
-            rectShape.value.rotation.angle = nodeRotationAngle;
     }
 
 });
