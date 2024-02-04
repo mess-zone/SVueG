@@ -85,6 +85,7 @@ export interface NodeShapeI {
     height: number,
     rotation: number,
     boundingBox: BoundingBoxType,
+    // boundingPoly: Point[],
 
     fill: string;
     stroke: string;
