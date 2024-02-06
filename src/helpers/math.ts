@@ -57,9 +57,13 @@ export function rotate(point: Point, angle: number) {
     const cos = Math.cos(rad)
     const sin = Math.sin(rad)
 
+    // return {
+    //     x: (point.x * cos) + (point.y * sin),
+    //     y: -(point.y * cos) + (point.x * sin),
+    // }
     return {
-        x: (point.x * cos) + (point.y * sin),
-        y: -(point.y * cos) + (point.x * sin),
+        x: (point.x * cos) - (point.y * sin),
+        y: (point.x * sin) + (point.y * cos),
     }
 }
 
@@ -73,7 +77,7 @@ export function rotateAroundOrigin(point: Point, origin: Point, angle: number) {
 
 
 /**
- * ### colisions
+ * ### collisions
  */
 
 export function getBoundingPoly(boundingBox: BoundingBoxType, rotation: number) {
@@ -102,9 +106,7 @@ export function getBoundingPoly(boundingBox: BoundingBoxType, rotation: number) 
         y: boundingBox.y + boundingBox.height,
     }, shapeCenter, rotation)
 
-    // TODO why the topleft clockwise order doesnt work? Os valores de y parecem estar trocados 
-    return [ bl, br, tr, tl ]
-    
+    return [ tl, tr, br, bl ]
 }
 
 /**
