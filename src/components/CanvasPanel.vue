@@ -133,6 +133,11 @@ function handleMouseUp(e: MouseEvent) {
     // }
 }
 
+function deltaTranslateShape(nodeShape: NodeShapeI, offsetX: number, offsetY: number, zoomLevel: number) {
+    nodeShape.x += offsetX / zoomLevel
+    nodeShape.y += offsetY / zoomLevel
+}
+
 function handleMouseMove(e: MouseEvent) {
     e.preventDefault()
     const point = {
@@ -143,7 +148,11 @@ function handleMouseMove(e: MouseEvent) {
     if(isDragging.value) {
         dragEnd.value = point
 
-        if(selectedTool.value == 'hand') {
+        if(selectedTool.value == 'select') {
+            if(selectedNode.value) {
+                deltaTranslateShape(selectedNode.value, e.movementX, e.movementY, zoomLevel.value)
+            }
+        } else if(selectedTool.value == 'hand') {
             hoveredNode.value = null
             absoluteDeltaPan(e.movementX, e.movementY, zoomLevel.value)
             // const deltaX = e.offsetX - dragInfo.value.start.x
