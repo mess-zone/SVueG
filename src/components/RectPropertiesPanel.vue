@@ -5,7 +5,7 @@
             <label for="rectX">x {{ rectShape.x }}</label>
             <PropertyInputNumber
                 id="rectX"
-                v-model="topLeftPosition.x"
+                v-model="topPosition"
                 required
                 step="any"
             />
@@ -14,7 +14,7 @@
             <label for="rectY">y {{ rectShape.y }}</label>
             <PropertyInputNumber
                 id="rectY"
-                v-model="topLeftPosition.y"
+                v-model="leftPosition"
                 required
                 step="any"
             />
@@ -75,7 +75,7 @@ import type { NodeShapeI } from "@/types";
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 import type { RectShapeObj } from "@/factories/RectShapeFactory";
 import { computed } from "vue";
-import { getBoundingPoly } from "@/helpers/math";
+import { getBoundingPoly, rotateAroundOrigin } from "@/helpers/math";
 
 interface Props {
     node: NodeShapeI;
@@ -84,8 +84,47 @@ interface Props {
 const { node } = defineProps<Props>();
 const rectShape = node as RectShapeObj
 
-const topLeftPosition = computed(() => { 
-    const vectors = getBoundingPoly(rectShape.boundingBox, rectShape.rotation)
-    return vectors[0]
+// TODO refactor
+const topPosition = computed({
+    get() { 
+        const vectors = getBoundingPoly(rectShape.boundingBox, rectShape.rotation)
+        return vectors[0].x
+    },
+    set(newValue) {
+        const shapeCenter = {
+            x: rectShape.boundingBox.width/2 + rectShape.boundingBox.x,
+            y: rectShape.boundingBox.height/2 + rectShape.boundingBox.y,
+        }
+
+        // invert rotation to get new boundingBox position
+        const tl = rotateAroundOrigin({
+            x: newValue,
+            y: leftPosition.value,
+        }, shapeCenter, -rectShape.rotation)
+
+        rectShape.x = tl.x
+    }
+})
+
+// TODO refactor
+const leftPosition = computed({
+    get() { 
+        const vectors = getBoundingPoly(rectShape.boundingBox, rectShape.rotation)
+        return vectors[0].y
+    },
+    set(newValue) {
+        const shapeCenter = {
+            x: rectShape.boundingBox.width/2 + rectShape.boundingBox.x,
+            y: rectShape.boundingBox.height/2 + rectShape.boundingBox.y,
+        }
+
+        // invert rotation to get new boundingBox position
+        const tl = rotateAroundOrigin({
+            x: topPosition.value,
+            y: newValue,
+        }, shapeCenter, -rectShape.rotation)
+
+        rectShape.y = tl.y
+    }
 })
 </script>
