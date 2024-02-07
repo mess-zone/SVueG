@@ -2,19 +2,19 @@
     <div class="section">
         <h1>Rect</h1>
         <div class="form-group">
-            <label for="rectX">x</label>
+            <label for="rectX">x {{ rectShape.x }}</label>
             <PropertyInputNumber
                 id="rectX"
-                v-model="rectShape.x"
+                v-model="topLeftPosition.x"
                 required
                 step="any"
             />
         </div>
         <div class="form-group">
-            <label for="rectY">y</label>
+            <label for="rectY">y {{ rectShape.y }}</label>
             <PropertyInputNumber
                 id="rectY"
-                v-model="rectShape.y"
+                v-model="topLeftPosition.y"
                 required
                 step="any"
             />
@@ -74,6 +74,8 @@
 import type { NodeShapeI } from "@/types";
 import PropertyInputNumber from "@/components/PropertyInputNumber.vue";
 import type { RectShapeObj } from "@/factories/RectShapeFactory";
+import { computed } from "vue";
+import { getBoundingPoly } from "@/helpers/math";
 
 interface Props {
     node: NodeShapeI;
@@ -81,4 +83,9 @@ interface Props {
 
 const { node } = defineProps<Props>();
 const rectShape = node as RectShapeObj
+
+const topLeftPosition = computed(() => { 
+    const vectors = getBoundingPoly(rectShape.boundingBox, rectShape.rotation)
+    return vectors[0]
+})
 </script>

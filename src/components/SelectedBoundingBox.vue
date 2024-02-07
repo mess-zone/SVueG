@@ -22,6 +22,7 @@ import Circle from "./basicShapes/Circle.vue";
 
 import { RectShapeObj, createRectShape } from "@/factories/RectShapeFactory";
 import { CircleShapeObj, createCircleShape } from "@/factories/CircleShapeFactory";
+import { getBoundingPoly } from "@/helpers/math";
 
 const canvasStore = useCanvasStore()
 const { toAbsolute } = canvasStore
@@ -105,11 +106,6 @@ watchEffect(() => {
         const bb = selectedNode.value.boundingBox
     
         nodeRotationAngle.value = selectedNode.value.rotation;
-
-        // TODO doesnot work
-        // const vectors = getBoundingPoly(selectedNode.value.boundingBox, selectedNode.value.rotation)
-        // console.log(vectors.map(relativePoint => toAbsolute(relativePoint)))
-
 
         const tl = toAbsolute({
             x: bb.x,
